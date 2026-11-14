@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#14181d">
 <title>SAF – Visualizzatore PDF</title>
 <style>
 :root{--bg:#2a2f36;--bar:#14181d;--ink:#eef1f4;--muted:#9aa4b0;--accent:#ff4d63}
@@ -20,7 +21,7 @@ header a,header button{color:var(--ink);background:none;border:1px solid #3a424c
 </style>
 </head>
 <body>
-<header><b id="title">Caricamento…</b><span id="count"></span><button id="zoomout" aria-label="Riduci">−</button><button id="zoomin" aria-label="Ingrandisci">+</button><a id="dl" href="#">Scarica</a></header>
+<header><button id="back" aria-label="Indietro">&#8592;</button><b id="title">Caricamento…</b><span id="count"></span><button id="zoomout" aria-label="Riduci">−</button><button id="zoomin" aria-label="Ingrandisci">+</button><a id="dl" href="#">Scarica</a></header>
 <div id="msg"></div>
 <div id="pages"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -36,7 +37,7 @@ document.getElementById('title').textContent = decodeURIComponent(file.split('/'
 if (!/^(pdf\/)?[\w.\-]+\.pdf$/.test(file)) {
   document.getElementById('msg').textContent = 'Documento non valido.';
 } else {
-  pdfjsLib.getDocument(file).promise.then(async d => {
+  pdfjsLib.getDocument({url: file, disableRange: true, disableAutoFetch: true}).promise.then(async d => {
     doc = d;
     const p1 = await d.getPage(1);
     const v = p1.getViewport({scale: 1});
@@ -82,6 +83,7 @@ function rezoom(f) {
   document.getElementById('p' + cur).scrollIntoView();
   box.querySelectorAll('.pg').forEach(el => { const r = el.getBoundingClientRect(); if (r.bottom > -800 && r.top < innerHeight + 800) draw(+el.dataset.n); });
 }
+document.getElementById('back').onclick = () => { if (history.length > 1) history.back(); else location.href = './'; };
 document.getElementById('zoomin').onclick = () => rezoom(1.25);
 document.getElementById('zoomout').onclick = () => rezoom(0.8);
 </script>
