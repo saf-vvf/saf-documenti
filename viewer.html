@@ -33,7 +33,7 @@ const box = document.getElementById('pages');
 let doc, zoom = 1, baseW = 0, rendered = new Map();
 document.getElementById('dl').href = file;
 document.getElementById('title').textContent = decodeURIComponent(file.split('/').pop());
-if (!/^pdf\/[\w.\-]+\.pdf$/.test(file)) {
+if (!/^(pdf\/)?[\w.\-]+\.pdf$/.test(file)) {
   document.getElementById('msg').textContent = 'Documento non valido.';
 } else {
   pdfjsLib.getDocument(file).promise.then(async d => {
