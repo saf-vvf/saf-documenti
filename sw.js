@@ -1,8 +1,8 @@
 // Service worker di SAF Supporto Operatore: rende l'app utilizzabile senza rete.
-const SHELL_CACHE = 'saf-shell-v1';
+const SHELL_CACHE = 'saf-shell-v2';
 const PDF_CACHE = 'saf-pdf';
 const SHELL = [
-  './', 'index.html', 'viewer.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png',
+  './', 'index.html', 'viewer.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-192.png', 'icon-maskable-512.png',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'
 ];
@@ -34,29 +34,3 @@ self.addEventListener('fetch', e => {
   }
   // App e librerie: risposta immediata dalla memoria, aggiornamento in background
   e.respondWith(caches.open(SHELL_CACHE).then(async c => {
-    const hit = await c.match(req, {ignoreSearch: true});
-    const net = fetch(req).then(res => { if (res.ok) c.put(req, res.clone()); return res; }).catch(() => hit);
-    return hit || net;
-  }));
-});
-
-self.addEventListener('message', e => {
-  if (!e.data || e.data.type !== 'cacheAll') return;
-  const files = e.data.files || [];
-  const client = e.source;
-  e.waitUntil((async () => {
-    const c = await caches.open(PDF_CACHE);
-    let done = 0, failed = 0;
-    for (const f of files) {
-      const u = new URL(f, self.registration.scope).href;
-      try {
-        if (!(await c.match(u))) {
-          const res = await fetch(u);
-          if (res.ok) await c.put(u, res); else failed++;
-        }
-      } catch (err) { failed++; }
-      done++;
-      client && client.postMessage({type: 'progress', done, total: files.length, failed});
-    }
-  })());
-});
