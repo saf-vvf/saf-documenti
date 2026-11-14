@@ -1,5 +1,5 @@
 // Service worker di SAF Supporto Operatore: rende l'app utilizzabile senza rete.
-const SHELL_CACHE = 'saf-shell-v2';
+const SHELL_CACHE = 'saf-shell-v3';
 const PDF_CACHE = 'saf-pdf';
 const SHELL = [
   './', 'index.html', 'viewer.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-192.png', 'icon-maskable-512.png',
@@ -8,7 +8,7 @@ const SHELL = [
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(SHELL_CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(caches.open(SHELL_CACHE).then(c => c.addAll(SHELL.map(u => new Request(u, {cache: 'reload'})))).then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', e => {
@@ -32,7 +32,20 @@ self.addEventListener('fetch', e => {
     }));
     return;
   }
-  // App e librerie: risposta immediata dalla memoria, aggiornamento in background
+  // Pagine dell'app: prima la rete (versione aggiornata), la memoria solo se si e' senza rete
+  if (req.mode === 'navigate' || url.pathname.endsWith('.html') || url.pathname.endsWith('.webmanifest')) {
+    e.respondWith(caches.open(SHELL_CACHE).then(async c => {
+      try {
+        const res = await fetch(req, {cache: 'no-cache'});
+        if (res.ok) c.put(url.origin + url.pathname, res.clone());
+        return res;
+      } catch (err) {
+        return (await c.match(url.origin + url.pathname)) || (await c.match(req, {ignoreSearch: true})) || (await c.match('index.html'));
+      }
+    }));
+    return;
+  }
+  // Librerie e icone: dalla memoria, aggiornate in background
   e.respondWith(caches.open(SHELL_CACHE).then(async c => {
     const hit = await c.match(req, {ignoreSearch: true});
     const net = fetch(req).then(res => { if (res.ok) c.put(req, res.clone()); return res; }).catch(() => hit);
