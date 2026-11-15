@@ -151,7 +151,8 @@ footer .info{margin-left:0}
 .tg{flex:0 0 auto;width:46px;height:28px;border-radius:999px;border:1px solid var(--line);background:var(--bg);position:relative;cursor:pointer;padding:0}
 .tgk{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--muted);transition:left .15s}
 .tg[aria-pressed="true"]{background:#1d8a3a;border-color:#1d8a3a}.tg[aria-pressed="true"] .tgk{left:21px;background:#fff}
-.x-ckimg{flex:0 0 auto;width:68px;height:50px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid var(--line)}
+.ckimg:not(.ok){visibility:hidden}
+.ckimg{flex:0 0 auto;width:68px;height:50px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid var(--line)}
 .bag .cnt{margin-left:auto;font-weight:600;font-size:.85rem;padding:2px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line)}
 .bag .cnt[data-done="true"]{background:#1d8a3a;color:#fff;border-color:#1d8a3a}
 .cklist{list-style:none;margin:10px 0 6px;padding:0;display:grid;gap:4px}
@@ -188,6 +189,12 @@ footer .info{margin-left:0}
 .skg[open]>summary::after{content:"▴"}
 .gcnt{margin-left:auto;font-size:.8rem;font-weight:600;white-space:nowrap}
 .skg-b{padding:8px 10px 2px}
+.bagimgs{display:flex;gap:8px;margin:10px 0 4px;align-items:flex-start}
+.bagimgs img{background:#fff;border-radius:8px;border:1px solid var(--line);object-fit:contain;cursor:zoom-in}
+.bagimgs img:not(.ok){display:none}
+.bagp{width:72px;height:90px}
+.bagc{flex:1;min-width:0;max-height:150px}
+.bagimgs img.big{position:fixed;inset:8vh 4vw;width:92vw;height:84vh;max-height:none;z-index:50;cursor:zoom-out;box-shadow:0 0 0 100vmax #000a}
 .skg-b .bag{margin:0 0 8px}
 .bag:not([open])>:not(summary){display:none}
 .bag{display:block}.bag[open]>summary{margin-bottom:10px}
@@ -212,7 +219,7 @@ footer .info{margin-left:0}
 </header>
 <main id="view"></main>
 <footer><a class="info" href="#info" aria-label="Informazioni e supporto">i</a><div><a href="#info">Informazioni, sviluppo e supporto</a> · Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF. Verifica sempre data e stato del documento.</div></footer>
-<script>window.SAF_SPLASH="icon-maskable-512.png";
+<script>window.SAF_SPLASH="icon-maskable-512.png";window.SAF_SIMG="sacche-img.json";
 window.SAFDATA = {
  "argomenti": [
   {
@@ -7356,8 +7363,12 @@ window.SAFDATA = {
         "t": "Corda semistatica 60 m",
         "sch": [
          "03"
-        ]
+        ],
+        "img": "sacco1|N° 2 Corda Semistatica da mt 60 e mm 10,5"
        }
+      ],
+      "img": [
+       "sacco1|N° 2 Sacco Corda"
       ]
      },
      {
@@ -7371,8 +7382,12 @@ window.SAFDATA = {
         "t": "Corda semistatica 60 m (colore diverso dalla prima)",
         "sch": [
          "03"
-        ]
+        ],
+        "img": "sacco1|N° 2 Corda Semistatica da mt 60 e mm 10,5"
        }
+      ],
+      "img": [
+       "sacco1|N° 2 Sacco Corda"
       ]
      },
      {
@@ -7386,70 +7401,80 @@ window.SAFDATA = {
         "t": "Spezzoni di corda semistatica 6 m",
         "sch": [
          "03"
-        ]
+        ],
+        "img": "sacco1|N° 2 Spezzoni di corda semistatica mt e 6 mm 10,5"
        },
        {
         "q": 1,
         "t": "Cordino alpinistico 10 m",
         "sch": [
          "06"
-        ]
+        ],
+        "img": "sacco1|Cordino alpinistico mt 10 e mm 8"
        },
        {
         "q": 2,
         "t": "Ancoraggi mobili 120 cm (anelli di fettuccia cuciti antitaglio)",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "sacco1|N° 2 Anello di fettuccia da 120 cm"
        },
        {
         "q": 1,
         "t": "Ancoraggio mobile regolabile (fettuccia singola con anelli metallici)",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "sacco1|N° 1 Ancoraggio mobile fettuccia con anelli"
        },
        {
         "q": 2,
         "t": "Ancoraggi mobili 80 cm (anelli di fettuccia cuciti)",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "sacco1|N° 2 Anello di fettuccia da 80 cm"
        },
        {
         "q": 2,
         "t": "Ancoraggi mobili 60 cm (anelli di fettuccia cuciti)",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "sacco1|N° 2 Anello di fettuccia da 60 cm"
        },
        {
         "q": 3,
         "t": "Moltiplicatori di ancoraggio (varie tipologie)",
         "sch": [
          "16"
-        ]
+        ],
+        "img": "sacco1|N° 2 Moltiplicatore di ancoraggi piccolo"
        },
        {
         "q": 2,
         "t": "Connettori asimmetrici alto carico in acciaio",
         "sch": [
          "10"
-        ]
+        ],
+        "img": "sacco1|N° 2 Connettore asimmetrico alto carico in acciaio"
        },
        {
         "q": 3,
         "t": "Connettori paralleli con chiusura a vite",
         "sch": [
          "11"
-        ]
+        ],
+        "img": "sacco1|N° 3 Connettore parallelo chiusura a vite"
        },
        {
         "q": 4,
         "t": "Connettori tipo H asimmetrici con chiusura automatica",
         "sch": [
          "08"
-        ]
+        ],
+        "img": "sacco1|N° 4 Connettore tipo H asimmetrico chiusura automatica"
        },
        {
         "q": 2,
@@ -7457,7 +7482,8 @@ window.SAFDATA = {
         "sch": [
          "09"
         ],
-        "cap": "08"
+        "cap": "08",
+        "img": "sacco1|N° 2 Connettore asimmetrico con chiusura automatica"
        },
        {
         "q": 1,
@@ -7465,32 +7491,41 @@ window.SAFDATA = {
         "sch": [
          "29"
         ],
-        "cap": "28"
+        "cap": "28",
+        "img": "sacco1|Discensore assicuratore antipanico I'D"
        },
        {
         "q": 1,
         "t": "Discensore assicuratore autofrenante",
         "sch": [
          "31"
-        ]
+        ],
+        "img": "sacco1|Discensore assicuratore autofrenante RIG"
        },
        {
         "q": 1,
         "t": "Rulliera di scorrimento corde",
         "sch": [
          "22"
-        ]
+        ],
+        "img": "sacco1|Rulliera scorrimento corde"
        },
        {
         "q": 2,
         "t": "Protezioni per corde",
         "sch": [
          "21"
-        ]
+        ],
+        "img": "sacco1|N° 2 Protezione per corde"
        }
+      ],
+      "img": [
+       "sacco1|Sacca Ancoraggi Attrezzi",
+       "sacco1|Contenuto"
       ]
      }
-    ]
+    ],
+    "img": "sacco1|Sacco Basico 01"
    },
    {
     "id": "s2",
@@ -7508,28 +7543,32 @@ window.SAFDATA = {
         "t": "Corda dinamica 60 m",
         "sch": [
          "04"
-        ]
+        ],
+        "img": "sacco2|Corda Dinamica da mt 60 e mm 11"
        },
        {
         "q": 8,
         "t": "Connettori paralleli con chiusura a vite",
         "sch": [
          "11"
-        ]
+        ],
+        "img": "sacco2|N° 8 Connettori paralleli chiusura a vite"
        },
        {
         "q": 8,
         "t": "Ancoraggi mobili 80 cm (anelli di fettuccia cuciti)",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "sacco2|N° 8 Anello di fettuccia da cm 80"
        },
        {
         "q": 1,
         "t": "Cordino con assorbitore di energia",
         "sch": [
          "19"
-        ]
+        ],
+        "img": "sacco2|Cordino con assorbitore di energia"
        },
        {
         "q": 1,
@@ -7537,8 +7576,13 @@ window.SAFDATA = {
         "sch": [
          "09"
         ],
-        "cap": "08"
+        "cap": "08",
+        "img": "sacco2|Connettore asimmetrico con chiusura automatica"
        }
+      ],
+      "img": [
+       "sacco2|Borsa Progressione",
+       "sacco2|Contenuto"
       ]
      },
      {
@@ -7552,28 +7596,32 @@ window.SAFDATA = {
         "t": "Spezzone di corda dinamica 8 m",
         "sch": [
          "04"
-        ]
+        ],
+        "img": "sacco2|Spezzone Corda Dinamica da mt 6 e mm 11"
        },
        {
         "q": 1,
         "t": "Imbracatura di evacuazione",
         "sch": [
          "23"
-        ]
+        ],
+        "img": "sacco2|Imbracatura da evacuazione"
        },
        {
         "q": 1,
         "t": "Paranco con vantaggio preconfezionato",
         "sch": [
          "37"
-        ]
+        ],
+        "img": "sacco2|Paranco con vantaggio preconfezionato"
        },
        {
         "q": 1,
         "t": "Rulliera di scorrimento corde",
         "sch": [
          "22"
-        ]
+        ],
+        "img": "sacco2|Rulliera"
        },
        {
         "q": 1,
@@ -7581,21 +7629,24 @@ window.SAFDATA = {
         "sch": [
          "28"
         ],
-        "cap": "29"
+        "cap": "29",
+        "img": "sacco2|Discensore su corda singola antipanico"
        },
        {
         "q": 1,
         "t": "Bloccante con camma apribile",
         "sch": [
          "36"
-        ]
+        ],
+        "img": "sacco2|Bloccante con camma apribile"
        },
        {
         "q": 1,
         "t": "Dispositivo anticaduta con dissipatore",
         "sch": [
          "20"
-        ]
+        ],
+        "img": "sacco2|Dispositivo anticaduta con dissipatore"
        },
        {
         "q": 1,
@@ -7603,28 +7654,32 @@ window.SAFDATA = {
         "sch": [
          "33"
         ],
-        "cap": "23"
+        "cap": "23",
+        "img": "sacco2|Carrucola Flange Fisse"
        },
        {
         "q": 1,
         "t": "Carrucola a flange mobili",
         "sch": [
          "32"
-        ]
+        ],
+        "img": "sacco2|Carrucola Flange Mobili"
        },
        {
         "q": 3,
         "t": "Connettori paralleli con chiusura a vite",
         "sch": [
          "11"
-        ]
+        ],
+        "img": "sacco2|N° 3 Connettore parallelo con chiusura a vite"
        },
        {
         "q": 2,
         "t": "Connettori tipo H asimmetrici HMS con chiusura a vite",
         "sch": [
          "08"
-        ]
+        ],
+        "img": "sacco2|N° 2 Connettore H Asimmetrico con chiusura a vite"
        },
        {
         "q": 2,
@@ -7632,21 +7687,24 @@ window.SAFDATA = {
         "sch": [
          "09"
         ],
-        "cap": "08"
+        "cap": "08",
+        "img": "sacco2|N° 2 Connettore Asimmetrico con chiusura automatica"
        },
        {
         "q": 1,
         "t": "Cavo antitaglio EN 358 con asole in acciaio, lunghezza minima 1 m",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "sacco2|Cavo Antitaglio"
        },
        {
         "q": 1,
         "t": "Connettore maglia rapida ovale",
         "sch": [
          "12"
-        ]
+        ],
+        "img": "sacco2|Connettore Maglia rapida ovale"
        },
        {
         "q": 1,
@@ -7654,11 +7712,17 @@ window.SAFDATA = {
         "sch": [
          "14"
         ],
-        "cap": "12"
+        "cap": "12",
+        "img": "sacco2|Connettore maglia rapida triangolare"
        }
+      ],
+      "img": [
+       "sacco2|Borsa Attrezzi Ancoraggi",
+       "sacco2|Contenuto#2"
       ]
      }
-    ]
+    ],
+    "img": "sacco2|Sacco Basico 02"
    },
    {
     "id": "si",
@@ -7677,7 +7741,8 @@ window.SAFDATA = {
         "sch": [
          "01",
          "18"
-        ]
+        ],
+        "img": "imbraco|Imbracatura con bloccante ventrale"
        },
        {
         "q": 1,
@@ -7685,21 +7750,24 @@ window.SAFDATA = {
         "sch": [
          "07",
          "09"
-        ]
+        ],
+        "img": "imbraco|Cordino di posizionamento (longe di sicurezza)"
        },
        {
         "q": 1,
         "t": "Discensore autofrenante per corda singola",
         "sch": [
          "30"
-        ]
+        ],
+        "img": "imbraco|Discensore autofrenante per corda singola"
        },
        {
         "q": 1,
         "t": "Piastrina multiuso discensore per corda doppia",
         "sch": [
          "25"
-        ]
+        ],
+        "img": "imbraco|Discensore per corda doppia"
        },
        {
         "q": 1,
@@ -7708,35 +7776,40 @@ window.SAFDATA = {
          "26",
          "27",
          "12"
-        ]
+        ],
+        "img": "imbraco|Maniglia da risalita"
        },
        {
         "q": 1,
         "t": "Ancoraggio mobile 80 cm (anello di fettuccia cucito)",
         "sch": [
          "17"
-        ]
+        ],
+        "img": "imbraco|Anello di fettuccia da 80 cm"
        },
        {
         "q": 1,
         "t": "Cordino alpinistico (anello)",
         "sch": [
          "06"
-        ]
+        ],
+        "img": "imbraco|Cordino alpinistico (anello)"
        },
        {
         "q": 3,
         "t": "Connettori paralleli con chiusura a vite",
         "sch": [
          "11"
-        ]
+        ],
+        "img": "imbraco|N°3 Connettori paralleli chiusura a vite"
        },
        {
         "q": 1,
         "t": "Connettore tipo H asimmetrico con chiusura automatica",
         "sch": [
          "08"
-        ]
+        ],
+        "img": "imbraco|Connettore tipo H asimetrico con chiusura automatica"
        },
        {
         "q": 1,
@@ -7744,13 +7817,18 @@ window.SAFDATA = {
         "sch": [
          "09"
         ],
-        "cap": "08"
+        "cap": "08",
+        "img": "imbraco|Connettore asimetrico con chiusura automatica"
        }
+      ],
+      "img": [
+       "imbraco|Sacco Imbraco IM1"
       ]
      }
     ]
    }
-  ]
+  ],
+  "img_fonte": "Immagini dal modulo \"Report Controllo Sacco Basico Completo\""
  },
  "kits": {
   "camp-sacco-tetto": {
@@ -8070,17 +8148,27 @@ const BAGC = {nero: '#1b1b1b', rosso: '#d3202a', blu: '#1f6fd0'};
 const sItems = (onlyOn) => D.sacche.gruppi.flatMap(g => g.contenitori.filter(c => !onlyOn || sOn(c.id)).flatMap(c => c.voci.map((v, i) => ({g, c, v, id: c.id + '-' + i}))));
 const sOn = cid => !!(sState.on && sState.on[cid]);
 function sCount(list) { const r = {ok: 0, ko: 0, tot: list.length}; list.forEach(x => { const s = sState.v && sState.v[x.id]; if (s === 1) r.ok++; else if (s === 2) r.ko++; }); return r; }
+const SIMG_URL = window.SAF_SIMG || 'https://saf-vvf.github.io/saf-documenti/sacche-img.json';
+let SIMG = null;
+try { SIMG = JSON.parse(localStorage.getItem('saf-sacche-img') || 'null'); } catch(e) {}
+function simgMap(arr) { const m = {}, seen = {}; (arr || []).forEach(o => { const k = o.s + '|' + o.t; seen[k] = (seen[k] || 0) + 1; m[seen[k] > 1 ? k + '#' + seen[k] : k] = o.d; }); return m; }
+function simgFill() { if (!SIMG) return; const m = simgMap(SIMG); document.querySelectorAll('img[data-k]').forEach(i => { const s = m[i.dataset.k]; if (s) { i.src = s; i.classList.add('ok'); } }); }
+async function simgLoad() {
+  simgFill();
+  try { const r = await fetch(SIMG_URL, {cache: 'no-cache'}); if (!r.ok) return; const j = await r.json(); SIMG = j; try { localStorage.setItem('saf-sacche-img', JSON.stringify(j)); } catch(e) {} simgFill(); } catch(e) {}
+}
+const kimg = (k, cls) => k ? `<img class="${cls}" data-k="${esc(k)}" alt="" loading="lazy">` : '';
 function viewSacche() {
   const S = D.sacche, f = S.fonte, TH = D.thumbs || {};
-  const row = (v, id) => { const st = (sState.v || {})[id] || 0; return `<li class="ck" data-id="${id}" data-st="${st}"><button class="ckb" aria-label="Cambia stato: ${esc(v.t)}"><span class="ckm"></span><span class="ckq">${v.q}×</span><span class="ckt">${esc(v.t)}</span></button></li>`; };
-  const cont = c => { const on = sOn(c.id), n = sCount(c.voci.map((v, i) => ({id: c.id + '-' + i}))); return `<details class="card bag" data-c="${c.id}" data-on="${on}"${on ? ' open' : ''}><summary><i class="sw" style="background:${BAGC[c.colore] || '#888'}"></i><span class="bagn"><b>${esc(c.nome)}</b><small>${esc(c.colore)} · ${c.voci.length} voci</small></span><span class="cnt" data-cnt="${c.id}">${n.ok + n.ko}/${n.tot}</span><button class="tg" data-tg="${c.id}" aria-pressed="${on}" aria-label="Includi nel controllo: ${esc(c.nome)}"><span class="tgk"></span></button></summary><ul class="cklist">${c.voci.map((v, i) => row(v, c.id + '-' + i)).join('')}</ul><a class="note" href="${pdf(f.url, c.pagina)}">Capitolato, pag. ${c.pagina}</a></details>`; };
+  const row = (v, id) => { const st = (sState.v || {})[id] || 0; return `<li class="ck" data-id="${id}" data-st="${st}"><button class="ckb" aria-label="Cambia stato: ${esc(v.t)}"><span class="ckm"></span>${kimg(v.img, 'ckimg')}<span class="ckq">${v.q}×</span><span class="ckt">${esc(v.t)}</span></button></li>`; };
+  const cont = c => { const on = sOn(c.id), n = sCount(c.voci.map((v, i) => ({id: c.id + '-' + i}))); return `<details class="card bag" data-c="${c.id}" data-on="${on}"${on ? ' open' : ''}><summary><i class="sw" style="background:${BAGC[c.colore] || '#888'}"></i><span class="bagn"><b>${esc(c.nome)}</b><small>${esc(c.colore)} · ${c.voci.length} voci</small></span><span class="cnt" data-cnt="${c.id}">${n.ok + n.ko}/${n.tot}</span><button class="tg" data-tg="${c.id}" aria-pressed="${on}" aria-label="Includi nel controllo: ${esc(c.nome)}"><span class="tgk"></span></button></summary>${(c.img || []).length ? `<div class="bagimgs">${c.img.map((k, j) => kimg(k, j ? 'bagc' : 'bagp')).join('')}</div>` : ''}<ul class="cklist">${c.voci.map((v, i) => row(v, c.id + '-' + i)).join('')}</ul><a class="note" href="${pdf(f.url, c.pagina)}">Capitolato, pag. ${c.pagina}</a></details>`; };
   return `<h2>${esc(S.titolo)}</h2>
   <div class="card sk-head"><label class="note" for="skid">Sacco controllato (numero, mezzo, sede)</label><input id="skid" class="skid" value="${esc(sState.id || '')}" placeholder="es. Sacco 2 – APS 12">
   <div class="sk-sum" id="sksum"></div>
   <p class="note" style="margin:0">Apri un sacco e attiva con l'interruttore solo i contenitori da controllare: gli altri restano fuori dal riepilogo. Poi tocca una voce: <b class="leg-ok">✓ presente</b> → <b class="leg-ko">✗ mancante o da sostituire</b> → da controllare.</p>
   <div class="btns"><button class="btn" id="skcopy">Copia riepilogo</button><button class="btn ghost" id="skreset">Azzera controllo</button></div><p class="note" id="skmsg" style="margin:0"></p></div>
   ${S.gruppi.map(g => `<details class="skg" style="--gc:${GRC[g.id] || '#666'}"${g.contenitori.some(c => sOn(c.id)) ? ' open' : ''}><summary><span><b>${esc(g.nome)}</b><small>${esc(g.sotto)}</small></span><span class="gcnt" data-gcnt="${g.id}"></span></summary><div class="skg-b">${g.contenitori.map(cont).join('')}</div></details>`).join('')}
-  <div class="card"><b>Fonte</b><p style="margin:0">${esc(f.titolo)} – ${esc(f.ente)}, ${esc(f.ed)}.</p>${S.note.map(n => `<p class="note" style="margin:0">${esc(n)}</p>`).join('')}<div class="btns"><a class="btn" href="${pdf(f.url, 22)}">Apri il capitolato</a></div></div>`;
+  <div class="card"><b>Fonte</b><p style="margin:0">${esc(f.titolo)} – ${esc(f.ente)}, ${esc(f.ed)}.${S.img_fonte ? ' ' + esc(S.img_fonte) + '.' : ''}</p>${S.note.map(n => `<p class="note" style="margin:0">${esc(n)}</p>`).join('')}<div class="btns"><a class="btn" href="${pdf(f.url, 22)}">Apri il capitolato</a></div></div>`;
 }
 function sSummary() {
   const el = document.getElementById('sksum'); if (!el) return;
@@ -8104,7 +8192,8 @@ function sReport() {
 }
 function bindSacche() {
   if (!document.getElementById('sksum')) return;
-  sSummary();
+  sSummary(); simgLoad();
+  document.querySelectorAll('.bagimgs img').forEach(i => i.addEventListener('click', () => i.classList.toggle('big')));
   document.querySelectorAll('.tg').forEach(b => b.addEventListener('click', ev => {
     ev.preventDefault(); ev.stopPropagation();
     const cid = b.dataset.tg, det = b.closest('details'); sState.on = sState.on || {};
