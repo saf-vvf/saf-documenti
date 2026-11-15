@@ -158,6 +158,11 @@ footer{max-width:760px;margin:0 auto;padding:8px 16px 32px;font-size:.78rem;colo
 .schip{font-size:.75rem;font-weight:600;padding:3px 7px;border-radius:6px;background:color-mix(in srgb,var(--c-att) 18%,var(--surface));color:var(--c-att-ink);text-decoration:none}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .fold.kit{margin:8px 10px;border-left:4px solid #e07000}
+.bmar{font-weight:700}
+.bart{font-weight:700;background:#fdeb05;color:#14181d;padding:0 4px;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bart{background:none;color:#fdeb05;padding:0}}
+:root[data-theme="dark"] .bart{background:none;color:#fdeb05;padding:0}
+.row .t{font-weight:400}
 .skg{margin:0;border-radius:12px;border:1px solid var(--line);background:var(--surface);overflow:hidden}
 .skg>summary{display:flex;align-items:center;gap:10px;list-style:none;cursor:pointer;padding:14px 16px;background:var(--gc);color:#fff}
 .skg>summary::-webkit-details-marker{display:none}
@@ -7223,8 +7228,10 @@ function schedaRow(s) {
   return `<a class="row t-${s.tipo}" href="#s-${s.id}"><span class="num">${esc(n)}</span><span class="t">${esc(s.titolo)}</span>
   <span class="s">${pill(lvOf(s))}${TIPI[s.tipo]} · pag. ${s.pagine[0]}${s.pagine[1]!==s.pagine[0]?'–'+s.pagine[1]:''}</span></a>`;
 }
+const brand = b => D.produttori[b.produttore].nome.split(' ')[0].replace(/\./g, '');
+function bugTitle(b) { const i = b.titolo.indexOf(' – '), art = i < 0 ? b.titolo : b.titolo.slice(0, i), desc = i < 0 ? '' : b.titolo.slice(i + 3); return `<b class="bmar">${esc(brand(b))}</b> <b class="bart">${esc(art)}</b>${desc ? ` – ${esc(desc)}` : ''}`; }
 function bugRow(b) {
-  return `<a class="row t-bug" href="#b-${b.id}"><span class="num">PDF</span><span class="t">${esc(D.produttori[b.produttore].nome.split(' ')[0].replace(/\./g,''))} – ${esc(b.titolo)}</span>
+  return `<a class="row t-bug" href="#b-${b.id}"><span class="num">PDF</span><span class="t">${bugTitle(b)}</span>
   <span class="s">${DOCT[b.tipo_documento]}${b.norme ? ' · ' + esc(b.norme.join(', ')) : ''}</span></a>`;
 }
 function circRow(c, a) {
@@ -7364,7 +7371,7 @@ function viewBugiardino(id) {
   const p = D.produttori[b.produttore];
   const sc = (b.schede_collegate||[]).map(x => SCH[x]).filter(Boolean);
   return `<div class="card"><div><span class="pill p-tipo">${DOCT[b.tipo_documento]}</span>${b.tipo_documento==='scheda-tecnica' ? '<span class="pill p-warn">non è la nota d\'uso</span>' : ''}</div>
-  <h2>${esc(b.titolo)}</h2>
+  <h2 class="bugh">${bugTitle(b)}</h2>
   <dl class="meta"><dt>Produttore</dt><dd>${esc(p.nome)}</dd>${b.revisione ? `<dt>Revisione</dt><dd>${esc(b.revisione)}</dd>` : ''}${b.data ? `<dt>Data</dt><dd>${esc(String(b.data).split('-').reverse().join('/'))}</dd>` : ''}
   ${b.norme ? `<dt>Norme</dt><dd>${esc(b.norme.join(' · '))}</dd>` : ''}${b.classificazione ? `<dt>Tipo</dt><dd>${esc(b.classificazione)}</dd>` : ''}<dt>Lingue</dt><dd>${esc(b.lingue)}</dd></dl>
   <div class="btns">${b.pagine_it ? `<a class="btn" href="${pdf(b.url, b.pagine_it[0])}">Apri in italiano (pag. ${b.pagine_it[0]})</a><a class="btn sec" href="${pdf(b.url)}">Documento completo</a>` : `<a class="btn" href="${pdf(b.url)}">Apri documento</a>`}</div>
