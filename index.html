@@ -157,7 +157,8 @@ footer{max-width:760px;margin:0 auto;padding:8px 16px 32px;font-size:.78rem;colo
 .cks{display:flex;gap:4px;padding-right:8px;flex-wrap:wrap;justify-content:flex-end}
 .schip{font-size:.75rem;font-weight:600;padding:3px 7px;border-radius:6px;background:color-mix(in srgb,var(--c-att) 18%,var(--surface));color:var(--c-att-ink);text-decoration:none}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.fold.kit{margin:8px 10px;border-left:4px solid #e07000}
+.fold.kit{margin:8px 10px;border-left:4px solid #fdeb05}
+.fold.kit>summary>span{color:var(--ink)}
 .bmar{font-weight:700}
 .bart{font-weight:700;background:#fdeb05;color:#14181d;padding:0 4px;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .bart{background:none;color:#fdeb05;padding:0}}
@@ -7361,7 +7362,7 @@ function viewBugiardini() {
     const all = D.bugiardini.filter(b => b.produttore === p.id);
     const kits = Object.entries(KITS).filter(([, k]) => k.produttore === p.id);
     const loose = all.filter(b => !b.kit);
-    const kitHtml = kits.map(([kid, k]) => { const kb = k.voci.map(x => BUG[x]).filter(Boolean); return `<details class="fold kit" style="--fc:var(--c-bug)"><summary><span>${esc(k.nome)}</span><small>${kb.length}</small></summary><p class="note" style="margin:6px 12px">${esc(k.descrizione || '')}</p>${list(kb.map(bugRow))}</details>`; }).join('');
+    const kitHtml = kits.map(([kid, k]) => { const kb = k.voci.map(x => BUG[x]).filter(Boolean); return `<details class="fold kit" style="--fc:var(--c-bug)"><summary><span><b class="bmar">${esc(brand({produttore: k.produttore}))}</b> <b class="bart">${esc(k.nome)}</b></span><small>${kb.length}</small></summary><p class="note" style="margin:6px 12px">${esc(k.descrizione || '')}</p>${list(kb.map(bugRow))}</details>`; }).join('');
     return `<details class="fold" style="--fc:var(--c-bug)"><summary><span>${esc(p.nome)}</span><small>${all.length}</small></summary>${kitHtml}${list(loose.map(bugRow))}</details>`;
   }).join('') + `</div>`;
 }
