@@ -17,18 +17,18 @@
   --bg:#f3f4f6; --surface:#ffffff; --ink:#1b2129; --muted:#5d6672; --line:#dde1e6;
   --brand:#fdeb05; --brand-ink:#14181d; --petrol:#0a4d57; --accent:#2b3440; --accent-ink:#ffffff; --accent-soft:#e8ebef;
   --bas:#1d6a2b; --bas-soft:#e1efe3; --ava:#e30613; --ava-soft:#fde2e4;
-  --c-man:#c8102e; --c-att:#b8862b; --c-att-ink:#8a6114; --c-cap:#7a8594; --c-cir:#2457c5; --c-bug:#7a3fb5;
+  --c-man:#c8102e; --c-att:#b8862b; --c-att-ink:#8a6114; --c-cap:#7a8594; --c-cir:#2457c5; --c-bug:#7a3fb5; --cs-saf:#2457c5; --cs-sicurezza:#d35400; --cs-cra:#00838f; --cs-utili:#ad1457; --cs-cm:#8a5a2b;
   --a0:#c8102e; --a1:#e06c00; --a2:#0f7a8a; --a3:#2e8b3e; --a4:#2457c5; --a5:#7a3fb5; --a6:#b8860b; --a7:#5b6b7f;
   --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --c-man:#ff5a6e; --c-att:#d6a24a; --c-att-ink:#d6a24a; --c-cap:#a3adb9; --c-cir:#6f9bff; --c-bug:#b98bf0; --a0:#ff4d63; --a1:#ff9a3c; --a2:#3cc3d4; --a3:#5fd06f; --a4:#6f9bff; --a5:#b98bf0; --a6:#e6b84a; --a7:#9aa8b8;
+  --c-man:#ff5a6e; --c-att:#d6a24a; --c-att-ink:#d6a24a; --c-cap:#a3adb9; --c-cir:#6f9bff; --c-bug:#b98bf0; --cs-saf:#6f9bff; --cs-sicurezza:#ff9a3c; --cs-cra:#3cc3d4; --cs-utili:#f06292; --cs-cm:#d0a070; --a0:#ff4d63; --a1:#ff9a3c; --a2:#3cc3d4; --a3:#5fd06f; --a4:#6f9bff; --a5:#b98bf0; --a6:#e6b84a; --a7:#9aa8b8;
   --bg:#12161b; --surface:#1b2129; --ink:#e8ebef; --muted:#9aa4b0; --line:#2c343e;
   --brand:#fdeb05; --brand-ink:#14181d; --petrol:#3fa3b3; --accent:#fdeb05; --accent-ink:#14181d; --accent-soft:#2c343e;
   --bas:#4cb25c; --bas-soft:#15301d; --ava:#ff3b45; --ava-soft:#3d1417; color-scheme:dark;}}
 :root[data-theme="dark"]{
-  --c-man:#ff5a6e; --c-att:#d6a24a; --c-att-ink:#d6a24a; --c-cap:#a3adb9; --c-cir:#6f9bff; --c-bug:#b98bf0; --a0:#ff4d63; --a1:#ff9a3c; --a2:#3cc3d4; --a3:#5fd06f; --a4:#6f9bff; --a5:#b98bf0; --a6:#e6b84a; --a7:#9aa8b8;
+  --c-man:#ff5a6e; --c-att:#d6a24a; --c-att-ink:#d6a24a; --c-cap:#a3adb9; --c-cir:#6f9bff; --c-bug:#b98bf0; --cs-saf:#6f9bff; --cs-sicurezza:#ff9a3c; --cs-cra:#3cc3d4; --cs-utili:#f06292; --cs-cm:#d0a070; --a0:#ff4d63; --a1:#ff9a3c; --a2:#3cc3d4; --a3:#5fd06f; --a4:#6f9bff; --a5:#b98bf0; --a6:#e6b84a; --a7:#9aa8b8;
   --bg:#12161b; --surface:#1b2129; --ink:#e8ebef; --muted:#9aa4b0; --line:#2c343e;
   --brand:#fdeb05; --brand-ink:#14181d; --petrol:#3fa3b3; --accent:#fdeb05; --accent-ink:#14181d; --accent-soft:#2c343e;
   --bas:#4cb25c; --bas-soft:#15301d; --ava:#ff3b45; --ava-soft:#3d1417; color-scheme:dark;}
@@ -157,6 +157,10 @@ footer{max-width:760px;margin:0 auto;padding:8px 16px 32px;font-size:.78rem;colo
 .cks{display:flex;gap:4px;padding-right:8px;flex-wrap:wrap;justify-content:flex-end}
 .schip{font-size:.75rem;font-weight:600;padding:3px 7px;border-radius:6px;background:color-mix(in srgb,var(--c-att) 18%,var(--surface));color:var(--c-att-ink);text-decoration:none}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.circh{font-weight:400}.circh b{font-weight:800}
+.cdesc{text-transform:uppercase}
+.fold .cdesc,.circh .cdesc{color:var(--fc)}
+.fold.sub{margin:8px 10px}
 .fold.kit{margin:8px 10px;border-left:4px solid #fdeb05}
 .fold.kit>summary>span{color:var(--ink)}
 .bmar{font-weight:700}
@@ -5034,7 +5038,11 @@ window.SAFDATA = {
     }
    ],
    "note": "File unico di 48 pagine con gli allegati interni. Parte del testo usa un font senza mappa Unicode: l'estrazione testo restituisce caratteri sfalsati, per la ricerca serve OCR. Mantenimento Soccorritore SAF Basico: tempi indicativi annuali 6 + 6 + 12 ore.",
-   "url": "circ-dcf-2020-01.pdf"
+   "url": "circ-dcf-2020-01.pdf",
+   "sezione": "saf",
+   "ord": "7",
+   "etichetta": "DCF SAF 01-2020",
+   "descrizione": "CIRCOLARE SAF BASICO"
   },
   {
    "id": "circ-dcf-2025-01",
@@ -5072,35 +5080,39 @@ window.SAFDATA = {
    "file": "circ-dcf-2025-01.pdf",
    "allegati": [
     {
-     "n": "I",
-     "titolo": "Programma didattico SAF Avanzato",
+     "n": "All. 1",
+     "titolo": "Programma didattico SAF AVANZATO",
      "file": "circ-dcf-2025-01_all-I.pdf",
      "manuale": "man-avanzato-2023",
-     "url": "circ-dcf-2025-01_all-I.pdf"
+     "url": "circ-dcf-2025-01_all-I.pdf",
+     "titolo_esteso": "Programma didattico SAF Avanzato"
     },
     {
-     "n": "II",
-     "titolo": "Programma sessione di aggiornamento SAF Avanzato per personale in possesso di abilitazioni secondo precedenti livelli SAF (2A)",
+     "n": "All. 2",
+     "titolo": "Programma sessione di aggiornamento SAF AVANZATO",
      "file": "circ-dcf-2025-01_all-II.pdf",
      "manuale": "man-avanzato-2023",
      "durata_ore": 36,
-     "url": "circ-dcf-2025-01_all-II.pdf"
+     "url": "circ-dcf-2025-01_all-II.pdf",
+     "titolo_esteso": "Programma sessione di aggiornamento SAF Avanzato per personale in possesso di abilitazioni secondo precedenti livelli SAF (2A)"
     },
     {
-     "n": "III",
-     "titolo": "Programma didattico Formatore SAF Avanzato",
+     "n": "All. 3",
+     "titolo": "Programma didattico FORMATORE SAF AVANZATO",
      "file": "circ-dcf-2025-01_all-III.pdf",
      "manuale": "man-avanzato-2023",
-     "url": "circ-dcf-2025-01_all-III.pdf"
+     "url": "circ-dcf-2025-01_all-III.pdf",
+     "titolo_esteso": "Programma didattico Formatore SAF Avanzato"
     },
     {
-     "n": "IV",
-     "titolo": "Mantenimenti settore SAF",
+     "n": "All. 4",
+     "titolo": "Mantenimenti settore SAF AVANZATO",
      "file": "circ-dcf-2025-01_all-IV.pdf",
      "argomenti": [
       "mantenimento"
      ],
-     "url": "circ-dcf-2025-01_all-IV.pdf"
+     "url": "circ-dcf-2025-01_all-IV.pdf",
+     "titolo_esteso": "Mantenimenti settore SAF"
     }
    ],
    "cicli_mantenimento": [
@@ -5154,7 +5166,535 @@ window.SAFDATA = {
     }
    ],
    "note": "Circolare scansionata (testo da OCR). Nel paragrafo sul percorso Soccorritore SAF Avanzato il testo rimanda all'Allegato III per il programma del corso, ma il programma del corso Soccorritore è l'Allegato I (l'Allegato III è quello Formatori): probabile refuso.",
-   "url": "circ-dcf-2025-01.pdf"
+   "url": "circ-dcf-2025-01.pdf",
+   "sezione": "saf",
+   "ord": "11",
+   "etichetta": "DCF SAF 1-2025",
+   "descrizione": "CIRCOLARE SAF AVANZATO"
+  },
+  {
+   "id": "circ-misa-2001-01",
+   "tipo": "circolare",
+   "numero": "MI.SA. 1/2001",
+   "titolo": "Organizzazione del settore SAF",
+   "ente": "Ministero dell'Interno – Dir. Gen. Protezione Civile e Servizi Antincendi, Servizio Tecnico Centrale – Ispettorato per l'Emergenza",
+   "data": "2001-03-12",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "organizzazione-intervento",
+    "formazione-livelli"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-misa-2001-01.pdf",
+   "url": "circ-misa-2001-01.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "1",
+   "note": "Documento scansionato: testo non ricercabile. Numero di circolare da verificare.",
+   "etichetta": "",
+   "descrizione": "ORGANIZZAZIONE SETTORE SAF marzo 2001"
+  },
+  {
+   "id": "circ-misa-2001-03",
+   "tipo": "circolare",
+   "numero": "MI.SA. 3/2001",
+   "titolo": "Addestramento minimo obbligatorio per il personale operativo abilitato all'uso delle tecniche SAF",
+   "ente": "Ministero dell'Interno – Dir. Gen. Protezione Civile e Servizi Antincendi, Servizio Tecnico Centrale – Ispettorato per l'Emergenza",
+   "data": "2001",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "mantenimento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-misa-2001-03.pdf",
+   "url": "circ-misa-2001-03.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "2",
+   "note": "Documento scansionato: testo non ricercabile. Data esatta da verificare.",
+   "etichetta": "",
+   "descrizione": "MISA N°3 DEL 2001"
+  },
+  {
+   "id": "circ-em-2013-3058",
+   "tipo": "circolare",
+   "numero": "EM 3058/3706",
+   "titolo": "Sicurezza delle operazioni SAF in attività di soccorso ed esercitazioni",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2013-05-15",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "valutazione-rischi",
+    "sicura-doppia-corda"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2013-3058.pdf",
+   "url": "circ-em-2013-3058.pdf",
+   "allegati": [],
+   "sezione": "sicurezza",
+   "ord": "1",
+   "note": "Introduce la corda di sicura in tutte le discese e risalite su fune in autonomia. Documento scansionato.",
+   "chiarita_da": [
+    "circ-em-2014-0528",
+    "circ-em-2016-16938",
+    "circ-em-2018-1336"
+   ],
+   "etichetta": "EM 3058-3706 del 15-05-2013",
+   "descrizione": "SICUREZZA OPERAZIONI SAF"
+  },
+  {
+   "id": "circ-em-2014-0528",
+   "tipo": "circolare",
+   "numero": "Nota DCEMER del 26/05/2014",
+   "titolo": "Chiarimenti sulla circolare EM 3058/3706 – Sicurezza nelle operazioni SAF",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2014-05-28",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "valutazione-rischi",
+    "sicura-doppia-corda",
+    "anticaduta"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2014-0528.pdf",
+   "url": "circ-em-2014-0528.pdf",
+   "allegati": [],
+   "sezione": "sicurezza",
+   "ord": "2",
+   "protocollo_ricezione": "COM-TO.REGISTRO UFFICIALE.I.0018604.28-05-2014",
+   "chiarisce": [
+    "circ-em-2013-3058"
+   ],
+   "note": "Documento scansionato.",
+   "etichetta": "EM 28-05-2014",
+   "descrizione": "CHIARIMENTI SICUREZZA OPERAZIONI SAF"
+  },
+  {
+   "id": "circ-em-2015-4298",
+   "tipo": "circolare",
+   "numero": "EM 4298",
+   "titolo": "Sperimentazione tecniche per interventi in forra SAF – richiesta di assenso",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2015-04-21",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0004298.21-04-2015",
+   "livelli": [],
+   "argomenti": [
+    "forra"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2015-4298.pdf",
+   "url": "circ-em-2015-4298.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "3",
+   "note": "Risposta al Comando di Belluno: si usano solo tecniche, attrezzature e manuali del CNVVF.",
+   "etichetta": "EM 4298 del 21-04-2015",
+   "descrizione": "SPERIMENTAZIONE TECNICHE SAF IN FORRA"
+  },
+  {
+   "id": "circ-dcf-2015-37654",
+   "tipo": "circolare",
+   "numero": "DCFORM 37654",
+   "titolo": "Regolamento per la disciplina delle attività di mantenimento e re-training per le attività specialistiche e di specializzazione",
+   "ente": "DipVVF – DCFORM (Direzione Centrale per la Formazione)",
+   "data": "2015-11-04",
+   "protocollo": "DCFORM.REGISTRO UFFICIALE.0037654.U.04-11-2015",
+   "livelli": [],
+   "argomenti": [
+    "mantenimento",
+    "formazione-livelli"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-dcf-2015-37654.pdf",
+   "url": "circ-dcf-2015-37654.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "4",
+   "etichetta": "DCF 37654 del 04-11-2015",
+   "descrizione": "REGOLAMENTO ATTIVITA' DI MANTENIMENTO"
+  },
+  {
+   "id": "circ-em-2015-10",
+   "tipo": "circolare",
+   "numero": "EM 10/2015",
+   "titolo": "Circolare applicativa del progetto di riordino del C.N.VV.F. al settore SAF",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2015-12-23",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0016195.23-12-2015",
+   "livelli": [],
+   "argomenti": [
+    "organizzazione-intervento",
+    "formazione-livelli"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2015-10.pdf",
+   "url": "circ-em-2015-10.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "5",
+   "note": "Ridefinisce l'organizzazione del settore SAF (livelli, nuclei, norme transitorie). Documento scansionato.",
+   "etichetta": "EM 10-2015",
+   "descrizione": "RIORDINO SETTORE SAF"
+  },
+  {
+   "id": "circ-em-2015-11",
+   "tipo": "circolare",
+   "numero": "EM 11/2015",
+   "titolo": "Qualificazione, composizione e dotazioni del Servizio di Elisoccorso",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2015-12-23",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0016196.23-12-2015",
+   "livelli": [],
+   "argomenti": [
+    "interfaccia-elicottero",
+    "organizzazione-intervento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2015-11.pdf",
+   "url": "circ-em-2015-11.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "6",
+   "note": "Documento scansionato.",
+   "etichetta": "EM 11-2015",
+   "descrizione": "SERVIZIO ELISOCCORSO"
+  },
+  {
+   "id": "circ-em-2016-16938",
+   "tipo": "circolare",
+   "numero": "EM 16938",
+   "titolo": "Sicurezza nelle operazioni con tecniche SAF in attività di soccorso, di addestramento e di formazione",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2016-11-22",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0016938.22-11-2016",
+   "livelli": [],
+   "argomenti": [
+    "valutazione-rischi",
+    "sicura-doppia-corda"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2016-16938.pdf",
+   "url": "circ-em-2016-16938.pdf",
+   "allegati": [],
+   "sezione": "sicurezza",
+   "ord": "3",
+   "chiarisce": [
+    "circ-em-2013-3058"
+   ],
+   "etichetta": "EM 16938 del 22-11-2016",
+   "descrizione": "SICUREZZA OPERAZIONI SAF"
+  },
+  {
+   "id": "circ-em-2018-1336",
+   "tipo": "circolare",
+   "numero": "EM 1336",
+   "titolo": "Procedure di sicurezza nelle operazioni con tecniche SAF in attività di soccorso, addestramento e formazione",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2018-01-12",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0001336.12-01-2018",
+   "livelli": [],
+   "argomenti": [
+    "valutazione-rischi",
+    "sicura-doppia-corda"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2018-1336.pdf",
+   "url": "circ-em-2018-1336.pdf",
+   "allegati": [],
+   "sezione": "sicurezza",
+   "ord": "4",
+   "chiarisce": [
+    "circ-em-2013-3058",
+    "circ-em-2016-16938"
+   ],
+   "note": "Sul documento compare la scritta \"BOZZA\" accanto al protocollo.",
+   "etichetta": "EM 1336 del 12-01-2018",
+   "descrizione": "SICUREZZA OPERAZIONI SAF"
+  },
+  {
+   "id": "circ-dcf-2020-01-avvio",
+   "tipo": "circolare",
+   "numero": "DCFORM 22490",
+   "titolo": "Circolare DCF-01/2020 – Avvio delle attività formative",
+   "ente": "DipVVF – DCFORM (Direzione Centrale per la Formazione)",
+   "data": "2020-09-17",
+   "protocollo": "DCFORM.REGISTRO UFFICIALE.0022490.U.17-09-2020",
+   "livelli": [
+    "basico"
+   ],
+   "argomenti": [
+    "formazione-livelli",
+    "formatori"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-dcf-2020-01-avvio.pdf",
+   "url": "circ-dcf-2020-01-avvio.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "8",
+   "chiarisce": [
+    "circ-dcf-2020-01"
+   ],
+   "etichetta": "DCF SAF 01-2020",
+   "descrizione": "AVVIO ATTIVITA'"
+  },
+  {
+   "id": "circ-staff-2023-24511",
+   "tipo": "circolare",
+   "numero": "STAFFCNVVF 24511",
+   "titolo": "Competenze del CNVVF e del Corpo Nazionale Soccorso Alpino e Speleologico (CNSAS) – parere dell'Avvocatura dello Stato",
+   "ente": "DipVVF – Capo del Corpo Nazionale dei Vigili del Fuoco",
+   "data": "2023-11-20",
+   "protocollo": "STAFFCNVVF.REGISTRO UFFICIALE.U.0024511.20-11-2023",
+   "livelli": [],
+   "argomenti": [
+    "organizzazione-intervento",
+    "montagna",
+    "grotta"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-staff-2023-24511.pdf",
+   "url": "circ-staff-2023-24511.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "9",
+   "etichetta": "STAFF 24511 del 20-11-2023",
+   "descrizione": "COMPETENZE CNVVF/CNSAS - PARERE AVVOCATURA DELLO STATO"
+  },
+  {
+   "id": "circ-em-2023-46258",
+   "tipo": "circolare",
+   "numero": "EM 46258",
+   "titolo": "Abilitazione specializzazione SAF – SAF 1B e SAF Basico. Chiarimenti",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2023-11-22",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0046258.22-11-2023",
+   "livelli": [
+    "basico"
+   ],
+   "argomenti": [
+    "formazione-livelli",
+    "organizzazione-intervento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2023-46258.pdf",
+   "url": "circ-em-2023-46258.pdf",
+   "allegati": [],
+   "sezione": "saf",
+   "ord": "10",
+   "chiarisce": [
+    "circ-em-2015-10"
+   ],
+   "etichetta": "EM 46258 del 22-11-2023",
+   "descrizione": "Chiarimenti SAF Basico-SAF 1B"
+  },
+  {
+   "id": "circ-em-2016-12",
+   "tipo": "circolare",
+   "numero": "EM 12/2016",
+   "titolo": "Contrasto al Rischio Acquatico (CRA) – soccorritori fluviali-alluvionali (SFA) e soccorritori acquatici (SA)",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2016-01-13",
+   "protocollo": "DCEMER.REGISTRO UFFICIALE.U.0000323.13-01-2016",
+   "livelli": [],
+   "argomenti": [
+    "fluviale",
+    "formazione-livelli",
+    "mantenimento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2016-12.pdf",
+   "url": "circ-em-2016-12.pdf",
+   "allegati": [],
+   "sezione": "cra",
+   "ord": "2",
+   "note": "Documento scansionato.",
+   "etichetta": "Circolare EM 12-2016",
+   "descrizione": "Contrasto Rischio Acquatico"
+  },
+  {
+   "id": "circ-dcf-2017-31345",
+   "tipo": "circolare",
+   "numero": "DCFORM 31345",
+   "titolo": "Chiarimento circolare EM 12/2016 – mantenimento delle abilitazioni SFA e SA",
+   "ente": "DipVVF – DCFORM (Direzione Centrale per la Formazione)",
+   "data": "2017-10-24",
+   "protocollo": "DCFORM.REGISTRO UFFICIALE.0031345.U.24-10-2017",
+   "livelli": [],
+   "argomenti": [
+    "fluviale",
+    "mantenimento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-dcf-2017-31345.pdf",
+   "url": "circ-dcf-2017-31345.pdf",
+   "allegati": [],
+   "sezione": "cra",
+   "ord": "3",
+   "chiarisce": [
+    "circ-em-2016-12"
+   ],
+   "etichetta": "",
+   "descrizione": "Chiarimento circolare EM 12/2016"
+  },
+  {
+   "id": "circ-dce-2007-1774",
+   "tipo": "circolare",
+   "numero": "DCE 1774 (SAS/SA/ORG)",
+   "titolo": "Soccorso acquatico di superficie – Organizzazione delle squadre non specialistiche",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2007-05-30",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "fluviale",
+    "organizzazione-intervento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-dce-2007-1774.pdf",
+   "url": "circ-dce-2007-1774.pdf",
+   "allegati": [],
+   "sezione": "cra",
+   "ord": "1",
+   "note": "Data letta dal timbro (30 maggio 2007), da verificare. Documento scansionato.",
+   "etichetta": "",
+   "descrizione": "Soccorso Acquatico di superficie - 30/5/2007"
+  },
+  {
+   "id": "circ-em-2010-2337",
+   "tipo": "circolare",
+   "numero": "EM 2337",
+   "titolo": "Sollevamento di persone con l'ausilio di autogrù",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2010-05-03",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "sollevamento",
+    "autoscale-piattaforme",
+    "urbano-quota"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2010-2337.pdf",
+   "url": "circ-em-2010-2337.pdf",
+   "allegati": [],
+   "sezione": "utili",
+   "ord": "2",
+   "note": "Riguarda il sollevamento in quota di personale SAF con autogrù del CNVVF o di ditte private. Documento scansionato.",
+   "etichetta": "EM 2337 del 03-05-2010",
+   "descrizione": "Sollevamento di persone con autogrù"
+  },
+  {
+   "id": "lc-mlps-2011-3326",
+   "tipo": "circolare",
+   "numero": "Lettera circ. Min. Lavoro 3326",
+   "titolo": "Concetto di eccezionalità nel sollevamento di persone (D.Lgs. 81/2008, all. VI punto 3.1.4)",
+   "ente": "Ministero del Lavoro e delle Politiche Sociali – Dir. Gen. Tutela delle condizioni di lavoro",
+   "data": "2011-02-10",
+   "protocollo": "15/SEGR/0003326 del 10-02-2011",
+   "livelli": [],
+   "argomenti": [
+    "sollevamento",
+    "valutazione-rischi"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "lc-mlps-2011-3326.pdf",
+   "url": "lc-mlps-2011-3326.pdf",
+   "allegati": [],
+   "sezione": "utili",
+   "ord": "1",
+   "note": "Documento scansionato.",
+   "etichetta": "",
+   "descrizione": "Concetto di eccezionalità (DL 81/08)"
+  },
+  {
+   "id": "circ-em-2011-01",
+   "tipo": "circolare",
+   "numero": "EM-01/2011",
+   "titolo": "Riorganizzazione delle Colonne Mobili Regionali e del dispositivo di mobilitazione per grande calamità",
+   "ente": "DipVVF – DCEMER (Direzione Centrale per l'Emergenza e il Soccorso Tecnico)",
+   "data": "2011-04-12",
+   "protocollo": "",
+   "livelli": [],
+   "argomenti": [
+    "organizzazione-intervento"
+   ],
+   "stato": "",
+   "sostituisce": [],
+   "riferimenti": [],
+   "fonte_url": "",
+   "file": "circ-em-2011-01.pdf",
+   "url": "circ-em-2011-01.pdf",
+   "allegati": [
+    {
+     "n": "All.",
+     "titolo": "Allegato Revisione Circolare EM 01-2020",
+     "url": "circ-em-2011-01_all-manuale-2020.pdf"
+    }
+   ],
+   "sezione": "cm",
+   "ord": "1",
+   "note": "Documento scansionato.",
+   "etichetta": "Circolare EM 01-2011",
+   "descrizione": "Riorganizzazione Colonne Mobili"
   }
  ],
  "bugiardini": [
@@ -7190,7 +7730,29 @@ window.SAFDATA = {
     "bug-camp-druid-pro-fire-bag"
    ]
   }
- }
+ },
+ "sezioni_circolari": [
+  {
+   "id": "saf",
+   "nome": "Circolari di riferimento SAF"
+  },
+  {
+   "id": "sicurezza",
+   "nome": "Sicurezza nelle operazioni SAF"
+  },
+  {
+   "id": "utili",
+   "nome": "Altre circolari utili nelle operazioni SAF"
+  },
+  {
+   "id": "cra",
+   "nome": "Circolari di riferimento Contrasto Rischio Acquatico"
+  },
+  {
+   "id": "cm",
+   "nome": "Circolari di riferimento Colonne Mobili"
+  }
+ ]
 };
 const D = window.SAFDATA;
 const $ = s => document.querySelector(s);
@@ -7207,7 +7769,7 @@ let levels = new Set();
 try { const s = JSON.parse(localStorage.getItem('saf-levels') || '[]'); if (Array.isArray(s)) levels = new Set(s); } catch(e) {}
 
 const lvOf = s => MAN[s.manuale].livello;
-const lvOk = lv => !levels.size || !lv || (Array.isArray(lv) ? lv.some(x => levels.has(x)) : levels.has(lv));
+const lvOk = lv => !levels.size || !lv || (Array.isArray(lv) && !lv.length) || (Array.isArray(lv) ? lv.some(x => levels.has(x)) : levels.has(lv));
 const LIV = Object.fromEntries(D.livelli.map(l => [l.id, l]));
 const pill = lv => lv && LIV[lv] ? `<span class="pill p-${lv}">${esc(LIV[lv].nome)}</span>` : '';
 (function levelStyles() {
@@ -7235,9 +7797,11 @@ function bugRow(b) {
   return `<a class="row t-bug" href="#b-${b.id}"><span class="num">PDF</span><span class="t">${bugTitle(b)}</span>
   <span class="s">${DOCT[b.tipo_documento]}${b.norme ? ' · ' + esc(b.norme.join(', ')) : ''}</span></a>`;
 }
+const circLabel = c => c.descrizione ? `${c.etichetta ? esc(c.etichetta) + ' ' : ''}<b class="cdesc">${esc(c.descrizione)}</b>` : `<b>${esc(c.numero)}</b> – ${esc(c.titolo)}`;
+const fdate = s => String(s || '').split('-').reverse().join('/');
 function circRow(c, a) {
-  if (a) return `<a class="row t-cir" href="#c-${c.id}"><span class="num">${esc(a.n)}</span><span class="t">${esc(a.titolo)}</span><span class="s">${pill(c.livelli[0])}Allegato alla Circ. ${esc(c.numero)}</span></a>`;
-  return `<a class="row t-cir" href="#c-${c.id}"><span class="num">Circ</span><span class="t">${esc(c.numero)} – ${esc(c.titolo)}</span><span class="s">${pill(c.livelli[0])}${esc(c.data.split('-').reverse().join('/'))} · ${c.allegati.length} allegati</span></a>`;
+  if (a) return `<a class="row t-cir" href="#c-${c.id}"><span class="num">${esc(a.n)}</span><span class="t">${esc(a.titolo)}</span><span class="s">${pill(c.livelli[0])}Allegato a ${esc(c.etichetta || c.numero)}</span></a>`;
+  return `<a class="row t-cir" href="#c-${c.id}"><span class="num">${esc(c.ord || 'Circ')}</span><span class="t">${circLabel(c)}</span><span class="s">${pill(c.livelli[0])}${esc(fdate(c.data))}${c.allegati.length ? ` · ${c.allegati.length} ${c.allegati.length === 1 ? 'allegato' : 'allegati'}` : ''}</span></a>`;
 }
 const list = rows => rows.length ? `<div class="list">${rows.join('')}</div>` : `<p class="empty">Nessun risultato per questo livello.</p>`;
 
@@ -7338,20 +7902,26 @@ function viewArgomento(c) {
   ${!ss.length && !bb.length && !cc.length ? '<p class="empty">Ancora nessun documento su questo argomento per il livello scelto.</p>' : ''}`;
 }
 function viewCircolari() {
-  return `<h2>Circolari</h2>${list(D.circolari.filter(c => lvOk(c.livelli)).sort((a,b) => b.data.localeCompare(a.data)).map(c => circRow(c)))}`;
+  const SZ = D.sezioni_circolari || [], ok = D.circolari.filter(c => lvOk(c.livelli));
+  const of = id => ok.filter(c => c.sezione === id).sort((x, y) => String(x.ord).localeCompare(String(y.ord), 'it', {numeric: true}));
+  const fold = (s, inner) => { if (s.allegati_di) { const c = CIR[s.allegati_di]; if (!c || !lvOk(c.livelli) || !c.allegati.length) return ''; return `<details class="fold sub" style="--fc:var(--c-cir);border-left-color:var(--lv-avanzato,#e30613)"><summary><span style="color:var(--ink)">${esc(s.nome)}</span><small>${c.allegati.length}</small></summary>${list(c.allegati.map(x => circRow(c, x)))}</details>`; }
+    const cs = of(s.id), sub = (s.sotto || []).map(t => fold(t, true)).join(''), n = cs.length + (s.sotto || []).reduce((k, t) => k + (t.allegati_di ? 0 : of(t.id).length), 0); return n ? `<details class="fold${inner ? ' sub' : ''}" style="--fc:var(--cs-${s.id},var(--c-cir));--c-cir:var(--cs-${s.id},var(--c-cir))"><summary><span>${esc(s.nome)}</span><small>${n}</small></summary>${cs.length ? list(cs.map(c => circRow(c))) : ''}${sub}</details>` : ''; };
+  const rest = ok.filter(c => !SZ.some(s => s.id === c.sezione || (s.sotto || []).some(t => t.id === c.sezione)));
+  const html = SZ.map(s => fold(s)).join('') + (rest.length ? `<details class="fold" style="--fc:var(--c-cir)"><summary><span>Altre</span><small>${rest.length}</small></summary>${list(rest.map(c => circRow(c)))}</details>` : '');
+  return `<h2>Circolari</h2>${html ? `<div class="folds">${html}</div>` : '<p class="empty">Nessun risultato per questo livello.</p>'}`;
 }
 function viewCircolare(id) {
   const c = CIR[id]; if (!c) return viewHome();
   const al = c.allegati.map(a => `<div class="row" style="grid-template-columns:auto 1fr"><span class="num">${esc(a.n)}</span><span class="t">${esc(a.titolo)}</span>
-    <span class="s"><a class="btn sec" style="padding:6px 10px;margin-top:6px" href="${pdf(a.url, a.pagine && a.pagine[0])}">${a.pagine ? `Apri (pagg. ${a.pagine[0]}–${a.pagine[1]} della circolare)` : 'Apri allegato'}</a></span></div>`);
-  const rel = [...(c.integra||[]).map(x => ['Integra', x]), ...(c.integrata_da||[]).map(x => ['Integrata da', x])];
-  return `<div class="card"><div>${pill(c.livelli[0])}<span class="pill p-tipo">Circolare</span><span class="pill p-tipo">${esc(c.stato)}</span></div>
-  <h2>${esc(c.numero)} – ${esc(c.titolo)}</h2>
-  <dl class="meta"><dt>Data</dt><dd>${esc(c.data.split('-').reverse().join('/'))}</dd><dt>Ente</dt><dd>${esc(c.ente)}</dd><dt>Protocollo</dt><dd>${esc(c.protocollo)}</dd>
+    <span class="s"><a class="btn" style="padding:8px 12px;margin-top:6px" href="${pdf(a.url, a.pagine && a.pagine[0])}">${a.pagine ? `Apri (pagg. ${a.pagine[0]}–${a.pagine[1]} della circolare)` : 'Apri allegato'}</a></span></div>`);
+  const rel = [...(c.integra||[]).map(x => ['Integra', x]), ...(c.integrata_da||[]).map(x => ['Integrata da', x]), ...(c.chiarisce||[]).map(x => ['Chiarisce', x]), ...D.circolari.filter(o => (o.chiarisce||[]).includes(c.id)).map(o => ['Chiarita da', o.id])];
+  return `<div class="card"><div>${pill(c.livelli[0])}<span class="pill p-tipo">Circolare</span>${c.stato ? `<span class="pill p-tipo">${esc(c.stato)}</span>` : ''}</div>
+  <h2 class="circh" style="--fc:var(--cs-${c.sezione},var(--c-cir))">${circLabel(c)}</h2>${c.descrizione ? `<p style="margin:0"><span class="note">Oggetto:</span> ${esc(c.titolo)}</p>` : ''}
+  <dl class="meta"><dt>Numero</dt><dd>${esc(c.numero)}</dd><dt>Data</dt><dd>${esc(fdate(c.data))}</dd><dt>Ente</dt><dd>${esc(c.ente)}</dd>${c.protocollo ? `<dt>Protocollo</dt><dd>${esc(c.protocollo)}</dd>` : ''}
   ${rel.map(([k,x]) => `<dt>${k}</dt><dd><a href="#c-${x}">${esc(CIR[x] ? CIR[x].numero : x)}</a></dd>`).join('')}</dl>
   <div class="btns"><a class="btn" href="${pdf(c.url)}">Apri circolare</a></div>${argChips(c.argomenti)}</div>
+  ${c.allegati.length ? `<div class="area"><h3>Allegati (${c.allegati.length})</h3><div class="list">${al.join('')}</div></div>` : ''}
   ${c.requisiti_corso_avanzato ? `<div class="card"><h3>Requisiti di accesso al corso SAF Avanzato</h3><ul style="margin:0;padding-left:18px">${c.requisiti_corso_avanzato.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : ''}
-  <div class="area"><h3>Allegati (${c.allegati.length})</h3><div class="list">${al.join('')}</div></div>
   ${c.cicli_mantenimento ? `<div class="card"><h3>Cicli di mantenimento SAF Avanzato</h3><p class="note" style="margin:0">Ogni ciclo minimo 36 ore, circa ogni 6 mesi. Tocca una scheda per aprirla.</p>
     ${c.cicli_mantenimento.map(x => `<div class="cycle"><b>${['','I','II','III','IV'][x.ciclo]}</b><div class="chips">${x.schede.map(s => `<a class="chip" href="#s-${s}" title="${esc(SCH[s].titolo)}">${s.split('-').pop().replace(/^0/,'')} · ${esc(SCH[s].titolo.slice(0,28))}${SCH[s].titolo.length>28?'…':''}</a>`).join('')}</div></div>`).join('')}</div>` : ''}
   ${c.note ? `<p class="note">${esc(c.note)}</p>` : ''}`;
@@ -7398,7 +7968,7 @@ function viewInfo() {
     <div class="btns"><a class="btn" href="mailto:${mail}?subject=SAF%20Supporto%20Operatore%20-%20segnalazione">Scrivi una email</a><button class="btn sec" type="button" id="copymail">Copia indirizzo</button></div>
     <p class="note" style="margin:0" id="copymsg">Indica sempre il documento e la pagina a cui si riferisce la segnalazione.</p></div>
   <div class="card"><h3>Uso senza rete</h3>
-    <p style="margin:0">I documenti che apri restano salvati sul telefono. Per averli tutti disponibili anche in grotta, in forra o senza copertura, scaricali ora (circa 260 MB, meglio con il Wi-Fi).</p>
+    <p style="margin:0">I documenti che apri restano salvati sul telefono. Per averli tutti disponibili anche in grotta, in forra o senza copertura, scaricali ora (circa 280 MB, meglio con il Wi-Fi).</p>
     <div class="btns"><button class="btn" type="button" id="offline">Scarica tutti i documenti</button></div>
     <p class="note" style="margin:0" id="offmsg">Verifica in corso…</p></div>
   <div class="card"><h3>Contenuti</h3>
