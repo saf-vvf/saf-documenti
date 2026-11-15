@@ -23,11 +23,11 @@ header a{font-size:.8rem}
 #zl{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#000c;color:#fff;padding:8px 14px;border-radius:999px;font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:4}
 #zl.on{opacity:1}
 #hint{position:fixed;left:12px;right:12px;bottom:20px;background:#000d;color:#fff;padding:12px 14px;border-radius:10px;font-size:.85rem;z-index:4;text-align:center}
-@media (max-width:420px){#dl{display:none}}
+@media (max-width:420px){#dl{display:none}header{gap:4px;padding:6px 4px}header button{min-width:40px;padding:0 6px}#count{font-size:.72rem}}
 </style>
 </head>
 <body>
-<header><button id="back" aria-label="Indietro">&#8592;</button><b id="title">Caricamento…</b><span id="count"></span><button id="zoomout" aria-label="Riduci">−</button><button id="fit" aria-label="Adatta alla larghezza" title="Adatta alla larghezza">&#8596;</button><button id="zoomin" aria-label="Ingrandisci">+</button><a id="dl" href="#">Scarica</a></header>
+<header><button id="back" aria-label="Indietro">&#8592;</button><b id="title">Caricamento…</b><span id="count"></span><button id="zoomout" aria-label="Riduci">−</button><button id="fit" aria-label="Adatta alla larghezza" title="Adatta alla larghezza">&#8596;</button><button id="zoomin" aria-label="Ingrandisci">+</button><button id="share" aria-label="Condividi" title="Condividi"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg></button><a id="dl" href="#">Scarica</a></header>
 <div id="msg"></div>
 <div id="sc"><div id="pages"></div></div>
 <div id="zl"></div>
@@ -165,6 +165,25 @@ document.getElementById('back').onclick = () => { if (history.length > 1) histor
 document.getElementById('zoomin').onclick = () => setZoom(zoom * 1.4);
 document.getElementById('zoomout').onclick = () => setZoom(zoom / 1.4);
 document.getElementById('fit').onclick = () => setZoom(1, 0, 0);
+/* condivisione: prima il file PDF, altrimenti il collegamento */
+document.getElementById('share').onclick = async () => {
+  const name = decodeURIComponent(file.split('/').pop());
+  const link = new URL(file, location.href).href;
+  const z = document.getElementById('zl');
+  const say = t => { z.textContent = t; z.classList.add('on'); clearTimeout(zlT); zlT = setTimeout(() => z.classList.remove('on'), 2200); };
+  try {
+    if (navigator.canShare) {
+      const data = doc ? await doc.getData() : await (await fetch(file)).arrayBuffer();
+      const f = new File([data], name, {type: 'application/pdf'});
+      if (navigator.canShare({files: [f]})) { await navigator.share({files: [f], title: name}); return; }
+    }
+    if (navigator.share) { await navigator.share({title: name, url: link}); return; }
+    await navigator.clipboard.writeText(link); say('Collegamento copiato');
+  } catch (e) {
+    if (e && e.name === 'AbortError') return;
+    try { await navigator.clipboard.writeText(link); say('Collegamento copiato'); } catch (e2) { say('Condivisione non disponibile'); }
+  }
+};
 </script>
 </body>
 </html>
