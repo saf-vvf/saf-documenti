@@ -2,46 +2,53 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#14181d">
 <title>SAF – Visualizzatore PDF</title>
 <style>
-:root{--bg:#2a2f36;--bar:#14181d;--ink:#eef1f4;--muted:#9aa4b0;--accent:#ff4d63}
+:root{--bg:#2a2f36;--bar:#14181d;--ink:#eef1f4;--muted:#9aa4b0;--line:#3a424c;--hb:56px}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,sans-serif}
-header{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--bar)}
-header b{flex:1;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-header span{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
-header a,header button{color:var(--ink);background:none;border:1px solid #3a424c;border-radius:6px;padding:6px 10px;font-size:.85rem;text-decoration:none;cursor:pointer}
-#pages{display:grid;gap:10px;justify-items:center;padding:10px 6px 40px}
-.pg{background:#fff;box-shadow:0 1px 4px #0006;position:relative}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:system-ui,sans-serif;overscroll-behavior:none}
+header{position:fixed;top:0;left:0;right:0;height:var(--hb);z-index:3;display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--bar)}
+header b{flex:1;min-width:0;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+header span{font-size:.8rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+header a,header button{flex:0 0 auto;color:var(--ink);background:#232a32;border:1px solid var(--line);border-radius:8px;min-width:44px;height:44px;padding:0 10px;font-size:1.2rem;text-decoration:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+header a{font-size:.8rem}
+#sc{position:fixed;top:var(--hb);left:0;right:0;bottom:0;overflow:auto;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}
+#pages{width:max-content;min-width:100%;padding:10px 6px 60px;transform-origin:0 0}
+.pg{background:#fff;box-shadow:0 1px 4px #0006;position:relative;margin:0 auto 22px}
 .pg canvas{display:block;width:100%;height:100%}
 .pg i{position:absolute;inset:auto 0 -18px 0;text-align:center;font-size:.7rem;color:var(--muted);font-style:normal}
-#msg{padding:24px;text-align:center;color:var(--muted)}
+#msg{position:fixed;top:calc(var(--hb) + 20px);left:0;right:0;text-align:center;color:var(--muted);padding:0 20px}
+#zl{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#000c;color:#fff;padding:8px 14px;border-radius:999px;font-size:.9rem;opacity:0;transition:opacity .3s;pointer-events:none;z-index:4}
+#zl.on{opacity:1}
+#hint{position:fixed;left:12px;right:12px;bottom:20px;background:#000d;color:#fff;padding:12px 14px;border-radius:10px;font-size:.85rem;z-index:4;text-align:center}
+@media (max-width:420px){#dl{display:none}}
 </style>
 </head>
 <body>
-<header><button id="back" aria-label="Indietro">&#8592;</button><b id="title">Caricamento…</b><span id="count"></span><button id="zoomout" aria-label="Riduci">−</button><button id="zoomin" aria-label="Ingrandisci">+</button><a id="dl" href="#">Scarica</a></header>
+<header><button id="back" aria-label="Indietro">&#8592;</button><b id="title">Caricamento…</b><span id="count"></span><button id="zoomout" aria-label="Riduci">−</button><button id="fit" aria-label="Adatta alla larghezza" title="Adatta alla larghezza">&#8596;</button><button id="zoomin" aria-label="Ingrandisci">+</button><a id="dl" href="#">Scarica</a></header>
 <div id="msg"></div>
-<div id="pages"></div>
+<div id="sc"><div id="pages"></div></div>
+<div id="zl"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 const params = new URLSearchParams(location.search);
 const file = params.get('file') || '';
 const start = parseInt((location.hash.match(/page=(\d+)/) || [])[1] || '1', 10);
-const box = document.getElementById('pages');
-let doc, zoom = 1, baseW = 0, rendered = new Map();
+const sc = document.getElementById('sc'), box = document.getElementById('pages');
+const ZMIN = 0.5, ZMAX = 8, MAXPX = 12e6;
+let doc, zoom = 1, rendered = new Map(), io;
 document.getElementById('dl').href = file;
 document.getElementById('title').textContent = decodeURIComponent(file.split('/').pop());
+
 if (!/^(pdf\/)?[\w.\-]+\.pdf$/.test(file)) {
   document.getElementById('msg').textContent = 'Documento non valido.';
 } else {
   pdfjsLib.getDocument({url: file, disableRange: true, disableAutoFetch: true}).promise.then(async d => {
     doc = d;
-    const p1 = await d.getPage(1);
-    const v = p1.getViewport({scale: 1});
-    baseW = v.width; const ratio = v.height / v.width;
+    const v = (await d.getPage(1)).getViewport({scale: 1}), ratio = v.height / v.width;
     for (let i = 1; i <= d.numPages; i++) {
       const el = document.createElement('div');
       el.className = 'pg'; el.id = 'p' + i; el.dataset.n = i; el.dataset.ratio = ratio;
@@ -49,43 +56,115 @@ if (!/^(pdf\/)?[\w.\-]+\.pdf$/.test(file)) {
       box.appendChild(el);
     }
     layout();
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) draw(+e.target.dataset.n); }), {rootMargin: '800px 0px'});
+    io = new IntersectionObserver(es => es.forEach(e => {
+      const n = +e.target.dataset.n;
+      if (e.isIntersecting) draw(n);
+      else { e.target.querySelector('canvas')?.remove(); rendered.delete(n); }
+    }), {root: sc, rootMargin: '1200px 600px'});
     box.querySelectorAll('.pg').forEach(el => io.observe(el));
-    const target = document.getElementById('p' + Math.min(Math.max(start, 1), d.numPages));
-    target.scrollIntoView();
-    window.addEventListener('scroll', counter, {passive: true}); counter();
+    sc.scrollTop = document.getElementById('p' + Math.min(Math.max(start, 1), d.numPages)).offsetTop - 6;
+    sc.addEventListener('scroll', counter, {passive: true}); counter();
+    try { if (!localStorage.getItem('saf-viewer-hint')) { const h = document.createElement('div'); h.id = 'hint'; h.textContent = 'Allarga con due dita per ingrandire il testo, doppio tocco per ingrandire o tornare alla pagina intera.'; document.body.appendChild(h); setTimeout(() => h.remove(), 5000); h.onclick = () => h.remove(); localStorage.setItem('saf-viewer-hint', '1'); } } catch (e) {}
   }).catch(e => { document.getElementById('msg').textContent = 'Impossibile aprire il documento: ' + e.message; });
 }
-function width() { return Math.min(window.innerWidth - 12, 900) * zoom; }
+
+function width() { return Math.min(sc.clientWidth - 12, 900) * zoom; }
 function layout() {
-  box.querySelectorAll('.pg').forEach(el => { const w = width(); el.style.width = w + 'px'; el.style.height = (w * el.dataset.ratio) + 'px'; });
+  const w = width();
+  box.querySelectorAll('.pg').forEach(el => { el.style.width = w + 'px'; el.style.height = (w * el.dataset.ratio) + 'px'; });
 }
 async function draw(n) {
-  if (rendered.get(n) === zoom) return; rendered.set(n, zoom);
+  if (rendered.get(n) === zoom) return;
+  const z = zoom; rendered.set(n, z);
   const page = await doc.getPage(n);
+  if (rendered.get(n) !== z) return;
   const el = document.getElementById('p' + n);
-  const w = width(); const vp0 = page.getViewport({scale: 1});
+  const w = width(), vp0 = page.getViewport({scale: 1});
   el.style.height = (w * vp0.height / vp0.width) + 'px';
-  const scale = w / vp0.width * (window.devicePixelRatio || 1);
+  let scale = w / vp0.width * (window.devicePixelRatio || 1);
+  const area = vp0.width * vp0.height * scale * scale;
+  if (area > MAXPX) scale *= Math.sqrt(MAXPX / area);
   const vp = page.getViewport({scale});
-  const c = document.createElement('canvas'); c.width = vp.width; c.height = vp.height;
+  const c = document.createElement('canvas'); c.width = Math.floor(vp.width); c.height = Math.floor(vp.height);
   await page.render({canvasContext: c.getContext('2d'), viewport: vp}).promise;
+  if (rendered.get(n) !== z) return;
   el.querySelector('canvas')?.remove(); el.prepend(c);
+}
+function visible() {
+  const top = sc.scrollTop - 1200, bot = sc.scrollTop + sc.clientHeight + 1200;
+  box.querySelectorAll('.pg').forEach(el => { if (el.offsetTop + el.offsetHeight > top && el.offsetTop < bot) draw(+el.dataset.n); });
 }
 function counter() {
   if (!doc) return;
-  let cur = 1; box.querySelectorAll('.pg').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight / 2) cur = +el.dataset.n; });
-  document.getElementById('count').textContent = cur + ' / ' + doc.numPages;
+  const mid = sc.scrollTop + sc.clientHeight / 2; let cur = 1;
+  box.querySelectorAll('.pg').forEach(el => { if (el.offsetTop < mid) cur = +el.dataset.n; });
+  document.getElementById('count').textContent = cur + '/' + doc.numPages;
 }
-function rezoom(f) {
-  const cur = parseInt(document.getElementById('count').textContent) || 1;
-  zoom = Math.min(3, Math.max(0.5, zoom * f)); rendered.clear(); layout();
-  document.getElementById('p' + cur).scrollIntoView();
-  box.querySelectorAll('.pg').forEach(el => { const r = el.getBoundingClientRect(); if (r.bottom > -800 && r.top < innerHeight + 800) draw(+el.dataset.n); });
+let zlT;
+function showZoom() { const z = document.getElementById('zl'); z.textContent = Math.round(zoom * 100) + '%'; z.classList.add('on'); clearTimeout(zlT); zlT = setTimeout(() => z.classList.remove('on'), 900); }
+
+/* imposta lo zoom mantenendo fermo il punto (cx, cy) dello schermo */
+function setZoom(nz, cx, cy, panX = 0, panY = 0) {
+  nz = Math.min(ZMAX, Math.max(ZMIN, nz));
+  const r = sc.getBoundingClientRect();
+  if (cx == null) { cx = r.width / 2; cy = r.height / 2; }
+  const px = sc.scrollLeft + cx, py = sc.scrollTop + cy, f = nz / zoom;
+  zoom = nz; layout();
+  sc.scrollLeft = px * f - cx - panX;
+  sc.scrollTop = py * f - cy - panY;
+  visible(); counter(); showZoom();
 }
+
+/* gesto con due dita: anteprima veloce con transform, poi ridisegno nitido */
+let pinch = null, lastTap = 0, lastXY = [0, 0];
+const dist = t => Math.hypot(t[0].clientX - t[1].clientX, t[0].clientY - t[1].clientY);
+const mid = t => { const r = sc.getBoundingClientRect(); return [(t[0].clientX + t[1].clientX) / 2 - r.left, (t[0].clientY + t[1].clientY) / 2 - r.top]; };
+sc.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    const [mx, my] = mid(e.touches);
+    pinch = {d0: dist(e.touches), mx, my, px: sc.scrollLeft + mx, py: sc.scrollTop + my, s: 1, dx: 0, dy: 0};
+    box.style.transformOrigin = pinch.px + 'px ' + pinch.py + 'px';
+    e.preventDefault();
+  }
+}, {passive: false});
+sc.addEventListener('touchmove', e => {
+  if (!pinch || e.touches.length !== 2) return;
+  e.preventDefault();
+  const [mx, my] = mid(e.touches);
+  let s = dist(e.touches) / pinch.d0;
+  s = Math.min(ZMAX / zoom, Math.max(ZMIN / zoom, s));
+  pinch.s = s; pinch.dx = mx - pinch.mx; pinch.dy = my - pinch.my;
+  box.style.transform = `translate(${pinch.dx}px, ${pinch.dy}px) scale(${s})`;
+}, {passive: false});
+sc.addEventListener('touchend', e => {
+  if (pinch && e.touches.length < 2) {
+    const p = pinch; pinch = null;
+    box.style.transform = ''; box.style.transformOrigin = '';
+    if (Math.abs(p.s - 1) > 0.02) setZoom(zoom * p.s, p.mx, p.my, p.dx, p.dy);
+    else { sc.scrollLeft -= p.dx; sc.scrollTop -= p.dy; }
+    lastTap = 0; return;
+  }
+  if (e.changedTouches.length === 1 && e.touches.length === 0) {
+    const t = e.changedTouches[0], now = Date.now();
+    if (now - lastTap < 300 && Math.hypot(t.clientX - lastXY[0], t.clientY - lastXY[1]) < 30) {
+      const r = sc.getBoundingClientRect();
+      setZoom(zoom > 1.2 ? 1 : 2.5, t.clientX - r.left, t.clientY - r.top);
+      lastTap = 0; e.preventDefault();
+    } else { lastTap = now; lastXY = [t.clientX, t.clientY]; }
+  }
+}, {passive: false});
+/* computer: Ctrl + rotellina */
+sc.addEventListener('wheel', e => {
+  if (!e.ctrlKey) return; e.preventDefault();
+  const r = sc.getBoundingClientRect();
+  setZoom(zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15), e.clientX - r.left, e.clientY - r.top);
+}, {passive: false});
+window.addEventListener('resize', () => { rendered.clear(); layout(); visible(); });
+
 document.getElementById('back').onclick = () => { if (history.length > 1) history.back(); else location.href = './'; };
-document.getElementById('zoomin').onclick = () => rezoom(1.25);
-document.getElementById('zoomout').onclick = () => rezoom(0.8);
+document.getElementById('zoomin').onclick = () => setZoom(zoom * 1.4);
+document.getElementById('zoomout').onclick = () => setZoom(zoom / 1.4);
+document.getElementById('fit').onclick = () => setZoom(1, 0, 0);
 </script>
 </body>
 </html>
