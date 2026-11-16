@@ -223,6 +223,12 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .qzb{font:inherit;text-align:left;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .qzb.ok{border-color:#1d8a3a;background:color-mix(in srgb,#1d8a3a 18%,var(--surface))}
 .qzb.ko{border-color:#d3202a;background:color-mix(in srgb,#d3202a 18%,var(--surface))}
+.gl{padding:10px 12px;border-bottom:1px solid var(--line)}.gl b{display:block;font-size:1rem}.gl p{margin:3px 0 4px;font-size:.92rem}
+.glsrc{font-size:.78rem;color:var(--muted)}
+.glidx{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0;position:sticky;top:0}
+.glidx a{min-width:30px;text-align:center;padding:5px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700;font-size:.85rem}
+.gll{margin:16px 0 4px;font-family:var(--display);color:#fdeb05;border-bottom:2px solid #fdeb05;display:inline-block}
+.glq{width:100%;box-sizing:border-box}
 #novita{position:fixed;inset:0;z-index:300;background:#000a;display:flex;align-items:center;justify-content:center;padding:16px}
 #novita .nv{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 18px 10px;max-width:460px;width:100%;max-height:80vh;overflow:auto;border-top:5px solid #fdeb05}
 #novita h3{margin:0 0 4px;font-family:var(--display)}#novita ul{margin:4px 0 8px;padding-left:20px}
@@ -7120,6 +7126,14 @@ window.SAFDATA = {
    "stato": "attivo"
   },
   {
+   "id": "glossario",
+   "titolo": "Glossario SAF",
+   "sigla": "Aa",
+   "colore": "#455a64",
+   "descrizione": "I termini tecnici dei glossari dei manuali Basico, Avanzato e Neve-Ghiaccio-Valanghe, con la pagina di riferimento.",
+   "stato": "attivo"
+  },
+  {
    "id": "calcoli",
    "titolo": "Calcolatori SAF",
    "sigla": "∑",
@@ -7909,19 +7923,1163 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-16.2",
    "data": "2026-11-16",
    "voci": [
-    "Calcolatori SAF nel menu strumenti: ancoraggi, rinvii, paranchi, fattore di caduta.",
-    "Quiz di autoverifica nel menu strumenti.",
+    "Glossario SAF nel menu strumenti, con i termini dei manuali Basico, Avanzato e NeGh.",
+    "Calcolatori SAF e Quiz di autoverifica nel menu strumenti.",
     "Ricerca anche nel testo dei documenti, con apertura alla pagina giusta.",
-    "Pulsante \"Segnala\" in ogni scheda, circolare, bugiardino e manuale, e condivisione dell'app dalla pagina Informazioni.",
-    "Manuali TAS 1 (2023) e TPSS (rev. 1.2) aggiornati.",
-    "Foto delle attrezzature nel controllo sacche."
+    "Pulsante \"Segnala\" in schede, circolari, bugiardini, manuali e normative EN.",
+    "Condivisione dell'app dalla pagina Informazioni.",
+    "Manuali TAS 1 (2023) e TPSS (rev. 1.2) aggiornati; foto delle attrezzature nel controllo sacche."
    ]
   }
  ],
- "condivisione": "SAF – Supporto Operatore\nL’app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nRaccoglie in un posto solo la documentazione del settore SAF e funziona anche senza connessione.\n\n📘 Manuali: SAF Basico, Avanzato e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda. Ogni manovra o materiale si apre alla pagina giusta.\n📄 Circolari: divise per sezione (riferimento SAF, sicurezza nelle operazioni, rischio acquatico, colonne mobili), con allegati e collegamenti tra le circolari correlate.\n🔧 Bugiardini: libretti d’uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede dei manuali.\n📚 Altri manuali: SFA rischio acquatico, Vademecum TEC, TAS 1 topografia e TPSS primo soccorso sanitario, solo in consultazione.\n\nFunzioni utili\n🔍 Ricerca per parola o per argomento o per normativa EN, con filtri per specializzazione SAF.\n📏 Normative EN con breve spiegazione e materiali collegati\n🎒 Controllo sacche SAF Basico con riepilogo da inviare\n🔎 Possibilità di condivisione di tutti i documenti.\n\nPer installarla apri il link in Chrome, poi menu ⋮ → “Installa app”:\nhttps://saf-vvf.github.io/saf-documenti/\n\nIniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF.\n\nSupporto: Francesco Franz – Comando di Pordenone · vvfpordenonesaf@gmail.com"
+ "condivisione": "SAF – Supporto Operatore\nL’app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nRaccoglie in un posto solo la documentazione del settore SAF e funziona anche senza connessione.\n\n📘 Manuali: SAF Basico, Avanzato e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda. Ogni manovra o materiale si apre alla pagina giusta.\n📄 Circolari: divise per sezione (riferimento SAF, sicurezza nelle operazioni, rischio acquatico, colonne mobili), con allegati e collegamenti tra le circolari correlate.\n🔧 Bugiardini: libretti d’uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede dei manuali.\n📚 Altri manuali: SFA rischio acquatico, Vademecum TEC, TAS 1 topografia e TPSS primo soccorso sanitario, solo in consultazione.\n\nFunzioni utili\n🔍 Ricerca per parola o per argomento o per normativa EN, con filtri per specializzazione SAF.\n📏 Normative EN con breve spiegazione e materiali collegati\n🎒 Controllo sacche SAF Basico con riepilogo da inviare\n🔎 Possibilità di condivisione di tutti i documenti.\n\nPer installarla apri il link in Chrome, poi menu ⋮ → “Installa app”:\nhttps://saf-vvf.github.io/saf-documenti/\n\nIniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF.\n\nSupporto: Francesco Franz – Comando di Pordenone · vvfpordenonesaf@gmail.com",
+ "glossario": [
+  {
+   "t": "ABS",
+   "d": "Acrilonitrile-Butadiene-Stirene. É un polimero termoplastico che possiede buone proprietà meccaniche di durezza e resistenza all’impatto, utilizzato per creare oggetti leggeri e rigidi.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Acciaio legato",
+   "d": "É un particolare acciaio in cui sono presenti altri elementi (nichel, cromo, molibdeno, ecc.) oltre a ferro e carbonio, con il fine di migliorarne le caratteristiche chimico-fisiche.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Altezza del manto nevoso",
+   "d": "Altezza misurata verticalmente rispetto al pendio, dal terreno alla superficie.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Altezza totale della neve fresca",
+   "d": "Altezza della neve fresca calcolata per un determinato periodo (per esempio: somma complessiva dell’altezza di neve fresca caduta in tre giorni)",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Ancoraggio",
+   "d": "Sistema di collegamento composto da funi, fettucce e connettori che permette di scaricare sui punti di attacco le sollecitazioni trasmesse dalle corde.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Antipanico",
+   "d": "Funzione di blocco del dispositivo impiegato nella discesa su fune attivata da una trazione eccessiva, anche istintiva, della leva di regolazione.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Antiscivolo (da neve)",
+   "d": "Particolari attrezzature da porsi sotto le suole delle calzature non preparate, vincolate alla tomaia, munite di piccole punte in acciaio, punte al vidima, piccole catene, le quali possono essere distribuite su tutta la superficie della suola o solo su parte di questa a secondo dei modelli.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Aramidica",
+   "d": "Fibre ottenute per lavorazione di poliammidi aromatiche. Queste fibre sono caratterizzate da una elevata resistenza a trazione (paragonabile a quella delle fibre di carbonio e circa 10 volte superiore a quella dell’acciaio), da un basso peso specifico e soprattutto da un’elevata resistenza a taglio e al calore.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Area o zona di distacco",
+   "d": "Zona nella quale inizia il movimento della valanga.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Assestamento",
+   "d": "Diminuzione dello spessore del manto nevoso per effetto del metamorfismo distruttivo, con conseguente aumento della densità e della resistenza della neve.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Assuccare",
+   "d": "Stringere bene un nodo.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Attacco (punto di)",
+   "d": "Ogni singolo punto su cui viene scaricato il carico trasmesso dall’ancoraggio. Può essere naturale (alberi, clessidre di roccia, massi, pilastri di cemento, travi metalliche, automezzi, ecc.) od artificiale (tasselli ad espansione, tasselli auto-perforanti, tasselli a collante chimico, viti autofilettanti, ecc.).",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Attacco SDS-plus / SDS-max",
+   "d": "Designa due tipi standard di innesto per gli utensili, quali, ad esempio, punte elicoidali o scalpelli per l’applicazione agli elettroutensili (tassellatore).",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Attrito radente",
+   "d": "É dovuto allo strisciamento tra due superfici che rimangono a contatto mentre scorrono l’una rispetto all’altra.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Attrito volvente",
+   "d": "Elemento che contribuisce alla dissipazione di energia cinetica quando un corpo ruota su un asse.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Aumento della resistenza in uno strato di neve",
+   "d": "Rafforzamento dei legami tra i cristalli (quantità e/o qualità dei punti di legame) aumentano che permette la trasmissione tra gli stessi di forze maggiori.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Base di parete rocciosa",
+   "d": "Parte inferiore di una parete rocciosa che spesso si prolunga in un pendio di detriti; come regola generale, questo implica la presenza di un cambio di pendenza, più o meno marcato che riduce l’inclinazione del pendio sottostante; il piede di una parete rocciosa identifica frequentemente l’inizio di un pendio estremamente ripido o ripido.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Brina di superficie",
+   "d": "Cristalli di ghiaccio trasparenti, a forma piana a foglia, che si formano per sublimazione sulla superficie fredda della neve per trasferimento di vapore acqueo verso la superficie che si raffredda al di sotto della temperatura ambiente per irraggiamento.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "C.N.VV.F.",
+   "d": "Corpo Nazionale Vigili del Fuoco.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "C.R.",
+   "d": "Carico di rottura",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Cambio assetto (della barella)",
+   "d": "Passare da una configurazione della barella orizzontale ad una configurazione verticale, o viceversa.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Cambio di pendenza",
+   "d": "L.uogo dove l’inclinazione del pendio aumenta in modo sensibile; costituisce un luogo privilegiato per l’accumulo di neve ventata",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Canalone",
+   "d": "Impluvio ripido e stretto, generalmente situato in prossimità di creste e delimitato da rocce nude; contiene spesso detriti rocciosi ed è un luogo privilegiato per l’accumulo di neve ventata.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Capo morto",
+   "d": "Spezzone di corda inutilizzato che avanza quando si confeziona un nodo all’estremità di una corda.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Cartucciera spit",
+   "d": "Contenitore a forma di cartucciera per il trasporto degli SPIT-roc.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Conca",
+   "d": "Lieve depressione, dalla forma arrotondata o allungata, ubicata su un terreno pianeggiante o su di un pendio; luogo privilegiato per l’accumulo di neve trasportata dal vento.",
+   "m": "man-negh-2025",
+   "p": 223
+  },
+  {
+   "t": "Condensazione",
+   "d": "Temperatura in cui un mc d’aria ha raggiunto l’umidità assoluta, oltre il quale inizia il fenomeno della condensazione, cioè il passaggio delle molecole d’acqua dallo stato aeriforme allo stato liquido in piccole goccioline in sospensione visibili come vapore.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Connettore tipo B",
+   "d": "CE EN362 EN 12275 Connettore di base; A chiusura automatica di resistenza adeguata all’utilizzo un sistema di assicurazione.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Connettore tipo H",
+   "d": "EN 362 tipo H connettore HMS (acronimo dal tedesco Halbmastwurfsicherung che significa assicurazione con mezzo barcaiolo); Connettore a base larga a forma di pera che permette di “ribaltare il nodo” (il mezzo barcaiolo si ribalta quando si inverte il senso di scorrimento della corda). La parte stretta invece consente una buona stabilità del moschettone stesso, che si traduce in una manovrabilità maggiore del nodo.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Connettore tipo K",
+   "d": "EN 362 12275 tipo K; Connettore con chiusura automatica a doppio movimento destinato principalmente a collegare l’operatore a un sistema di ancoraggi da via-ferrata (Klettersteig). Ha carichi di rottura generalmente più alti per le maggiori sollecitazioni che può subire.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Connettore tipo M",
+   "d": "CE EN 362 connettore multiuso.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Connettore tipo Q",
+   "d": "EN 362 tipo Q; Connettore con chiusura a vite per connessioni semi-permanenti; Connettore nel quale la chiusura avviene mediante un “dito” avvitabile che in posizione avvitata partecipa a sostenere il carico. (maglia rapida).",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Connettore tipo X",
+   "d": "CE EN 12275 connettore di forma ovale, ideale per l’utilizzo con carrucole.",
+   "m": "man-basico-2021",
+   "p": 254
+  },
+  {
+   "t": "Contrappeso",
+   "d": "Tecnica che aiuta un operatore a sollevare carichi sfruttando il proprio peso.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Corda intera",
+   "d": "La corda intera (o singola) e’ certificata EN 892 per essere usata singolarmente come unica corda che unisce i componenti della cordata. Le corde intere superano test che garantiscono che ogni singola corda è in grado di trattenere le cadute peggiori (con alto fattore di caduta) e che tramite il proprio allungamento garantiscano una decelerazione che eviti alte sollecitazioni al resto dell’attrezzatura. Simbolo di riconoscimento un numero 1 all’interno di un cerchio.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Cornice di neve",
+   "d": "Accumulo di neve ventata, depositata mediante trasporto eolico della neve formante una struttura aggettante, conica rivolta verso il versante sottovento.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Costone",
+   "d": "Zona elevata, lineare e orientata verso il fondovalle nettamente distinta dall’ambiente circostante.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Cresta",
+   "d": "Stretta linea che divide due versanti di una montagna con esposizioni diverse.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Crinale",
+   "d": "Cresta di una montagna, lunga e marcata, un crinale si sviluppa sempre in rilievo rispetto al terreno circostante e lega sovente più cime fra di loro.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Crosta",
+   "d": "Strato del manto nevoso molto compatto, formatosi in seguito ai processi di fusione e rigelo o per azione del vento.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Crosta da rigelo",
+   "d": "Si forma per rigelo dell’acqua liquida contenuta in uno strato di neve bagnata, con conseguente aumento della resistenza.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Crosta non portante",
+   "d": "Crosta in superficie con scarsa capacità portante, che si rompe al passaggio di una persona (anche con sci o racchette da neve).",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Cuscinetto volvente",
+   "d": "Detto anche cuscinetto a rotolamento. La rotazione è facilitata dall'interposizione di sfere o rulli tra la parte fissa (gabbia) e il perno.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "D. Lgs 81/2008",
+   "d": "Testo unico che disciplina la salute e la sicurezza sul lavoro.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "D.P.I.",
+   "d": "Dispositivi di Protezione Individuale.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Daisy Chain",
+   "d": "É un dispositivo (longe) utilizzato in alpinismo e costituito da un anello di fettuccia cucito in modo tale da formare diverse asole.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "daN",
+   "d": "Deca Newton cioè 10 N.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Dimensioni degli accumuli di neve",
+   "d": "Accumulo piccolo: 5-20 cm; Accumulo medio: 20-50 cm; Accumulo grande: > 50 cm.",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Discensore con puleggia",
+   "d": "Tipologia di discensore in cui è facilitata l’operazione di sollevamento grazie alla presenza di una puleggia con cuscinetto a sfera su cui scorre la corda.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Distacco a distanza",
+   "d": "Distacco a distanza di una valanga di neve a lastroni; la persona che ne provoca il distacco non si trova nel perimetro del lastrone che si mette in movimento (tuttavia può essere travolto e sepolto dalla neve che si è staccata al di sopra di lui).",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Distacco provocato di valanghe",
+   "d": "Distacco di valanghe causato da carichi supplementari sul manto nevoso (per esempio: le onde d’urto in caso di esplosione, passaggio di macchine, di persone, etc.).",
+   "m": "man-negh-2025",
+   "p": 224
+  },
+  {
+   "t": "Distacco spontaneo di valanga, valanga spontanea",
+   "d": "Distacco spontaneo di una valanga che avviene senza influenza esterna sul manto nevoso",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Doppino",
+   "d": "Capo di corda in uscita dal nodo.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Dorsale",
+   "d": "Catena o gruppo montuoso principale o secondario con specifiche indicazioni nel bollettino; espressione usata anche nell’accezione di zona tondeggiante e allungata, più elevata rispetto al terreno circostante",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Dyneema",
+   "d": "É una fibra sintetica di polietilene. La sua caratteristica principale è la grande resistenza meccanica alla trazione.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "EN",
+   "d": "Sigla che identifica le norme elaborate dal CEN (Comité Européen de Normalisation), Organismo di Normazione Europea. I Paesi membri CEN devono obbligatoriamente recepire le norme EN (nel caso dell’Italia esse diventano UNI EN). Queste norme servono ad uniformare la normativa tecnica in tutta Europa, quindi non è consentita l’esistenza a livello nazionale di norme che non siano in armonia con il loro contenuto.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Enziopatogenetico",
+   "d": "Studio delle cause di una malattia e dei loro meccanismi di insorgenza e di sviluppo.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Effetto pendolo",
+   "d": "Spostamento orizzontale di un operatore rispetto la verticale in fase di caduta.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Falesia",
+   "d": "Scarpata molto ripida dovuta all’incessante azione erosiva del mare sulla costa rocciosa.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Falsa forcella",
+   "d": "Elemento per la realizzazione di ancoraggi su strutture artificiali orizzontali, rami di alberi ecc.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Fasce altitudinali",
+   "d": "Fasce ubicate a quota paragonabile, definite in funzione della loro distanza verticale dal livello del mare (con una precisione di ± 100 m di quota). alta quota: da 2000 a 3000 m s.l.m; media quota: da1000 a 2000 m s.l.m; bassa quota: al di sotto di 1000 m s.l.m.",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Fattore di caduta",
+   "d": "È il rapporto tra l’altezza della caduta e la lunghezza della corda.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Formazione di fessure/crepe",
+   "d": "In un manto nevoso fragile si possono formare delle fenditure visibili che indicano la possibile presenza di tensioni all’interno del manto nevoso.",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Forra",
+   "d": "Profonda gola a pareti verticali, assai ravvicinate, dovuta in genere a una forte erosione regressiva esercitata dall’acqua che vi scorre dentro.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Gassa",
+   "d": "Anello fatto con una corda mediante un nodo che non strozza.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Girello pivotante",
+   "d": "Dispositivo girevole che permette la connessione tra due o più elementi favorendo la libertà di movimento.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Gradiente termico",
+   "d": "Rapporto tra la differenza di temperatura misurata in due punti del manto nevoso, posti sulla stessa verticale, e la distanza tra i punti di misurazione. il valore del gradiente termico regola i metamorfismi del manto nevoso e le conseguenti trasformazioni dei cristalli e dei grani.",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Guidafune",
+   "d": "Sistema che consente, in alcuni verricelli, il corretto allineamento con il sistema di recupero (es. tamburo).",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Inclinazione del pendio",
+   "d": "Poco ripido: meno di 30°; Ripido: da 30° a 35°; Molto ripido: da 35° a 40° ; Estremamente ripido: più di 40°.",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Intensità del vento",
+   "d": "Debole: 0-20 km/h; Moderato: 20-40 km/h; Forte: 40-60 km/h; Molto forte: 60-100 km/h; uragano: > 100 km/h.",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "IP 67",
+   "d": "Marcatura internazionale che classifica e valuta il grado di protezione, fornito da involucri, contro l'intrusione di particelle solide e l'accesso di liquidi. La prima cifra, il numero “6”, indica il grado di protezione totale contro l’ingresso di polveri; la seconda cifra, il numero “7”, indica che lo strumento è adatto ad un’immersione in acqua per un tempo di 30 minuti ad un metro di profondità.",
+   "m": "man-avanzato-2023",
+   "p": 199
+  },
+  {
+   "t": "Irraggiamento",
+   "d": "Emissione di radiazioni termiche a onda lunga (infrarosso) dalla superficie del manto nevoso verso l’atmosfera. in assenza di copertura nuvolosa, la superficie del manto nevoso si raffredda notevolmente fino ad una temperatura inferiore a quella dell’aria (da qualche grado fino a 20° C).",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "ISO",
+   "d": "Identifica l’Organizzazione Internazionale per la normazione; il termine deriva dal greco e significa \"uguale\". É la più importante organizzazione a livello mondiale per la definizione di norme tecniche. Il termine ISO viene utilizzato impropriamente come acronimo di “International Organization for Standardization”.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Kevlar",
+   "d": "É una fibra sintetica aramidica. La sua caratteristica principale è la grande resistenza meccanica alla trazione e al calore.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "KN",
+   "d": "Kilo Newton cioè 1000 N.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Lamella di ghiaccio",
+   "d": "Strato sottile di ghiaccio formatosi all’interno del manto nevoso per effetto della pioggia o in seguito al processo di fusione e rigelo della neve; in esso le forme dei singoli grani non sono più riconoscibili.",
+   "m": "man-negh-2025",
+   "p": 225
+  },
+  {
+   "t": "Larghezza della frattura (nel caso di valanga di neve a lastroni)",
+   "d": "Distanza massima tra i limiti laterali della superficie di frattura.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Lasco",
+   "d": "Corda non tesa, allentata anche di alcuni metri.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Lifeline",
+   "d": "Sistema di sicurezza deputato all’autoassicurazione degli operatori durante le manovre.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Limite del bosco",
+   "d": "Zona limite definita in base al clima e in base alla presenza del bosco, in corrispondenza della quale il bosco stesso può avere ancora una funzione di protezione efficace contro le valanghe. In Italia: Alpi occidentali: 2000-2200 m; Alpi orientali: 1800-1900 m; Appennini: 1700-1800 m.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Limite dell’innevamento",
+   "d": "Limite (espresso in metri al di sopra del livello del mare) tra le zone coperte di neve e le zone non innevate; il limite dell’innevamento può variare in funzione dell’esposizione.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Limite della nevicata",
+   "d": "Altitudine sul livello del mare in corrispondenza della quale le precipitazioni cadono prevalentemente sotto forma di neve che si deposita al suolo; tale limite si colloca in genere 300 m al di sotto della quota dello zero termico, può anche raggiungere i 600 m al di sotto della quota dello zero termico, in caso di precipitazioni abbondanti e/o entro valli chiuse.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Longe",
+   "d": "Dispositivo di protezione individuale utilizzato in alpinismo, arrampicata e speleologia, solitamente costituito da uno spezzone di corda o una fettuccia eventualmente divisi in più rami, vincolati all’imbrago ed a uno o più moschettoni.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Lontano dal crinale, pendio aperto",
+   "d": "Zona che non è direttamente collegata con il crinale. spiegazione più dettagliata: questa zona corrisponde spesso al passaggio da un terreno estremamente ripido a uno ripido; i tratti ripidi e i piccoli rilievi che non sono in relazione diretta con il crinale fanno ugualmente parte di questa zona. le aree prossime al crinale e quelle lontane dal crinale non sono separate nettamente le une dalle altre; il limite tra le due deve essere considerato come una zona di transizione.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Lumen",
+   "d": "Unità di misura del flusso luminoso, ovvero la quantità totale di luce emessa da una sorgente luminosa in tutte le direzioni.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Lunghezza della frattura (nel caso di valanga di neve a lastroni)",
+   "d": "Lunghezza di un lastrone, misurata dall’estremità superiore della zona di rottura fino all’estremità inferiore della zona di distacco (al piede del lastrone).",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Lunghezza della valanga",
+   "d": "Lunghezza totale di una valanga, misurata dal punto più alto della frattura fino al punto estremo del deposito.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Luogo pericoloso (in caso di valanga)",
+   "d": "Luogo dove persone o beni possono essere travolti da una valanga attenzione: questo termine è generalmente utilizzato nel bollettino valanghe nell’accezione seguente: luogo in cui il sovraccarico prodotto da sciatori o alpinisti può provocare il distacco di una valanga.",
+   "m": "man-negh-2025",
+   "p": 226
+  },
+  {
+   "t": "Manchard",
+   "d": "Nodo auto bloccante.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Mancorrente o corrimano",
+   "d": "Corda sub-orizzontale sistemata per aiutarsi nella progressione in quota o assicurarsi per evitare una possibile caduta.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
+   "t": "Manto nevoso instabile",
+   "d": "Un manto nevoso è instabile quando un sovraccarico può provocare una frattura all’interno dello stesso.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Manto nevoso portante",
+   "d": "Manto nevoso consolidato in superficie e che sopporta il peso di una persona (con o senza sci/snowboard).",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "MBB",
+   "d": "Mezzo barcaiolo bloccato.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "MBRB",
+   "d": "Mezzo barcaiolo rinforzato bloccato.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Moulinet",
+   "d": "Chiamata anche arrampicata con corda dall’alto è un metodo di assicurazione utilizzato in arrampicata su mono tiro. Nella moulinet la corda va dal compagno che assicura dalla base della via, alla sosta in cima alla via, per poi ridiscendere fino all’arrampicatore assicurato.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "N",
+   "d": "Newton è l’unità di misura della forza; fa parte delle unità di misura derivate del Sistema internazionale di unità di misura (SI). Viene definita come la quantità di forza necessaria per imprimere a un chilogrammo di massa un’accelerazione di un metro al secondo quadrato.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Nevato o firn",
+   "d": "Neve degli anni precedenti, che spesso si trova sui ghiacciai, fortemente trasformata e compattata per i numerosi cicli di fusione e rigelo, oltre che per la pressione esercitate dalle masse di neve accumulatesi.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve fresca / neve recente",
+   "d": "Neve poco trasformata e poco compattata, risalente a un periodo di precipitazione attuale o piuttosto recente. il periodo corrispondente è indicato nel bollettino valanghe.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve molto bagnata",
+   "d": "Neve con alto tenore d’acqua, a temperatura di 0°c. l’acqua è visibile e la si può estrarre comprimendo la neve.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve pallottolare",
+   "d": "Forma particolare di neve fresca costituita da cristalli brinati, ovvero da cristalli sulla cui facce si sono congelate, durante il processo di crescita, le gocce d’acqua sopraffusa presenti nella nube.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve primaverile",
+   "d": "Neve umida, formata da policristalli grandi, che si forma soprattutto in primavera per alternanza di fusione e rigelo negli strati superficiali del manto nevoso.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve umida",
+   "d": "Neve con basso tenore d’acqua, a temperatura di 0°c la cui l’acqua non esce comprimendola.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve vecchia",
+   "d": "Parte del manto nevoso che, diversamente dalla neve fresca, si è accumulato durante le nevicate precedenti. la neve vecchia è costituita da cristalli trasformati.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve ventata",
+   "d": "Neve trasportata ed accumulata ad opera del vento.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Neve ventata, crosta da vento",
+   "d": "Strato di neve sulla superficie del manto nevoso fortemente compattato dall’azione del vento.",
+   "m": "man-negh-2025",
+   "p": 227
+  },
+  {
+   "t": "Nodi appaiati",
+   "d": "In un sistema di calata/recupero in cui vengono giuntate entrambe le corde, i rispettivi nodi si trovano l’uno di fianco all’altro.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Nodo bulino",
+   "d": "Chiamato anche gassa d’amante, nodo di Bulin, nodo bolina, cappio del bombardiere, o semplicemente gassa, è un nodo ad occhiello. Questo tipo di nodo può essere eseguito su qualsiasi tipo di corda. Nodo più facile da disfare del nodo a otto. Attenzione, chiave di arresto obbligatoria.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Nodo di accorciamento",
+   "d": "Nodo che ha la funzione di accorciare una corda lasca o lunga anche alcuni metri senza necessariamente tagliarla.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Nuclei di condensazione",
+   "d": "Polveri microscopiche in sospensione a bassa temperatura.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Occhiello o asola",
+   "d": "Anello chiuso fatto con la corda.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Paranco ( o taglia)",
+   "d": "Macchina per sollevare pesi, caratterizzata da un bozzello fisso e uno mobile nei quali sono imperniate delle carrucole, nelle cui gole si avvolge una fune.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Passo/valico",
+   "d": "Zona di passaggio tra due vallate. il restringimento nella zona del valico determina un aumento della velocità del vento, fenomeno che provoca la formazione di importanti accumuli di neve ventata.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "PE",
+   "d": "Poliuretano Espanso",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Pendio sopravento",
+   "d": "Pendio direttamente esposto all’azione del vento, rivolto verso la direzione da cui il vento spira, e dove la forza dello stesso è tale, nella maggior parte dei casi, da erodere/trasportare la neve.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Pendio sottovento",
+   "d": "Pendio riparato rispetto all’azione diretta del vento, e su cui la neve ventata si deposita formando i lastroni. Vedi anche: pendio sottovento, pendio al riparo dal vento.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Pescante",
+   "d": "In un sistema di trasporto tramite teleferica, qualora sia necessaria una movimentazione verticale del carico, la corda adibita a questa funzione assume il nome di “pescante”.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Pettorale",
+   "d": "Nel linguaggio comune si intende la parte superiore del dispositivo di presa del corpo.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Piano di manovra",
+   "d": "Superficie ove si svolge prevalentemente la manovra e in cui sono collocate, di norma, le attrezzature complesse. Tale area di manovra è assimilabile al piano di calpestio.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Pianta spit",
+   "d": "Utensile utilizzato, in combinazione ad un martello, per infiggere lo Spit-roc nella roccia.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Poliammide",
+   "d": "Materiale sintetico, brevettato negli anni 30 conosciuto con il nome di Nylon. Prodotto in fili molto sottili e con una struttura elastica. Viene impiegato nella costruzione di corde sia dinamiche che semistatiche.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Policarbonato",
+   "d": "É un polimero termoplastico (PC) utilizzato per le sue particolari proprietà di trasparenza, resistenza termica e meccanica, proprietà elettriche e durezza.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "POS",
+   "d": "Procedure Operative Standard.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Prusik",
+   "d": "Nodo auto bloccante.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Quantità di neve fresca",
+   "d": "Quantità neve fresca accumulatasi nelle ultime 24 ore.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Quota dello zero termico",
+   "d": "Altitudine al di sopra della quale la temperatura dell’aria nella libera atmosfera è inferiore a 0°C.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Radiazione",
+   "d": "Trasporto di energia sotto forma di onde elettromagnetiche; si distingue tra radiazione a onde corte (luce visibile) e radiazione a onde lunghe (radiazione termica).",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Radiazione - irraggiamento",
+   "d": "Irraggiamento che interessa il manto nevoso; la radiazione a onde corte (luce visibile) è riflessa per circa il 90% a seconda del tipo di neve; la rimanente parte riscalda i primi cm del manto nevoso; le radiazioni a onda lunga (radiazione termica) sono trattenute dal manto nevoso praticamente al 100%.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Resistenza interna della neve",
+   "d": "Capacità di trasmettere le forze all’interno della struttura dei cristalli di uno strato di neve; è legata alla quantità e alla qualità dei legami tra i cristalli stessi.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Riduzione della resistenza in uno strato di neve",
+   "d": "I legami tra i cristalli si indeboliscono o si annullano e questo comporta una diminuzione della capacità di trasmettere le forze tra gli stessi.",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Risalita in artificiale",
+   "d": "Tecnica di progressione verticale verso l’alto che consente, tramite idonee attrezzature, di movimentarsi in sicurezza ove non ci sono ne appigli ne appoggi.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "SAF",
+   "d": "Speleo Alpino Fluviale.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Saltazione",
+   "d": "Spostamento della neve ad opera del vento sulla superficie del manto nevoso (la visibilità orizzontale non è del tutto impedita).",
+   "m": "man-negh-2025",
+   "p": 228
+  },
+  {
+   "t": "Scivolamento o scaricamento",
+   "d": "Piccolo scaricamento di neve che normalmente non può seppellire una persona ma può spingerla oltre un dirupo relativamente poco pericolosa per la persone lunghezza<50 m,volume<100 mc.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Scivolamento per reptazione",
+   "d": "Quando la velocità di slittamento (o reptazione) aumenta nettamente si parla di scivolamento per reptazione (vedere “slittamento”); questo tipo di distacchi sono possibili a qualsiasi ora del giorno e della notte",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Simmetria esagonale",
+   "d": "E’ dovuta alla composizione della molecola d’acqua H2O che si dispone orientata come un dipolo con gli atomi di H disposti con una angolazione di 120° circa rispetto all’O, così facendo influisce sui collegamenti delle altre molecole che si dispongono secondo la figura esagonale crescendo sui tre assi (spigoli, lati, e asse verticale), generando placchette, stelle, aghi, in relazione anche con la temperatura e umidità.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Slittamento",
+   "d": "Movimento lento verso valle del manto nevoso (da pochi millimetri fino a qualche metro al giorno), favorito da terreni a ridotta scabrosità (erbe lunghe, placche rocciose) oppure da terreni umidi; questo movimento può creare delle fessure o delle aperture nel manto nevoso a forma di “bocca di pesce”.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Sospendita",
+   "d": "Presidio per sollevamento di barelle su linee aeree e teleferiche.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Sospendita",
+   "d": "Dispositivo in materiale tessile utilizzato per la sospensione, generalmente orizzontale, della barella. Può essere dotata di fibbie di regolazione e consente il collegamento alla corda del sistema di recupero.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Sospensione turbolenta",
+   "d": "Abbondante quantità di neve trasportata dal vento sul manto nevoso (la visibilità orizzontale viene impedita).",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Sovraccarico",
+   "d": "A) debole sovraccarico: sciatore o snowboarder che effettua curve dolci, che non cade; gruppo che rispetta le distanze di sicurezza (minimo 10 m); escursionista con racchette da neve. a) forte sovraccarico: due o più sciatori o snowboarder che non rispettano le distanze di sicurezza; mezzo battipista, esplosione; escursionista a piedi.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Spallacci",
+   "d": "Riferiti alla barella, sono i dispositivi, necessariamente imbottiti, utili al trasporto a spalla. Sono inseriti, rispettivamente, due alla testa e due ai piedi della stessa.",
+   "m": "man-avanzato-2023",
+   "p": 200
+  },
+  {
+   "t": "Spessore della frattura (nel caso di valanga di neve a lastroni)",
+   "d": "Spessore del manto nevoso (misurato perpendicolarmente al pendio) sulla linea di frattura della valanga.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Spira",
+   "d": "Ciascuno degli avvolgimenti che compongono il nodo, da non confondere con ”anello” o ”asola”.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Spit fix",
+   "d": "Detto anche comunemente FIX, è un tassello ad espansione nato nell'ambito dell'edilizia e utilizzato come punto di ancoraggio. È composto da quattro elementi: barra filettata con estremità conica d’espansione, fascetta metallica che ricopre la parte conica, rondella e dado di fissaggio.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Spit-roc",
+   "d": "Detto anche comunemente SPIT, è un tassello ad espansione autoperforante nato nell'ambito dell'edilizia e utilizzato come punto di ancoraggio. É composto da due elementi: un cilindro cavo con estremità dentata e foro parzialmente filettato, un perno tronco-conico per provocarne l’espansione.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Stabilità del manto nevoso",
+   "d": "Capacità del manto nevoso di resistere alle sollecitazioni esterne (resistenza interna); la stabilità è determinata dalle resistenze e dalle tensioni proprie di ciascuno strato di neve.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Staticizzare",
+   "d": "Nella terminologia comune si utilizza per indicare la trasformazione di un ancoraggio “dinamico” in “statico” tramite l’inserimento di idonei nodi in determinate posizioni.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Stato sopraffuso",
+   "d": "Fenomeno della sopraffusione: mentre la fusione si ha tutte le volte che la temperatura raggiunge il punto di fusione, può accadere che una goccia d’acqua raffreddandosi si mantenga allo stato liquido anche al di sotto della temperatura di solidificazione. L’acqua può essere in questo stato anche a -12°C. in ambiente non inquinato da polveri ed in quiete assoluta solidificando improvvisamente se questo stato viene perturbato.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Strati deboli/fragili",
+   "d": "Strati del manto nevoso la cui resistenza è bassa a tal punto che si possono produrre o poi propagarsi delle fratture tra i legami dei cristalli; gli strati tipicamente deboli sono: brina di superficie inglobata nel manto nevoso, strati interessati da metamorfismo costruttivo, neve fresca a debole coesione ricoperta.",
+   "m": "man-negh-2025",
+   "p": 229
+  },
+  {
+   "t": "Strato di rottura",
+   "d": "Strato del manto nevoso nel quale si è prodotta una rottura nella struttura dei cristalli di neve.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Struttura del manto nevoso",
+   "d": "Successione degli strati del manto nevoso, dove ogni strato si caratterizza per la forma e le dimensioni dei cristalli, durezza, temperatura, contenuto in acqua liquida e densità.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Sublimazione",
+   "d": "Passaggio dallo stato aeriforme allo stato solido.superficie di scorrimento terreno o strato del manto nevoso su cui scorre la valanga dopo il distacco.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "SWL",
+   "d": "Safe Working Load, utilizzato per indicare la portata di un dispositivo. Termine obsoleto sostituito con WLL.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Tassellatore",
+   "d": "Denominazione comune per indicare un utensile perforatore a percussione.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Tassello ad espansione",
+   "d": "Riferito ai Spit-roc e ai Spit-fix, nella fase di infissione del tassello, lo scorrimento tra i due elementi metallici (di cui uno conico) che lo compongono genera una compressione con la roccia che garantisce la tenuta sia ad estrazione che a taglio.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Tensione di vapore",
+   "d": "Pressione relativa dello stato aeriforme sovrastante una superficie. Esso risulta essere: minore sulla superficie ghiacciata rispetto a quella liquida; minore sulle concavità ghiacciate rispetto alle convessità; maggiore sulle gocce d’acqua piccole rispetto a quelle più grandi; maggiore sopra l’acqua calda rispetto a quella fredda; ecc.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Tensioni all’interno del manto nevoso",
+   "d": "Forza sui legami tra i grani all’interno di uno strato di neve, esercitata dal peso della neve o dal movimento degli strati superiori verso valle.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Terreno estremamente ripido",
+   "d": "Un terreno estremamente ripido è caratterizzato da una inclinazione superiore a 40°, dalla vicinanza di creste e dalla conformazione sfavorevole del terreno e della struttura del suolo. per queste ragioni è particolarmente esposto al pericolo di valanghe.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Terreno ripido",
+   "d": "Terreno la cui inclinazione è superiore ai 30°, indipendentemente dalla sua conformazione e dalle sue caratteristiche.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Tirante d’aria",
+   "d": "È la minima distanza da considerare tra l’operatore e un possibile impatto, in modo da garantire l’incolumità in caso di caduta.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Torrentismo",
+   "d": "Sport acquatico che consiste nella discesa a piedi, ma anche con l'ausilio di corde, di strette gole percorse da torrenti.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Trasformazione della neve (metamorfismo)",
+   "d": "Modificazione della forma dei cristalli e della struttura interna del manto nevoso.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Trasporto eolico",
+   "d": "Trasporto della neve ad opera del vento; tale fenomeno inizia ad una velocità di vento di circa 4 ms-1 (circa 15 km/h-1) sulla neve a scarsa coesione e circa 10 ms-1 (35 km/h-1) sulla neve più compatta; spiegazione più dettagliata: l’accumulo di neve ventata cresce al cubo della velocità del vento. se la velocità del vento raddoppia, la quantità di neve ventata aumenta di 8 volte. il processo di accumulo è massimo quando il vento raggiunge 50-80 kmh-1, perché al di là di tale limite la capacità di erosione da parte del vento diminuisce.",
+   "m": "man-negh-2025",
+   "p": 230
+  },
+  {
+   "t": "Traversi",
+   "d": "Tragitto orizzontale provvisto di una corda, ancorata in più punti lungo il tragitto, su cui è possibile assicurarsi contro un’eventuale caduta.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "U.I.A.A.",
+   "d": "Unione Internazionale Associazioni Alpinistiche.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Umidità assoluta",
+   "d": "Massima quantità di molecole d’acqua che possono rimanere in sospensione per unità di volume alla temperatura e pressione locali.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Umidità relativa",
+   "d": "Quantità di molecole d’acqua in sospensione per unità di volume alla temperatura e pressione locali.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga",
+   "d": "Movimento rapido di una massa nevosa, con volume superiore a 100 mc e una lunghezza maggiore a 50 metri.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga di fondo",
+   "d": "Valanga che, nella zona di distacco, scorre a contatto con il terreno.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga di fondo con detriti",
+   "d": "Valanga primaverile, pesante e bagnata, che al suo passaggio scalza localmente la parte superficiale del terreno e per questo contiene terra e pietre.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga di fondovalle",
+   "d": "Grande valanga che raggiunge il fondovalle.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga di neve a debole coesione",
+   "d": "Valanga (di neve asciutta o bagnata) con distacco in un punto e che si sviluppa con la tipica forma a pera.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga di neve a lastroni",
+   "d": "Valanga provocata dalla rottura di un lastrone; la valanga di neve a lastroni è caratterizzata da una frattura lineare perpendicolare al pendio.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga di neve bagnata",
+   "d": "Valanga composta da neve bagnata. si muove in genere più lentamente di una valanga di neve asciutta e si sviluppa di conseguenza su una distanza più ridotta; in ogni caso, a causa della sua alta densità (massa volumica), esercita forti pressioni sugli ostacoli che incontra; talora è identificata come valanga primaverile.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Valanga di superficie",
+   "d": "Valanghe che nella zona di distacco scorre sopra uno strato di neve.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Valanga grande",
+   "d": "Percorre i terreni a ridotta inclinazione (nettamente inferiori a 30°) per una distanza superiore a 50 m e può raggiungere il fondovalle può seppellire e distruggere il vagone di un treno, un automezzo di grandi dimensioni, vari edifici o una parte di un bosco lunghezza>1000 m, volume>10000 mc.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga media",
+   "d": "Su un pendio ripido (più di30°) raggiunge il fondo del pendio può seppellire e distruggere un’automobile, danneggiare un camion, distruggere una piccola casa o piegare alcuni alberi lunghezza<1000 m, volume<10000 mc.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga nubiforme",
+   "d": "Valanga (per lo più a lastroni) di neve a grani fini, asciutta che forma una mescolanza di aria e di neve e che si solleva totalmente o parzialmente al di sopra del suolo, producendo grandi nuvole di polvere di neve; raggiunge velocità nell’ordine di 100-300 km/h e può provocare delle onde di pressione dell’aria che provocano danni anche al di fuori della zona di accumulo.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Valanga piccola",
+   "d": "Si fermo su un pendio ripido (con inclinazione maggiore di 30°) può seppellire, ferire o uccidere una persona lunghezza<100 m, volume<1000 mc.",
+   "m": "man-negh-2025",
+   "p": 231
+  },
+  {
+   "t": "Valanga radente",
+   "d": "Diversamente da quanto avviene per le valanghe nubiformi, la maggior parte della massa nevosa si muove a contatto con la superficie di scorrimento.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Valanga spontanea",
+   "d": "Distacco spontaneo di valanghe.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Verricello",
+   "d": "Dispositivo utilizzato per lo spostamento orizzontale di un carico; differente del paranco, che svolge la funzione di sollevamento e abbassamento verticale.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Via di comunicazione esposta",
+   "d": "Parte di una strada, di una linea ferroviaria o di un’altra via di comunicazione particolarmente esposta alle valanghe.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Via di comunicazione esposta (in prossimità di un pendio)",
+   "d": "Via di comunicazione che attraversa un pendio o situata alla base di esso, ed esposta al pericolo di valanghe.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Via ferrata",
+   "d": "É un insieme di strutture e attrezzature realizzate artificialmente su una parete rocciosa per facilitarne la salita in sicurezza.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Vie Ferrate",
+   "d": "Insieme di strutture e attrezzature artificiali realizzate su una parete rocciosa per facilitarne la salita in sicurezza.",
+   "m": "man-basico-2021",
+   "p": 256
+  },
+  {
+   "t": "Winch",
+   "d": "Termine inglese di “verricello”, identifica esclusivamente quello destinato alla manovra delle vele nelle imbarcazioni.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "WLL",
+   "d": "Working Load Limit, ovvero “carico di lavoro massimo”; indica la portata di sollevamento di dispositivi quali, ad esempio, catene, maglie rapide, anelli. Carico più basso rispetto a quello di rottura indicato, invece, con MBL (Minimum Breaking Load) o MBS (Minimum Breaking Strength). Il WLL deriva dal MBS (o MBL) diviso un coefficiente di sicurezza.",
+   "m": "man-avanzato-2023",
+   "p": 201
+  },
+  {
+   "t": "Zone a quota molto alta",
+   "d": "Zone situate al di sopra dei 3000 m s.l.m.; vi si trovano in particolare gli ambienti glaciali.",
+   "m": "man-negh-2025",
+   "p": 232
+  },
+  {
+   "t": "Zone messe in sicurezza",
+   "d": "Luoghi nei quali sono stati eliminati il pericolo di valanghe o gli altri pericoli tipici dell’ambiente alpino applicando misure di protezione di tipo ingegneristico o attuando il distacco programmato di valangha. S.A.F.",
+   "m": "man-negh-2025",
+   "p": 232
+  }
+ ]
 };
+const FIRSTRUN = (() => { try { return localStorage.getItem('saf-novita') === null && !['saf-levels', 'saf-level', 'saf-gc-dev', 'saf-viewer-hint', 'saf-sacche', 'saf-sacche-img', 'saf-gc-off'].some(k => localStorage.getItem(k) !== null); } catch (e) { return false; } })();
 const D = window.SAFDATA;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -8007,6 +9165,7 @@ function viewSearch(q) {
   if (cap.length) h += `<div class="area"><h3>Informazioni utili (${cap.length})</h3>${list(cap.map(schedaRow))}</div>`;
   if (r.alt.length) h += `<div class="area"><h3>Altri manuali (${r.alt.length})</h3>${r.alt.map(altroCard).join('')}</div>`;
   if (!total && !r.argHit.length) h += `<p class="empty">Nessun risultato nei titoli. Prova con un sinonimo (es. “demoltiplica”, “I'D”, “EN 12841”) o togli il filtro di livello.</p>`;
+  { const w = norm(q).trim(); const gl = (D.glossario || []).filter(g => norm(g.t).includes(w)).slice(0, 6); if (w.length > 2 && gl.length) h += `<div class="area"><h3>Glossario (${gl.length})</h3>${gl.map(glossRow).join('')}</div>`; }
   h += `<div class="area" id="fts" data-q="${esc(q)}"></div>`;
   return h;
 }
@@ -8180,7 +9339,7 @@ function viewNorme(open) {
     const sch = [...new Set(v.sch)].filter(s => lvOk(lvOf(s))), bugs = [...new Set(v.bug)], args = [...new Set(v.arg)];
     const n = sch.length + bugs.length;
     return `<details class="fold" id="n-${k}" style="--fc:#2457c5"${open === k ? ' open' : ''}><summary><span>${esc(normLabel(k))}</span><small>${n}</small></summary>
-      <div class="normbody"><p class="nt">${esc(info.titolo)}</p>${info.spiegazione ? `<p>${esc(info.spiegazione)}</p>` : ''}
+      <div class="normbody"><p class="nt">${esc(info.titolo)}</p>${info.spiegazione ? `<p>${esc(info.spiegazione)}</p>` : ''}<div class="btns" style="margin-top:0"><a class="btn ghost seg" href="${segnalaHref('Normativa ' + normLabel(k) + ' – ' + info.titolo + ' (spiegazione nell\'app)')}">⚑ Segnala</a></div>
       ${sch.length ? `<h4>Schede materiali dei manuali</h4>${list(sch.map(schedaRow))}` : ''}
       ${bugs.length ? `<h4>Bugiardini</h4>${list(bugs.map(bugRow))}` : ''}
       ${args.length ? `<h4>Argomenti</h4>${argChips(args.map(a => a.codice))}` : ''}</div></details>`;
@@ -8193,6 +9352,7 @@ function viewStrumento(id) {
   if (id === 'sacche') return viewSacche();
   if (id === 'calcoli') return viewCalcoli();
   if (id === 'quiz') return viewQuiz();
+  if (id === 'glossario') return viewGlossario();
   return `<div class="card"><div><span class="soon" style="margin:0">${esc(t.stato)}</span></div><h2>${esc(t.titolo)}</h2><p style="margin:0">${esc(t.descrizione)}</p><p class="note" style="margin:0">Questa funzione è in preparazione. Se hai già il materiale (per esempio l'elenco del contenuto delle sacche), mandalo allo sviluppatore dalla pagina Informazioni.</p></div>`;
 }
 
@@ -8322,6 +9482,27 @@ async function ftsRun(q) {
   box.innerHTML = `<h3>Nel testo dei documenti (${tot} pagine in ${res.length} documenti)</h3>` + res.slice(0, 25).map(r => `<details class="fold ftsd" style="--fc:${r.i.c}"><summary><span>${esc(r.i.t)}</span><small>${r.hits.length} pag.</small></summary><div class="list">${r.hits.slice(0, 12).map(p => `<a class="row" href="${pdf(r.u, p)}"><span class="num">p. ${p}</span><span class="t ftss">${ftsSnip(TXT[r.u][p], TXTP[r.u][p], words)}</span><span class="s">${esc(r.i.k)}</span></a>`).join('')}${r.hits.length > 12 ? `<p class="note" style="margin:6px 12px">… e altre ${r.hits.length - 12} pagine: affina la ricerca con più parole.</p>` : ''}</div></details>`).join('') + (res.length > 25 ? `<p class="note">Mostrati i primi 25 documenti su ${res.length}.</p>` : '') + '<p class="note">I documenti scansionati sono stati letti con il riconoscimento automatico del testo: qualche parola può mancare.</p>';
 }
 
+
+/* ===================== GLOSSARIO SAF ===================== */
+const MSIG = {'man-basico-2021': 'Basico', 'man-avanzato-2023': 'Avanzato', 'man-negh-2025': 'NeGh'};
+const glossRow = g => { const m = MAN[g.m]; return `<div class="gl"><b>${esc(g.t)}</b><p>${esc(g.d)}</p><a class="glsrc" href="${pdf(m.url, g.p)}">${esc(MSIG[g.m] || m.titolo)} · pag. ${g.p}</a></div>`; };
+function viewGlossario() {
+  const G = D.glossario || [];
+  const L = [...new Set(G.map(g => norm(g.t)[0].toUpperCase()))];
+  return `<h2>Glossario SAF</h2><p class="note">${G.length} termini dai glossari dei manuali Basico, Avanzato e Neve-Ghiaccio-Valanghe. Tocca la fonte per aprire la pagina del manuale.</p>
+  <input class="skid glq" id="glq" placeholder="Filtra i termini (es. ancoraggio, valanga, WLL)" autocomplete="off">
+  <div class="glidx">${L.map(l => `<a href="#gl-${l}" data-l="${l}">${l}</a>`).join('')}</div>
+  <div id="gllist">${L.map(l => `<h3 class="gll" id="gl-${l}">${l}</h3>` + G.filter(g => norm(g.t)[0].toUpperCase() === l).map(glossRow).join('')).join('')}</div>`;
+}
+function bindGlossario() {
+  const q = document.getElementById('glq'); if (!q) return;
+  document.querySelectorAll('.glidx a').forEach(a => a.onclick = e => { e.preventDefault(); document.getElementById('gl-' + a.dataset.l)?.scrollIntoView({behavior: 'smooth'}); });
+  q.oninput = () => { const w = norm(q.value).trim(); const box = document.getElementById('gllist');
+    if (!w) { box.innerHTML = viewGlossario().split('<div id="gllist">')[1].replace(/<\/div>$/, ''); return; }
+    const r = (D.glossario || []).filter(g => norm(g.t + ' ' + g.d).includes(w)).sort((a, b) => (norm(b.t).includes(w)) - (norm(a.t).includes(w)));
+    box.innerHTML = r.length ? r.map(glossRow).join('') : '<p class="empty">Nessun termine trovato.</p>'; };
+}
+
 /* ===================== CALCOLATORI SAF ===================== */
 function viewCalcoli() {
   return `<h2>Calcolatori SAF</h2>
@@ -8443,17 +9624,17 @@ async function condividiApp() {
 function bindInfoExtra() { const b = document.getElementById('shapp'); if (b) b.onclick = condividiApp; }
 function novitaCheck() {
   const N = D.novita || []; if (!N.length) return;
-  const last = N[0].data; let seen = null;
+  const id = n => n.id || n.data, last = id(N[0]); let seen = null;
   try { seen = localStorage.getItem('saf-novita'); localStorage.setItem('saf-novita', last); } catch (e) { return; }
-  if (!seen) return;           /* primo avvio: nessun messaggio */
-  const nuove = N.filter(n => n.data > seen); if (!nuove.length) return;
+  if (FIRSTRUN) return;  /* primo avvio assoluto: nessun messaggio */
+  const nuove = N.filter(n => !seen || id(n) > seen); if (!nuove.length) return;
   setTimeout(() => {
-    const w = document.createElement('div'); w.id = 'novita';
+    if (!document.body) return; const w = document.createElement('div'); w.id = 'novita';
     w.innerHTML = `<div class="nv"><h3>Novità nell'app</h3>${nuove.map(n => `<p class="note" style="margin:8px 0 2px"><b>${esc(fdate(n.data))}</b></p><ul>${n.voci.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`).join('')}<div class="btns"><button class="btn" id="nv-ok">OK</button></div></div>`;
     document.body.appendChild(w); document.getElementById('nv-ok').onclick = () => w.remove(); w.onclick = e => { if (e.target === w) w.remove(); };
   }, document.getElementById('splash') ? 3200 : 300);
 }
-function bindExtra() { bindCalcoli(); bindQuiz(); bindInfoExtra(); const f = document.getElementById('fts'); if (f) ftsRun(f.dataset.q); }
+function bindExtra() { bindGlossario(); bindCalcoli(); bindQuiz(); bindInfoExtra(); const f = document.getElementById('fts'); if (f) ftsRun(f.dataset.q); }
 
 /* --- uso senza rete (service worker) --- */
 const ALLFILES = [...new Set([...D.manuali.map(m => m.url), ...D.circolari.flatMap(c => [c.url, ...c.allegati.map(a => a.url)]), ...D.bugiardini.map(b => b.url), ...(D.altri_manuali || []).map(a => a.url), ...(D.sacche ? [D.sacche.fonte.url] : [])])];
