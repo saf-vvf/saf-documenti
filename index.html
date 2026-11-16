@@ -210,7 +210,7 @@ footer .info{margin-left:0}
 mark{background:#fdeb05;color:#14181d;border-radius:2px;padding:0 1px}
 .ftss{font-size:.86rem;font-weight:400}
 .ftsd>.list{margin:6px 0}
-.calc summary{cursor:pointer;list-style:none}.calc summary::-webkit-details-marker{display:none}
+.calc{border-left:5px solid var(--cc,#e07000)}.calc summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}.calc summary b{flex:1;color:var(--cc)}.calc summary::after{content:"▾";color:var(--muted)}.calc[open] summary::after{content:"▴"}.calc .calcout{border-left-color:var(--cc,#e07000)}.calc input[type=range]{accent-color:var(--cc,#e07000)}.calc summary::-webkit-details-marker{display:none}
 .calc label{display:grid;gap:4px;margin:10px 0;font-size:.9rem}
 .calc input[type=number],.calc select{font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
 .calc input[type=range]{width:100%;accent-color:#e07000}
@@ -223,7 +223,7 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .qzb{font:inherit;text-align:left;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .qzb.ok{border-color:#1d8a3a;background:color-mix(in srgb,#1d8a3a 18%,var(--surface))}
 .qzb.ko{border-color:#d3202a;background:color-mix(in srgb,#d3202a 18%,var(--surface))}
-.gl{padding:10px 12px;border-bottom:1px solid var(--line)}.gl b{display:block;font-size:1rem}.gl p{margin:3px 0 4px;font-size:.92rem}
+.gl{border-bottom:1px solid var(--line)}.gl summary{display:flex;align-items:center;gap:8px;padding:11px 12px;cursor:pointer;list-style:none}.gl summary::-webkit-details-marker{display:none}.gl summary b{flex:1;font-size:1rem}.gl summary small{color:var(--muted);font-size:.72rem}.gl summary::after{content:"▾";color:var(--muted)}.gl[open] summary::after{content:"▴"}.gl p{margin:0 12px 4px;font-size:.93rem}.gl .glsrc{display:inline-block;margin:0 12px 10px}
 .glsrc{font-size:.78rem;color:var(--muted)}
 .glidx{display:flex;flex-wrap:wrap;gap:4px;margin:10px 0;position:sticky;top:0}
 .glidx a{min-width:30px;text-align:center;padding:5px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700;font-size:.85rem}
@@ -7923,7 +7923,7 @@ window.SAFDATA = {
  ],
  "novita": [
   {
-   "id": "2026-11-16.2",
+   "id": "2026-11-16.3",
    "data": "2026-11-16",
    "voci": [
     "Glossario SAF nel menu strumenti, con i termini dei manuali Basico, Avanzato e NeGh.",
@@ -9165,7 +9165,7 @@ function viewSearch(q) {
   if (cap.length) h += `<div class="area"><h3>Informazioni utili (${cap.length})</h3>${list(cap.map(schedaRow))}</div>`;
   if (r.alt.length) h += `<div class="area"><h3>Altri manuali (${r.alt.length})</h3>${r.alt.map(altroCard).join('')}</div>`;
   if (!total && !r.argHit.length) h += `<p class="empty">Nessun risultato nei titoli. Prova con un sinonimo (es. “demoltiplica”, “I'D”, “EN 12841”) o togli il filtro di livello.</p>`;
-  { const w = norm(q).trim(); const gl = (D.glossario || []).filter(g => norm(g.t).includes(w)).slice(0, 6); if (w.length > 2 && gl.length) h += `<div class="area"><h3>Glossario (${gl.length})</h3>${gl.map(glossRow).join('')}</div>`; }
+  { const w = norm(q).trim(); const gl = (D.glossario || []).filter(g => norm(g.t).includes(w)).slice(0, 6); if (w.length > 2 && gl.length) h += `<div class="area"><h3>Glossario (${gl.length})</h3>${gl.map(g => glossRow(g, true)).join('')}</div>`; }
   h += `<div class="area" id="fts" data-q="${esc(q)}"></div>`;
   return h;
 }
@@ -9317,11 +9317,15 @@ function viewAltri() {
 
 /* --- strumenti --- */
 function viewMenu() {
-  return `<h2>Strumenti</h2><div class="folds">${D.strumenti.map(t => `<a class="card tool" href="#t-${t.id}" style="--tc:${t.colore}"><span class="ico">${esc(t.sigla)}</span><b>${esc(t.titolo)}${t.stato !== 'attivo' ? '<span class="soon">' + esc(t.stato) + '</span>' : ''}</b><p>${esc(t.descrizione)}</p></a>`).join('')}
-  <a class="card tool" href="#altri" style="--tc:#8a5a2b"><span class="ico">M</span><b>Altri manuali</b><p>${D.altri_manuali.length} manuali in sola consultazione (${esc(D.altri_manuali.map(x => x.sigla).join(', '))}).</p></a>
-  <a class="card tool" href="#info" style="--tc:var(--brand);--ti:var(--brand-ink)"><span class="ico">i</span><b>Informazioni e supporto</b><p>Sviluppo, contatti per segnalazioni, uso senza rete.</p></a></div>
+  const T = id => { const t = D.strumenti.find(x => x.id === id); return t ? `<a class="card tool" href="#t-${t.id}" style="--tc:${t.colore}"><span class="ico">${esc(t.sigla)}</span><b>${esc(t.titolo)}${t.stato !== 'attivo' ? '<span class="soon">' + esc(t.stato) + '</span>' : ''}</b><p>${esc(t.descrizione)}</p></a>` : ''; };
+  const altri = `<a class="card tool" href="#altri" style="--tc:#8a5a2b"><span class="ico">M</span><b>Altri manuali</b><p>${D.altri_manuali.length} manuali in sola consultazione (${esc(D.altri_manuali.map(x => x.sigla).join(', '))}).</p></a>`;
+  const info = `<a class="card tool" href="#info" style="--tc:var(--brand);--ti:var(--brand-ink)"><span class="ico">i</span><b>Informazioni e supporto</b><p>Sviluppo, contatti per segnalazioni, uso senza rete, condivisione dell'app.</p></a>`;
+  const ord = ['norme', 'ALTRI', 'sacche', 'glossario', 'calcoli', 'quiz'];
+  const rest = D.strumenti.filter(t => !ord.includes(t.id)).map(t => T(t.id)).join('');
+  return `<h2>Strumenti</h2><div class="folds">${ord.map(x => x === 'ALTRI' ? altri : T(x)).join('')}${rest}${info}</div>
   <p class="note">Altre funzioni si aggiungeranno qui man mano.</p>`;
 }
+
 const normBase = n => { const s = String(n); if (/^ANSI/.test(s)) return; const m = s.match(/(?:EN|TS|NFPA)\s?(\d{3,5}(?:-\d)?)/) || s.match(/(\d{3,5}(?:-\d)?)/); let k = m && m[1]; if (k && !D.norme[k] && D.norme[k.split('-')[0]]) k = k.split('-')[0]; return k; };
 const normLabel = k => (D.norme[k] && D.norme[k].sigla) || 'EN ' + k;
 function normIndex() {
@@ -9485,14 +9489,14 @@ async function ftsRun(q) {
 
 /* ===================== GLOSSARIO SAF ===================== */
 const MSIG = {'man-basico-2021': 'Basico', 'man-avanzato-2023': 'Avanzato', 'man-negh-2025': 'NeGh'};
-const glossRow = g => { const m = MAN[g.m]; return `<div class="gl"><b>${esc(g.t)}</b><p>${esc(g.d)}</p><a class="glsrc" href="${pdf(m.url, g.p)}">${esc(MSIG[g.m] || m.titolo)} · pag. ${g.p}</a></div>`; };
+const glossRow = (g, open) => { const m = MAN[g.m]; return `<details class="gl"${open ? ' open' : ''}><summary><b>${esc(g.t)}</b><small>${esc(MSIG[g.m] || '')}</small></summary><p>${esc(g.d)}</p><a class="glsrc" href="${pdf(m.url, g.p)}">Apri ${esc(m.titolo)} · pag. ${g.p}</a></details>`; };
 function viewGlossario() {
   const G = D.glossario || [];
   const L = [...new Set(G.map(g => norm(g.t)[0].toUpperCase()))];
   return `<h2>Glossario SAF</h2><p class="note">${G.length} termini dai glossari dei manuali Basico, Avanzato e Neve-Ghiaccio-Valanghe. Tocca la fonte per aprire la pagina del manuale.</p>
   <input class="skid glq" id="glq" placeholder="Filtra i termini (es. ancoraggio, valanga, WLL)" autocomplete="off">
   <div class="glidx">${L.map(l => `<a href="#gl-${l}" data-l="${l}">${l}</a>`).join('')}</div>
-  <div id="gllist">${L.map(l => `<h3 class="gll" id="gl-${l}">${l}</h3>` + G.filter(g => norm(g.t)[0].toUpperCase() === l).map(glossRow).join('')).join('')}</div>`;
+  <div id="gllist">${L.map(l => `<h3 class="gll" id="gl-${l}">${l}</h3>` + G.filter(g => norm(g.t)[0].toUpperCase() === l).map(g => glossRow(g)).join('')).join('')}</div>`;
 }
 function bindGlossario() {
   const q = document.getElementById('glq'); if (!q) return;
@@ -9500,34 +9504,34 @@ function bindGlossario() {
   q.oninput = () => { const w = norm(q.value).trim(); const box = document.getElementById('gllist');
     if (!w) { box.innerHTML = viewGlossario().split('<div id="gllist">')[1].replace(/<\/div>$/, ''); return; }
     const r = (D.glossario || []).filter(g => norm(g.t + ' ' + g.d).includes(w)).sort((a, b) => (norm(b.t).includes(w)) - (norm(a.t).includes(w)));
-    box.innerHTML = r.length ? r.map(glossRow).join('') : '<p class="empty">Nessun termine trovato.</p>'; };
+    box.innerHTML = r.length ? r.map(g => glossRow(g, r.length <= 3)).join('') : '<p class="empty">Nessun termine trovato.</p>'; };
 }
 
 /* ===================== CALCOLATORI SAF ===================== */
 function viewCalcoli() {
   return `<h2>Calcolatori SAF</h2>
   <p class="note">Valori teorici di supporto al ragionamento: in intervento valgono sempre le indicazioni dei manuali e dei bugiardini.</p>
-  <details class="card calc" open><summary><b>Forze sugli ancoraggi (angolo tra i rami)</b></summary>
+  <details class="card calc" style="--cc:#c62828"><summary><b>Forze sugli ancoraggi (angolo tra i rami)</b></summary>
     <p class="note">Carico appeso a due ancoraggi collegati a V: più l'angolo tra i rami è aperto, più ogni ancoraggio è caricato.</p>
     <label>Carico (kg) <input type="number" id="ca-w" value="200" min="0" inputmode="decimal"></label>
     <label>Angolo tra i rami: <b id="ca-av">60°</b><input type="range" id="ca-a" min="0" max="170" step="5" value="60"></label>
     <div class="calcout" id="ca-o"></div>
     <table class="ctab"><tr><th>Angolo</th><th>Forza su ogni ancoraggio</th></tr>${[0, 30, 60, 90, 120, 150].map(a => `<tr><td>${a}°</td><td>${(100 / (2 * Math.cos(a * Math.PI / 360))).toFixed(0)}% del carico</td></tr>`).join('')}</table>
   </details>
-  <details class="card calc"><summary><b>Carico su un rinvio (deviatore)</b></summary>
+  <details class="card calc" style="--cc:#1565c0"><summary><b>Carico su un rinvio (deviatore)</b></summary>
     <p class="note">Corda che cambia direzione su una carrucola o un moschettone: il rinvio riceve la somma vettoriale delle tensioni dei due rami.</p>
     <label>Tensione della corda (kg) <input type="number" id="cr-t" value="100" min="0" inputmode="decimal"></label>
     <label>Angolo tra i due rami di corda: <b id="cr-av">90°</b><input type="range" id="cr-a" min="0" max="180" step="5" value="90"></label>
     <div class="calcout" id="cr-o"></div>
   </details>
-  <details class="card calc"><summary><b>Paranchi: vantaggio teorico e reale</b></summary>
+  <details class="card calc" style="--cc:#2e7d32"><summary><b>Paranchi: vantaggio teorico e reale</b></summary>
     <label>Sistema <select id="cp-s">${PAR.map((p, i) => `<option value="${i}">${esc(p.n)}</option>`).join('')}</select></label>
     <label>Carico da sollevare (kg) <input type="number" id="cp-w" value="100" min="0" inputmode="decimal"></label>
     <label>Rendimento di ogni rinvio <select id="cp-e"><option value="0.95">Carrucola a cuscinetti (95%)</option><option value="0.9" selected>Carrucola standard (90%)</option><option value="0.75">Carrucola piccola (75%)</option><option value="0.5">Moschettone (50%)</option></select></label>
     <div class="calcout" id="cp-o"></div>
     <p class="note">Il rendimento reale tiene conto dell'attrito su ogni rinvio; il bloccante del paranco non è considerato.</p>
   </details>
-  <details class="card calc"><summary><b>Fattore di caduta</b></summary>
+  <details class="card calc" style="--cc:#ef6c00"><summary><b>Fattore di caduta</b></summary>
     <p class="note">Rapporto tra l'altezza della caduta e la lunghezza di corda (o cordino) che la trattiene.</p>
     <label>Altezza della caduta (m) <input type="number" id="cf-h" value="1" min="0" step="0.1" inputmode="decimal"></label>
     <label>Lunghezza di corda o cordino che trattiene (m) <input type="number" id="cf-l" value="1" min="0.1" step="0.1" inputmode="decimal"></label>
