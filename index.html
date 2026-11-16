@@ -219,7 +219,7 @@ footer .info{margin-left:0}
 </header>
 <main id="view"></main>
 <footer><a class="info" href="#info" aria-label="Informazioni e supporto">i</a><div><a href="#info">Informazioni, sviluppo e supporto</a> · Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF. Verifica sempre data e stato del documento.</div></footer>
-<script>window.SAF_SPLASH="icon-maskable-512.png";window.SAF_SIMG="sacche-img.json";
+<script>window.SAF_SPLASH="icon-maskable-512.png";window.SAF_SIMG="sacche-img.json";window.SAF_GC="saf-supporto";
 window.SAFDATA = {
  "argomenti": [
   {
@@ -7197,7 +7197,7 @@ window.SAFDATA = {
   },
   "397": {
    "titolo": "Elmetti di protezione per l'industria",
-   "spiegazione": "Proteggono soprattutto da oggetti che cadono dall'alto. Il sottogola è progettato per sganciarsi oltre un certo carico: per il lavoro in quota e in sospensione si usano caschi che rispondono anche ad altre norme."
+   "spiegazione": "Con la revisione EN 397:2025 (in Italia UNI EN 397:2026) gli elmetti sono divisi in due tipi. Tipo 1: protezione dagli urti sulla sommità del capo, come la vecchia EN 397:2012; il sottogola è facoltativo. Tipo 2: protezione anche dagli urti laterali, frontali e posteriori, prova d'urto dall'alto più severa e sottogola obbligatorio e più resistente: è il tipo adatto al lavoro in quota e in sospensione. La marcatura OCP, facoltativa per entrambi, indica la resistenza alla perforazione anche fuori dalla sommità. Fino al 16/12/2027 si possono ancora produrre elmetti secondo la vecchia edizione 2012."
   },
   "564": {
    "titolo": "Attrezzatura per alpinismo – Cordino",
@@ -7281,7 +7281,7 @@ window.SAFDATA = {
   },
   "12492": {
    "titolo": "Attrezzatura per alpinismo – Caschi per alpinisti",
-   "spiegazione": "Caschi che proteggono da urti dall'alto, laterali, frontali e posteriori. Il sottogola trattiene il casco in testa anche in caso di caduta."
+   "spiegazione": "Caschi che proteggono da urti dall'alto, laterali, frontali e posteriori. Il sottogola trattiene il casco in testa anche in caso di caduta. Per l'uso lavorativo il suo ruolo è stato in gran parte assorbito dalla EN 397:2025 Tipo 2, che ha requisiti simili."
   },
   "12841": {
    "titolo": "Sistemi di accesso con fune – Dispositivi di regolazione della fune",
@@ -8082,6 +8082,7 @@ function viewInfo() {
     <p style="margin:0;font-size:1.1rem;font-weight:600;word-break:break-all">${mail}</p>
     <div class="btns"><a class="btn" href="mailto:${mail}?subject=SAF%20Supporto%20Operatore%20-%20segnalazione">Scrivi una email</a><button class="btn sec" type="button" id="copymail">Copia indirizzo</button></div>
     <p class="note" style="margin:0" id="copymsg">Indica sempre il documento e la pagina a cui si riferisce la segnalazione.</p></div>
+  ${window.SAF_GC ? `<div class="card"><h3>Privacy</h3><p style="margin:0">L'app non usa cookie e non raccoglie dati personali. Per sapere quanto viene usata invia solo conteggi anonimi (nuovo dispositivo, installazione, apertura) al servizio GoatCounter, che non identifica le persone.</p></div>` : ''}
   <div class="card"><h3>Uso senza rete</h3>
     <p style="margin:0">I documenti che apri restano salvati sul telefono. Per averli tutti disponibili anche in grotta, in forra o senza copertura, scaricali ora (circa 290 MB, meglio con il Wi-Fi).</p>
     <div class="btns"><button class="btn" type="button" id="offline">Scarica tutti i documenti</button></div>
@@ -8304,6 +8305,16 @@ setLevel('__init__');
   const hide = () => { s.classList.add('out'); setTimeout(() => s.remove(), 600); };
   setTimeout(hide, 2500);
   s.addEventListener('click', hide);
+})();
+
+/* --- statistiche anonime (GoatCounter, senza cookie): attive solo nell'app pubblicata --- */
+(() => {
+  const code = window.SAF_GC; if (!code) return;
+  const hit = (p, t, ev) => { try { const u = `https://${code}.goatcounter.com/count?p=${encodeURIComponent(p)}&t=${encodeURIComponent(t)}${ev ? '&e=true' : ''}&rnd=${Math.random().toString(36).slice(2)}`; if (navigator.sendBeacon) navigator.sendBeacon(u); else new Image().src = u; } catch (e) {} };
+  const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  try { if (!localStorage.getItem('saf-gc-dev')) { hit('nuovo-dispositivo', 'Nuovo dispositivo', true); localStorage.setItem('saf-gc-dev', '1'); } } catch (e) {}
+  try { if (!sessionStorage.getItem('saf-gc-open')) { hit(standalone ? '/apertura-app' : '/apertura-browser', standalone ? 'Apertura app installata' : 'Apertura da browser'); sessionStorage.setItem('saf-gc-open', '1'); } } catch (e) {}
+  window.addEventListener('appinstalled', () => hit('app-installata', 'App installata', true));
 })();
 </script>
 </body>
