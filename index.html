@@ -235,6 +235,7 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .geoh{margin:0;font-size:.78rem}.geob{display:flex;gap:6px;margin-top:6px}
 .gbtn{font:inherit;font-size:.82rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .geohelp{margin-top:8px;font-size:.85rem}.geohelp summary{cursor:pointer;color:var(--muted)}.geohelp ul{padding-left:18px;margin:6px 0}.geohelp li{margin:4px 0}.geohelp code{font-size:.8rem;background:var(--bg);padding:1px 4px;border-radius:4px}
+.inst{position:relative;border:2px solid #fdeb05;margin-bottom:12px}.inst-t{font-weight:700;font-size:1.05rem;margin:0 28px 6px 0}.inst p{margin:0 0 6px}.inst-x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:6px}
 .qzo{display:grid;gap:8px;margin:12px 0}
 .qzb{font:inherit;text-align:left;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .qzb.ok{border-color:#1d8a3a;background:color-mix(in srgb,#1d8a3a 18%,var(--surface))}
@@ -7997,7 +7998,7 @@ window.SAFDATA = {
    ]
   }
  ],
- "condivisione": "SAFe – Supporto Operatore SAF (v1.0)\nL'app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nRaccoglie in un posto solo la documentazione del settore SAF e funziona anche senza connessione.\n\n📘 Manuali: SAF Basico, Avanzato e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda. Ogni manovra o materiale si apre alla pagina giusta.\n📄 Circolari: divise per sezione, con allegati e collegamenti tra le circolari correlate.\n🔧 Bugiardini: libretti d'uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede.\n📚 Altri manuali: SFA, Vademecum TEC, TAS 1 e TPSS in consultazione.\n\nStrumenti\n🔍 Ricerca per parola, argomento o normativa EN, anche dentro il testo dei documenti, con filtri per specializzazione\n📏 Normative EN con spiegazione e materiali collegati\n🎒 Controllo sacche con riepilogo da inviare\n📖 Glossario SAF con oltre 190 termini dei manuali\n🧮 Calcolatori: forze sugli ancoraggi, rinvii, paranchi, fattore di caduta\n📍 Coordinate: trova e condividi la tua posizione in gradi, UTM, MGRS o Gauss-Boaga, e converte le coordinate ricevute\n❓ Quiz di autoverifica per specializzazione, utili per i mantenimenti\n⚑ Segnalazione di errori o documenti nuovi direttamente dall'app\n\nPer installarla apri il link:\nhttps://saf-vvf.github.io/saf-documenti/\n📱 Android: in Chrome, menu ⋮ → \"Installa app\"\n🍏 iPhone: in Safari, Condividi → \"Aggiungi alla schermata Home\"\n\nIniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF.\nSupporto: Francesco Franz – Comando di Pordenone · app.safe.vvf@gmail.com",
+ "condivisione": "*SAFe – Supporto Operatore SAF* (v1.0)\n_L'app di consultazione per gli operatori SAF dei Vigili del Fuoco_\n\nRaccoglie in un posto solo la documentazione del settore SAF e *funziona anche senza connessione*.\n\n📘 *Manuali*: SAF Basico, Avanzato e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda. Ogni manovra o materiale si apre alla pagina giusta.\n📄 *Circolari*: divise per sezione, con allegati e collegamenti tra le circolari correlate.\n🔧 *Bugiardini*: libretti d'uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede.\n📚 *Altri manuali*: SFA, Vademecum TEC, TAS 1 e TPSS in consultazione.\n\n*Strumenti*\n🔍 *Ricerca* per parola, argomento o normativa EN, anche dentro il testo dei documenti, con filtri per specializzazione\n📏 *Normative EN* con spiegazione e materiali collegati\n🎒 *Controllo sacche* con riepilogo da inviare\n📖 *Glossario SAF* con oltre 190 termini dei manuali\n🧮 *Calcolatori*: forze sugli ancoraggi, rinvii, paranchi, fattore di caduta\n📍 *Coordinate*: trova e condividi la tua posizione in gradi, UTM, MGRS o Gauss-Boaga, e converte le coordinate ricevute\n❓ *Quiz* di autoverifica per specializzazione, utili per i mantenimenti\n⚑ *Segnalazione* di errori o documenti nuovi direttamente dall'app\n\n*Per installarla apri il link e segui i passi successivi:*\n\nhttps://saf-vvf.github.io/saf-documenti/\n\n📱 *Android*:\nin Chrome, menu ⋮ → \"Installa app\"\n\n🍏 *iPhone*:\nin Safari, Condividi → \"Aggiungi alla schermata Home\"\n\n_Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF._\n\nSupporto:\nFrancesco Franz\nComando VVF Pordenone · app.safe.vvf@gmail.com",
  "glossario": [
   {
    "t": "ABS",
@@ -9744,7 +9745,7 @@ function viewHome() {
   const nC = D.circolari.filter(c => lvOk(c.livelli)).length;
   const areas = {};
   D.argomenti.forEach(a => (areas[a.area] = areas[a.area] || []).push(a.codice));
-  return `<div class="tiles">
+  return `${instBanner()}<div class="tiles">
     <a class="tile k-man" href="#manuali"><b>Manuali</b><small>${nS} schede</small></a>
     <a class="tile k-cir" href="#circolari"><b>Circolari</b><small>${nC} circolari</small></a>
     <a class="tile k-bug" href="#bugiardini"><b>Bugiardini</b><small>${D.bugiardini.length} documenti</small></a></div>
@@ -10516,7 +10517,32 @@ function bindCoordinate() {
   geoRender(); bindGeoOut();
 }
 
-function bindExtra() { bindCoordinate(); bindGlossario(); bindCalcoli(); bindQuiz(); bindInfoExtra(); const f = document.getElementById('fts'); if (f) ftsRun(f.dataset.q); }
+
+/* --- invito a installare l'app (solo nel sito pubblicato, aperto dal browser) --- */
+let DPROMPT = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); DPROMPT = e; if (!location.hash || location.hash === '#home') { try { render(); } catch (x) {} } });
+window.addEventListener('appinstalled', () => { DPROMPT = null; try { localStorage.setItem('saf-inst-hide', String(Date.now() + 365 * 864e5)); } catch (e) {} const b = document.getElementById('inst'); if (b) b.remove(); });
+function instBanner() {
+  if (!window.SAF_SPLASH) return '';
+  if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) return '';
+  try { if (+localStorage.getItem('saf-inst-hide') > Date.now()) return ''; } catch (e) {}
+  const ua = navigator.userAgent, ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const android = /Android/.test(ua), webview = /; wv\)|FBAN|FBAV|Instagram|Line\/|GSA\//.test(ua) || (ios && !/Safari\//.test(ua));
+  let body;
+  if (DPROMPT) body = `<p>Installala sul telefono: si apre come un'app, funziona anche senza rete e si aggiorna da sola.</p><div class="btns"><button class="btn" id="inst-go">📲 Installa l'app</button></div>`;
+  else if (webview && ios) body = `<p>Questa pagina è aperta dentro un'altra app. Per installarla <b>aprila in Safari</b>: tocca il menu (⋯ o ⬆︎) e scegli "Apri in Safari".</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
+  else if (webview) body = `<p>Questa pagina è aperta dentro un'altra app. Per installarla <b>aprila in Chrome</b>: tocca il menu ⋮ in alto e scegli "Apri in Chrome" (o "Apri nel browser").</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
+  else if (ios) body = `<p>Per installarla tocca <b>Condividi</b> (il quadrato con la freccia ⬆︎), poi <b>"Aggiungi alla schermata Home"</b>.</p>`;
+  else if (android) body = `<p>Per installarla tocca il menu <b>⋮</b> in alto a destra e scegli <b>"Installa app"</b> (o "Aggiungi a schermata Home"). Se il menu non c'è, sei nel browser di un'altra app: scegli prima "Apri in Chrome".</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
+  else return '';
+  return `<div class="card inst" id="inst"><button class="inst-x" id="inst-x" aria-label="Chiudi">✕</button><div class="inst-t">Installa SAFe sul telefono</div>${body}<p class="note" id="inst-m" style="margin:4px 0 0"></p></div>`;
+}
+function bindInst() {
+  const g = document.getElementById('inst-go'); if (g) g.onclick = async () => { const p = DPROMPT; if (!p) return; DPROMPT = null; p.prompt(); try { const r = await p.userChoice; if (r && r.outcome === 'accepted') document.getElementById('inst')?.remove(); else render(); } catch (e) {} };
+  const c = document.getElementById('inst-cp'); if (c) c.onclick = async () => { const m = document.getElementById('inst-m'); try { await navigator.clipboard.writeText(location.origin + location.pathname); m.textContent = '✓ Link copiato: incollalo nella barra di Chrome o Safari.'; } catch (e) { m.textContent = 'Link: ' + location.origin + location.pathname; } };
+  const x = document.getElementById('inst-x'); if (x) x.onclick = () => { try { localStorage.setItem('saf-inst-hide', String(Date.now() + 3 * 864e5)); } catch (e) {} document.getElementById('inst')?.remove(); };
+}
+function bindExtra() { bindInst(); bindCoordinate(); bindGlossario(); bindCalcoli(); bindQuiz(); bindInfoExtra(); const f = document.getElementById('fts'); if (f) ftsRun(f.dataset.q); }
 
 /* --- uso senza rete (service worker) --- */
 const ALLFILES = [...new Set([...D.manuali.map(m => m.url), ...D.circolari.flatMap(c => [c.url, ...c.allegati.map(a => a.url)]), ...D.bugiardini.map(b => b.url), ...(D.altri_manuali || []).map(a => a.url), ...(D.sacche ? [D.sacche.fonte.url] : [])])];
