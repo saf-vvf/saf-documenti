@@ -8310,6 +8310,14 @@ setLevel('__init__');
 /* --- statistiche anonime (GoatCounter, senza cookie): attive solo nell'app pubblicata --- */
 (() => {
   const code = window.SAF_GC; if (!code) return;
+  if (location.hash === '#toggle-goatcounter') {
+    let off = false; try { off = localStorage.getItem('saf-gc-off') !== '1'; if (off) localStorage.setItem('saf-gc-off', '1'); else localStorage.removeItem('saf-gc-off'); } catch (e) {}
+    const m = document.createElement('div'); m.style.cssText = 'position:fixed;left:12px;right:12px;bottom:20px;z-index:200;background:#000d;color:#fff;padding:14px;border-radius:10px;text-align:center;font-size:.95rem';
+    m.textContent = off ? 'Statistiche disattivate su questo dispositivo: le tue aperture non verranno contate.' : 'Statistiche riattivate su questo dispositivo.';
+    document.body.appendChild(m); setTimeout(() => m.remove(), 5000);
+    history.replaceState(null, '', location.pathname + location.search + '#home');
+  }
+  try { if (localStorage.getItem('saf-gc-off') === '1') return; } catch (e) {}
   const hit = (p, t, ev) => { try { const u = `https://${code}.goatcounter.com/count?p=${encodeURIComponent(p)}&t=${encodeURIComponent(t)}${ev ? '&e=true' : ''}&rnd=${Math.random().toString(36).slice(2)}`; if (navigator.sendBeacon) navigator.sendBeacon(u); else new Image().src = u; } catch (e) {} };
   const standalone = matchMedia('(display-mode: standalone)').matches || navigator.standalone;
   try { if (!localStorage.getItem('saf-gc-dev')) { hit('nuovo-dispositivo', 'Nuovo dispositivo', true); localStorage.setItem('saf-gc-dev', '1'); } } catch (e) {}
