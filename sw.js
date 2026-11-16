@@ -1,5 +1,5 @@
 // Service worker di SAF Supporto Operatore: rende l'app utilizzabile senza rete.
-const SHELL_CACHE = 'saf-shell-v3';
+const SHELL_CACHE = 'saf-shell-v4';
 const PDF_CACHE = 'saf-pdf';
 const SHELL = [
   './', 'index.html', 'viewer.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-192.png', 'icon-maskable-512.png',
