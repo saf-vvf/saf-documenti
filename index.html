@@ -10218,7 +10218,10 @@ function novitaCheck() {
   const id = n => n.id || n.data, last = id(N[0]); let seen = null;
   try { seen = localStorage.getItem('saf-novita'); localStorage.setItem('saf-novita', last); } catch (e) { return; }
   if (FIRSTRUN) return;  /* primo avvio assoluto: nessun messaggio */
-  const nuove = N.filter(n => !seen || id(n) > seen); if (!nuove.length) return;
+  /* confronto numerico: '2026-11-16.13' viene dopo '2026-11-16.3' */
+  const key = v => { const [d, n] = String(v).split('.'); return [d, parseInt(n || '0', 10)]; };
+  const newer = (a, b) => { const x = key(a), y = key(b); return x[0] > y[0] || (x[0] === y[0] && x[1] > y[1]); };
+  const nuove = N.filter(n => !seen || newer(id(n), seen)); if (!nuove.length) return;
   setTimeout(() => {
     if (!document.body) return; const w = document.createElement('div'); w.id = 'novita';
     w.innerHTML = `<div class="nv"><h3>Novità nell'app</h3>${nuove.map(n => `<p class="note" style="margin:8px 0 2px"><b>${esc(fdate(n.data))}</b></p><ul>${n.voci.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`).join('')}<div class="btns"><button class="btn" id="nv-ok">OK</button></div></div>`;
