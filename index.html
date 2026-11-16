@@ -7146,7 +7146,7 @@ window.SAFDATA = {
    "titolo": "Quiz di autoverifica",
    "sigla": "?",
    "colore": "#00838f",
-   "descrizione": "Domande sempre diverse su normative EN, materiali, manovre e circolari, per il ripasso e i mantenimenti.",
+   "descrizione": "Domande sempre diverse filtrate per specializzazione: concetti chiave delle circolari, manovre, materiali, normative EN e glossario.",
    "stato": "attivo"
   }
  ],
@@ -7922,6 +7922,16 @@ window.SAFDATA = {
   }
  ],
  "novita": [
+  {
+   "id": "2026-11-16.5",
+   "data": "2026-11-16",
+   "voci": [
+    "Quiz filtrati per specializzazione (Basico, Avanzato, NeGh): l'Avanzato include anche Basico e SFA.",
+    "Nuove domande sulle circolari basate sui concetti chiave, non sui numeri di protocollo.",
+    "Nuova categoria di quiz sul Glossario SAF.",
+    "Pulsante per interrompere il quiz e tornare alla scelta degli argomenti."
+   ]
+  },
   {
    "id": "2026-11-16.3",
    "data": "2026-11-16",
@@ -9077,6 +9087,512 @@ window.SAFDATA = {
    "m": "man-negh-2025",
    "p": 232
   }
+ ],
+ "quiz_circolari": [
+  {
+   "lv": "gen",
+   "c": "circ-em-2013-3058",
+   "q": "Secondo la EM 3058/2013, chi conduce il briefing prima di ogni attività SAF di soccorso o esercitativa?",
+   "a": "Il responsabile delle operazioni",
+   "d": [
+    "Il capo squadra della prima partenza",
+    "Il funzionario di guardia",
+    "Ogni operatore per conto proprio"
+   ],
+   "sp": "Il responsabile delle operazioni va individuato prima di ogni attività e conduce il briefing."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2013-3058",
+   "q": "Quale di questi NON è tra gli argomenti minimi del briefing previsto dalla EM 3058/2013?",
+   "a": "La compilazione del rapporto di intervento",
+   "d": [
+    "L'analisi e la valutazione dello scenario",
+    "L'assegnazione degli incarichi agli operatori",
+    "La pianificazione delle azioni in caso di emergenza ipotizzabile"
+   ],
+   "sp": "Il briefing tratta scenario, attività, modalità della manovra, azioni fondamentali, incarichi e gestione delle emergenze."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2013-3058",
+   "q": "Nelle attività esercitative, quale sistema di sicurezza prescrive la EM 3058/2013 per l'operatore su fune?",
+   "a": "Corda di sicura manovrata da un operatore terzo, o in alternativa un anticaduta guidato su corda",
+   "d": [
+    "La sola longe di ancoraggio",
+    "Nessun sistema aggiuntivo per operatori esperti",
+    "Un secondo discensore sulla stessa corda"
+   ],
+   "sp": "In esercitazione la corda di sicura (o l'anticaduta guidato) va usata sempre."
+  },
+  {
+   "lv": "bas",
+   "c": "circ-em-2013-3058",
+   "q": "Ai livelli superiori all'ex SAF 1A, se la corda di sicura non è tecnicamente possibile, cosa si deve fare?",
+   "a": "Applicare controlli ridondanti e indipendenti, anche incrociati tra operatori, per un grado di sicurezza equivalente",
+   "d": [
+    "Sospendere sempre l'intervento",
+    "Usare una seconda corda di lavoro senza ulteriori controlli",
+    "Affidarsi al solo discensore autofrenante"
+   ],
+   "sp": "Controlli ridondanti su equipaggiamenti, ancoraggi e assemblaggi, e controllo incrociato tra operatori."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2013-3058",
+   "q": "A che cosa serve la scheda di segnalazione di inconveniente, incidente o mancato incidente?",
+   "a": "Ad analizzare le cause degli eventi, compresi i mancati incidenti, per ridurre il rischio residuo",
+   "d": [
+    "Ad avviare procedimenti disciplinari",
+    "A richiedere nuove attrezzature",
+    "A registrare le ore di mantenimento"
+   ],
+   "sp": "La scheda serve all'analisi sistematica delle cause, anche dei mancati incidenti."
+  },
+  {
+   "lv": "bas",
+   "c": "circ-em-2014-0528",
+   "q": "Secondo i chiarimenti DCEMER del 2014, nelle manovre operate dall'elicottero la corda di sicura…",
+   "a": "Non deve essere impiegata, nemmeno in fase formativa",
+   "d": [
+    "È sempre obbligatoria",
+    "Va usata solo in fase formativa",
+    "È a discrezione del pilota"
+   ],
+   "sp": "Con l'elicottero la corda di sicura aumenterebbe la pericolosità della manovra."
+  },
+  {
+   "lv": "bas",
+   "c": "circ-em-2014-0528",
+   "q": "Chi sceglie il sistema di sicura da usare (corda di sicura o anticaduta guidato)?",
+   "a": "Il responsabile delle operazioni SAF, in base all'analisi dei rischi e delle risorse disponibili",
+   "d": [
+    "Il Comandante provinciale",
+    "L'operatore che effettua la discesa",
+    "La sala operativa"
+   ],
+   "sp": "La scelta dipende dall'analisi dei rischi e dalle risorse umane e strumentali disponibili."
+  },
+  {
+   "lv": "bas",
+   "c": "circ-em-2014-0528",
+   "q": "Quale discensore indicano da preferire i chiarimenti del 2014, anche ai livelli superiori all'ex 1A?",
+   "a": "I'D S rispetto al Gri-gri",
+   "d": [
+    "Gri-gri rispetto all'I'D S",
+    "Piastrina rispetto all'I'D S",
+    "Stop rispetto all'I'D S"
+   ],
+   "sp": "Il Gri-gri resta utilizzabile secondo le metodiche del manuale, ma è da preferire l'I'D S."
+  },
+  {
+   "lv": "bas",
+   "c": "circ-em-2014-0528",
+   "q": "Quando l'analisi dello scenario indica che la corda di sicura aumenta il pericolo (es. rischio di attorcigliamento delle corde), cosa si fa?",
+   "a": "Si potenziano i controlli ridondanti e reciproci tra operatori per un livello di sicurezza equivalente",
+   "d": [
+    "Si usa comunque la corda di sicura",
+    "Si rinuncia a ogni controllo per guadagnare tempo",
+    "Si sostituisce la corda di lavoro con una dinamica"
+   ],
+   "sp": "La rinuncia alla corda di sicura va compensata con controlli ridondanti e reciproci."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2016-16938",
+   "q": "Nelle manovre SAF ancorate alla sommità di autoscale o piattaforme aeree, come deve essere la fune di sicura?",
+   "a": "Sempre leggermente tesa, senza lasco",
+   "d": [
+    "Con circa un metro di lasco",
+    "Tesa solo durante la discesa",
+    "Non necessaria se si lavora dal cestello"
+   ],
+   "sp": "Così l'energia di un'eventuale caduta non supera la portata ammissibile del mezzo."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2016-16938",
+   "q": "Perché l'operatore collegato alla sommità di un'autoscala deve restare vicino alla verticale dell'ancoraggio?",
+   "a": "Per evitare l'effetto pendolo e la sollecitazione laterale dell'ancoraggio",
+   "d": [
+    "Per mantenere il contatto radio",
+    "Per consumare meno corda",
+    "Per lasciare libero il cestello"
+   ],
+   "sp": "La sollecitazione laterale altera l'equilibrio del mezzo."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2016-16938",
+   "q": "Se le corde di lavoro e sicura sfregano contro grondaie o cornicioni, cosa prevede la EM 16938/2016?",
+   "a": "Interporre un cavo d'acciaio tra ancoraggio e corde",
+   "d": [
+    "Passare a una corda dinamica",
+    "Proteggere le corde con nastro adesivo",
+    "Raddoppiare il nodo di ancoraggio"
+   ],
+   "sp": "Il cavo d'acciaio (EN 354 o EN 795/B) evita l'abrasione delle corde."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2016-16938",
+   "q": "Durante la rimozione con autogrù di elementi costruttivi pesanti, come va garantita la movimentazione degli operatori SAF?",
+   "a": "Con un secondo automezzo destinato solo a quello scopo",
+   "d": [
+    "Con la stessa autogrù, agganciati al carico",
+    "Con la piattaforma del Comune",
+    "Non è mai consentita"
+   ],
+   "sp": "Il mezzo che solleva il carico non deve movimentare anche gli operatori."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2018-1336",
+   "q": "Secondo la EM 1336/2018, in quali ambienti la corda di sicura può essere un rischio aggiuntivo o un impedimento?",
+   "a": "Ambienti ipogei, luoghi confinati, forre, corsi d'acqua e ambienti alluvionali",
+   "d": [
+    "Edifici in muratura",
+    "Autoscale e piattaforme aeree",
+    "Pareti rocciose asciutte"
+   ],
+   "sp": "In questi scenari si può derogare alla corda di sicura in base alla valutazione dei rischi."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2018-1336",
+   "q": "In alternativa all'anticaduta guidato su corda, la EM 1336/2018 ammette…",
+   "a": "Assicuratori certificati non guidati, come gli arrotolatori retrattili EN 360",
+   "d": [
+    "Cordini senza assorbitore",
+    "Nodi autobloccanti su corda singola",
+    "Nessun dispositivo"
+   ],
+   "sp": "Possono essere impiegati anche assicuratori certificati di tipo non guidato."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2018-1336",
+   "q": "A chi va trasmessa la scheda di segnalazione di un incidente SAF?",
+   "a": "Dal Comando alla Direzione Regionale e alla Direzione Centrale; anche all'Ufficio Centrale Ispettivo se ci sono danni agli operatori",
+   "d": [
+    "Solo al Comandante provinciale",
+    "All'INAIL",
+    "Al costruttore dell'attrezzatura"
+   ],
+   "sp": "Serve a creare un archivio per la prevenzione degli incidenti."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2015-10",
+   "q": "Con il riordino della EM 10/2015, quali ex livelli comprende il SAF Basico?",
+   "a": "1A e 1B",
+   "d": [
+    "1B e 2A",
+    "Solo 1A",
+    "1A, 1B e Fluviale"
+   ],
+   "sp": "Il SAF Basico comprende gli ex 1A e 1B; il personale 1B è stato inquadrato come SAF Basico."
+  },
+  {
+   "lv": "ava",
+   "c": "circ-em-2015-10",
+   "q": "A quale ex livello corrisponde il SAF Avanzato?",
+   "a": "2A",
+   "d": [
+    "1B",
+    "2B",
+    "Fluviale"
+   ],
+   "sp": "Il personale già qualificato 2A è stato inquadrato come SAF Avanzato."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2015-10",
+   "q": "Quale profilo descrive il soccorritore SAF Basico secondo la EM 10/2015?",
+   "a": "Manovre di soccorso in discesa e salita fino a una distanza dalla zona sicura definita dai limiti delle attrezzature",
+   "d": [
+    "Manovre complesse di recupero di infortunati in ambienti impervi",
+    "Solo interventi in ambiente urbano",
+    "Interventi con l'elicottero"
+   ],
+   "sp": "Le manovre complesse in ambienti impervi sono il profilo del SAF Avanzato."
+  },
+  {
+   "lv": "ava",
+   "c": "circ-em-2015-10",
+   "q": "Chi coordina e ha la gestione funzionale del servizio SAF Avanzato?",
+   "a": "Il Direttore regionale",
+   "d": [
+    "Il Comandante provinciale",
+    "La Direzione Centrale per la Formazione",
+    "Il Capo del Corpo"
+   ],
+   "sp": "Il Direttore regionale individua anche il Funzionario responsabile e il Responsabile operativo regionale."
+  },
+  {
+   "lv": "ava",
+   "c": "circ-em-2015-10",
+   "q": "Qual è il ruolo dell'operatore SAF Avanzato rispetto al ROS?",
+   "a": "Affianca il ROS nella strategia dell'intervento e coordina le attività di competenza SAF Avanzato",
+   "d": [
+    "Sostituisce il ROS",
+    "Non ha compiti di coordinamento",
+    "Dirige l'intero intervento"
+   ],
+   "sp": "Il coordinamento resta nel rispetto dell'art. 51 del DPR 64/2012."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2015-10",
+   "q": "Quali figure sono previste nei Comandi per la gestione ordinaria del settore SAF?",
+   "a": "Funzionario responsabile, Coordinatore tecnico provinciale e Addetto al magazzino e alle attrezzature SAF",
+   "d": [
+    "Solo il Funzionario responsabile",
+    "Un istruttore per ogni turno",
+    "Il Responsabile operativo regionale"
+   ],
+   "sp": "Sono previste tre figure per la gestione ordinaria."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2023-46258",
+   "q": "Secondo la EM 46258/2023, il personale formato SAF Basico (anche di nuova assunzione) ha competenze pari a…",
+   "a": "SAF 1B",
+   "d": [
+    "SAF 1A",
+    "SAF 2A",
+    "Nessun ex livello"
+   ],
+   "sp": "Il SAF Basico comprende i pregressi livelli 1A e 1B."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2023-46258",
+   "q": "Se il soccorso richiede competenze di Contrasto Rischio Acquatico, cosa serve oltre al SAF?",
+   "a": "La specializzazione SFA o SA, regolarmente mantenuta",
+   "d": [
+    "Basta il SAF Basico",
+    "Basta il SAF Avanzato",
+    "Basta il TPSS"
+   ],
+   "sp": "Le specializzazioni SFA o SA si aggiungono a quelle SAF."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2023-46258",
+   "q": "Secondo la EM 46258/2023, da quali livelli possono essere composti i nuclei SAF?",
+   "a": "SAF Basico e SAF Avanzato",
+   "d": [
+    "Solo SAF Avanzato",
+    "Ex 1A e SAF Basico",
+    "Solo formatori SAF"
+   ],
+   "sp": "La partenza ordinaria può includere ex 1A e SAF Basico; nuclei e moduli di colonna mobile SAF Basico e Avanzato."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-staff-2023-24511",
+   "q": "Secondo il parere dell'Avvocatura dello Stato, il CNSAS può intervenire in montagna, in grotta e in zone impervie…",
+   "a": "Sì, ma non in via esclusiva",
+   "d": [
+    "In via esclusiva",
+    "Solo su autorizzazione dei VVF",
+    "Mai"
+   ],
+   "sp": "La competenza del CNSAS non è esclusiva."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-staff-2023-24511",
+   "q": "Se in questi scenari intervengono anche squadre VVF, fuori da un'emergenza di protezione civile, a chi spettano coordinamento e direzione?",
+   "a": "Al Corpo nazionale dei vigili del fuoco",
+   "d": [
+    "Al CNSAS",
+    "A chi arriva per primo",
+    "Alla Prefettura"
+   ],
+   "sp": "Art. 24 del D.Lgs. 139/2006."
+  },
+  {
+   "lv": "ava",
+   "c": "circ-dcf-2025-01",
+   "q": "Quali requisiti servono per accedere al corso Soccorritore SAF Avanzato?",
+   "a": "Esecutore TPSS, Soccorritore SAF Basico e Soccorritore Fluviale Alluvionale, tutti in regola",
+   "d": [
+    "Solo SAF Basico",
+    "SAF Basico e NeGh",
+    "TPSS e patente nautica"
+   ],
+   "sp": "I requisiti sono previsti dalla circolare DCF-01/2025."
+  },
+  {
+   "lv": "ava",
+   "c": "circ-dcf-2025-01",
+   "q": "Quanto dura e ogni quanto si svolge ciascun ciclo di mantenimento SAF Avanzato?",
+   "a": "Almeno 36 ore, circa ogni sei mesi",
+   "d": [
+    "12 ore ogni mese",
+    "8 ore ogni anno",
+    "36 ore ogni due anni"
+   ],
+   "sp": "Con quattro cicli ogni manovra viene ripetuta circa ogni due anni."
+  },
+  {
+   "lv": "ava",
+   "c": "circ-dcf-2025-01",
+   "q": "Quale manovra va eseguita in ogni ciclo di mantenimento SAF Avanzato?",
+   "a": "La 39, utilizzo di attrezzature complesse",
+   "d": [
+    "La 31",
+    "La 47",
+    "La 49"
+   ],
+   "sp": "La 39 è rappresentativa di varie tecniche."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-dcf-2025-01",
+   "q": "Oltre agli addestramenti, che cosa vale come attività di mantenimento SAF?",
+   "a": "La partecipazione agli interventi con tecniche SAF, annotando le manovre nel libretto personale",
+   "d": [
+    "La sola presenza in servizio",
+    "La lettura del manuale",
+    "La partecipazione a riunioni"
+   ],
+   "sp": "Va integrata con le altre manovre previste per completare il mantenimento."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-dcf-2015-37654",
+   "q": "Qual è la differenza principale tra mantenimento e re-training?",
+   "a": "Il re-training prevede di norma un esame finale, il mantenimento no",
+   "d": [
+    "Il mantenimento ha un esame, il re-training no",
+    "Sono la stessa cosa",
+    "Il re-training è facoltativo"
+   ],
+   "sp": "Il mantenimento si svolge con personale di pari abilitazione, senza esame finale."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-dcf-2015-37654",
+   "q": "Quando si svolgono le attività di mantenimento e re-training?",
+   "a": "Obbligatoriamente in orario di servizio",
+   "d": [
+    "Volontariamente fuori servizio",
+    "Solo nei giorni festivi",
+    "Durante le ferie"
+   ],
+   "sp": "Di norma nei turni diurni feriali programmati."
+  },
+  {
+   "lv": "cra",
+   "c": "circ-em-2015-4298",
+   "q": "Nelle discese su corda in forra in presenza d'acqua, cosa è vietato?",
+   "a": "Usare discensori autobloccanti come Stop, I'D S o Gri-gri",
+   "d": [
+    "Usare corde svincolabili",
+    "Fare la sicura dal basso",
+    "Valutare la portata d'acqua"
+   ],
+   "sp": "Sono vietati anche autobloccanti e nodo di fine corda in presenza d'acqua."
+  },
+  {
+   "lv": "cra",
+   "c": "circ-em-2015-4298",
+   "q": "Nelle discese sopra vasche d'acqua in forra, dove devono terminare le corde?",
+   "a": "Circa un metro prima della superficie dell'acqua",
+   "d": [
+    "Sul fondo della vasca",
+    "Con un nodo di fine corda",
+    "A filo dell'acqua"
+   ],
+   "sp": "Le corde devono inoltre essere svincolabili anche sotto carico."
+  },
+  {
+   "lv": "cra",
+   "c": "circ-em-2015-4298",
+   "q": "Quale qualifica deve avere il personale per operare in forra secondo la nota EM 4298/2015?",
+   "a": "SAF 1B o superiore e SAF Fluviale Alluvionale",
+   "d": [
+    "Solo SAF 1A",
+    "Solo SA",
+    "Solo TPSS"
+   ],
+   "sp": "Servono le competenze SAF e quelle fluviali."
+  },
+  {
+   "lv": "cra",
+   "c": "circ-dcf-2017-31345",
+   "q": "Secondo il chiarimento DCF 31345/2017, in che cosa consistono le verifiche di mantenimento SA?",
+   "a": "Nelle manovre apprese al corso SA, con le modalità degli esami finali",
+   "d": [
+    "Nelle prove a tempo di accesso al corso",
+    "In un questionario teorico",
+    "Nella sola partecipazione agli interventi"
+   ],
+   "sp": "Il riferimento alle prove di ingresso era un refuso."
+  },
+  {
+   "lv": "cra",
+   "c": "circ-em-2016-12",
+   "q": "Nel sistema di contrasto al rischio acquatico, quale risorsa integra in via prioritaria il soccorso ordinario?",
+   "a": "I Nuclei di Soccorso Subacqueo e Acquatico",
+   "d": [
+    "I soccorritori SFA",
+    "I soccorritori SAF Avanzato",
+    "I servizi portuali"
+   ],
+   "sp": "Seguono soccorritori SA, SFA, componente aerea e servizi portuali."
+  },
+  {
+   "lv": "cra",
+   "c": "circ-dce-2007-1774",
+   "q": "In caso di eventi con rischio acquatico, chi devono sempre allertare la sala operativa e il ROS?",
+   "a": "I nuclei sommozzatori regionali",
+   "d": [
+    "Il CNSAS",
+    "La Capitaneria di porto",
+    "Il nucleo elicotteri"
+   ],
+   "sp": "Vanno allertati insieme alla squadra competente per territorio."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2010-2337",
+   "q": "Durante il sollevamento di operatori SAF con autogrù, dove deve stare il manovratore?",
+   "a": "Sempre a bordo, al posto di comando del braccio, in contatto radio con gli operatori",
+   "d": [
+    "A terra vicino al carico",
+    "In cabina di guida",
+    "Dove preferisce, se vede l'operatore"
+   ],
+   "sp": "Prima delle operazioni si fa un briefing tra operatori e gruista."
+  },
+  {
+   "lv": "gen",
+   "c": "circ-em-2010-2337",
+   "q": "Quale livello SAF minimo indica la EM 2337/2010 per il personale sollevato in quota con autogrù?",
+   "a": "SAF 1B",
+   "d": [
+    "SAF 1A",
+    "SAF 2A",
+    "Nessun livello"
+   ],
+   "sp": "Ogni operatore deve essere imbragato e collegato al gancio con un sistema autonomo."
+  },
+  {
+   "lv": "gen",
+   "c": "lc-mlps-2011-3326",
+   "q": "Quando è ammesso il sollevamento di persone con attrezzature non previste a tal fine?",
+   "a": "In emergenza, per prevenire pericoli imminenti o salvare persone, o quando non esistono attrezzature più sicure",
+   "d": [
+    "Ogni volta che manca il cestello",
+    "Per risparmiare tempo",
+    "Mai"
+   ],
+   "sp": "È il concetto di eccezionalità dell'all. VI, punto 3.1.4, del D.Lgs. 81/2008."
+  }
  ]
 };
 const FIRSTRUN = (() => { try { return localStorage.getItem('saf-novita') === null && !['saf-levels', 'saf-level', 'saf-gc-dev', 'saf-viewer-hint', 'saf-sacche', 'saf-sacche-img', 'saf-gc-off'].some(k => localStorage.getItem(k) !== null); } catch (e) { return false; } })();
@@ -9567,48 +10083,72 @@ function bindCalcoli() {
 /* ===================== QUIZ DI AUTOVERIFICA ===================== */
 const QZ = {cat: '', q: [], i: 0, ok: 0, ans: null};
 const shuf = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+let QSPEC = new Set();
+try { const s = JSON.parse(localStorage.getItem('saf-quiz-spec') || 'null'); if (Array.isArray(s)) QSPEC = new Set(s); else if (levels.size) QSPEC = new Set([...levels].filter(x => ['basico', 'avanzato', 'negh'].includes(x))); } catch(e) {}
+if (!QSPEC.size) QSPEC.add('basico');
+const qzSave = () => { try { localStorage.setItem('saf-quiz-spec', JSON.stringify([...QSPEC])); } catch(e) {} };
+// Avanzato comprende Basico e SFA (requisiti di accesso); NeGh è indipendente.
+const qzMan = () => { const m = new Set(); if (QSPEC.has('basico') || QSPEC.has('avanzato')) m.add('man-basico-2021'); if (QSPEC.has('avanzato')) m.add('man-avanzato-2023'); if (QSPEC.has('negh')) m.add('man-negh-2025'); return m; };
+const qzLv = () => { const l = new Set(['gen']); if (QSPEC.has('basico') || QSPEC.has('avanzato')) l.add('bas'); if (QSPEC.has('avanzato')) { l.add('ava'); l.add('cra'); } return l; };
 function qzMake(cat) {
-  const out = [], pick = (arr, n) => shuf(arr).slice(0, n);
-  const opts = (right, pool) => shuf([right, ...pick(pool.filter(x => x !== right), 3)]);
+  const out = [], pick = (arr, n) => shuf(arr).slice(0, n), M = qzMan(), LV = qzLv();
+  const opts = (right, pool) => shuf([right, ...pick([...new Set(pool)].filter(x => x !== right), 3)]);
+  const SC = D.schede.filter(s => M.has(s.manuale));
+  const NK = new Set(SC.flatMap(s => (s.norme || []).map(normBase)).filter(k => k && D.norme[k] && D.norme[k].titolo));
   const N = Object.entries(D.norme).filter(([k, n]) => n.titolo);
+  const NS = N.filter(([k]) => NK.has(k));
   const lab = k => normLabel(k);
-  if (cat === 'norme' || cat === 'mix') pick(N, 8).forEach(([k, n]) => {
+  const cut = (t, n) => t.length > n ? t.slice(0, n).replace(/\s+\S*$/, '') + '…' : t;
+  if (cat === 'norme' || cat === 'mix') pick(NS, 8).forEach(([k, n]) => {
     if (Math.random() < .5) out.push({q: `Che cosa riguarda la norma ${lab(k)}?`, o: opts(n.titolo, N.map(x => x[1].titolo)), a: n.titolo, sp: n.spiegazione, h: '#n-' + k});
     else out.push({q: `Quale norma riguarda: “${n.titolo}”?`, o: opts(lab(k), N.map(x => lab(x[0]))), a: lab(k), sp: n.spiegazione, h: '#n-' + k});
   });
   if (cat === 'materiali' || cat === 'mix') {
-    const S = D.schede.filter(s => s.tipo === 'attrezzatura' && (s.norme || []).length);
-    pick(S, 8).forEach(s => { const k = normBase(s.norme[0]); if (!k || !D.norme[k]) return; out.push({q: `Quale norma è riportata nella scheda “${s.titolo}”?`, o: opts(lab(k), N.map(x => lab(x[0]))), a: lab(k), sp: 'Scheda ' + (s.n || '') + ' – norme: ' + s.norme.join(', '), h: '#s-' + s.id}); });
+    const S = SC.filter(s => s.tipo === 'attrezzatura' && (s.norme || []).length);
+    pick(S, 8).forEach(s => { const k = normBase(s.norme[0]); if (!k || !D.norme[k]) return; out.push({q: `Quale norma è riportata nella scheda “${s.titolo}” (${MAN[s.manuale].titolo.replace(/^Manuale\s*/i, '')})?`, o: opts(lab(k), N.map(x => lab(x[0]))), a: lab(k), sp: 'Scheda ' + (s.n || '') + ' – norme: ' + s.norme.join(', '), h: '#s-' + s.id}); });
     const B = D.bugiardini.filter(b => b.produttore && D.produttori[b.produttore]);
-    pick(B, 4).forEach(b => { const P = Object.values(D.produttori).map(p => p.nome); out.push({q: `Chi produce “${b.titolo.split(' – ')[0]}”?`, o: opts(D.produttori[b.produttore].nome, P), a: D.produttori[b.produttore].nome, sp: b.titolo, h: '#b-' + b.id}); });
+    pick(B, 3).forEach(b => { const P = Object.values(D.produttori).map(p => p.nome); out.push({q: `Chi produce “${b.titolo.split(' – ')[0]}”?`, o: opts(D.produttori[b.produttore].nome, P), a: D.produttori[b.produttore].nome, sp: b.titolo, h: '#b-' + b.id}); });
   }
   if (cat === 'manovre' || cat === 'mix') {
-    const S = D.schede.filter(s => s.tipo === 'manovra' && (s.argomenti || []).length);
+    const S = SC.filter(s => s.tipo === 'manovra' && (s.argomenti || []).length);
     const AN = a => (D.argomenti.find(x => x.codice === a) || {}).nome || a;
-    pick(S, 8).forEach(s => { const r = AN(s.argomenti[0]); out.push({q: `A quale argomento appartiene la manovra “${s.titolo}”?`, o: opts(r, [...new Set(D.argomenti.map(a => a.nome))]), a: r, sp: 'Scheda ' + (s.n || '') + ' del manuale.', h: '#s-' + s.id}); });
+    const pool = [...new Set(S.map(s => AN(s.argomenti[0])))];
+    pick(S, 8).forEach(s => { const r = AN(s.argomenti[0]); out.push({q: `A quale argomento appartiene la manovra “${s.titolo}”?`, o: opts(r, pool.length >= 4 ? pool : D.argomenti.map(a => a.nome)), a: r, sp: 'Scheda ' + (s.n || '') + ' – ' + MAN[s.manuale].titolo + '.', h: '#s-' + s.id}); });
+  }
+  if (cat === 'glossario' || cat === 'mix') {
+    const G = (D.glossario || []).filter(g => M.has(g.m) && g.d && g.d.length > 25);
+    pick(G, 8).forEach(g => out.push({q: `Quale termine corrisponde a questa definizione: “${cut(g.d.replace(new RegExp(g.t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), '…'), 220)}”`, o: opts(g.t, G.map(x => x.t)), a: g.t, sp: 'Glossario – ' + MAN[g.m].titolo + ', pag. ' + g.p + '.', h: '#t-glossario'}));
   }
   if (cat === 'circolari' || cat === 'mix') {
-    const C = D.circolari.filter(c => c.descrizione && c.etichetta);
-    pick(C, 6).forEach(c => out.push({q: `Quale circolare tratta: “${c.descrizione}”?`, o: opts(c.etichetta, C.map(x => x.etichetta)), a: c.etichetta, sp: c.titolo, h: '#c-' + c.id}));
+    const C = (D.quiz_circolari || []).filter(x => LV.has(x.lv) && CIR[x.c]);
+    pick(C, cat === 'mix' ? 4 : 10).forEach(x => out.push({q: x.q, o: shuf([x.a, ...x.d]), a: x.a, sp: x.sp + ' (' + (CIR[x.c].etichetta || CIR[x.c].numero) + ')', h: '#c-' + x.c}));
   }
   return shuf(out).slice(0, 10);
 }
 function viewQuiz() {
-  if (!QZ.q.length) return `<h2>Quiz di autoverifica</h2><p class="note">10 domande generate dai contenuti dell'app, sempre diverse. Utili per il ripasso e i mantenimenti; non sono quiz ufficiali.</p>
-    <div class="folds">${[['norme', 'Normative EN', '#2457c5'], ['materiali', 'Materiali e norme', '#b8862b'], ['manovre', 'Manovre e argomenti', '#c62828'], ['circolari', 'Circolari', '#00838f'], ['mix', 'Misto', '#555']].map(([c, n, col]) => `<button class="card tool qzc" data-c="${c}" style="--tc:${col}"><span class="ico">?</span><b>${n}</b></button>`).join('')}</div>`;
-  if (QZ.i >= QZ.q.length) return `<h2>Quiz completato</h2><div class="card" style="text-align:center"><p style="font-size:2.4rem;margin:6px 0"><b>${QZ.ok}/${QZ.q.length}</b></p><p style="margin:0">${QZ.ok >= 9 ? 'Ottimo!' : QZ.ok >= 6 ? 'Buono, ripassa le risposte sbagliate.' : 'Da ripassare.'}</p><div class="btns" style="justify-content:center"><button class="btn" id="qz-again">Nuovo quiz</button><button class="btn ghost" id="qz-home">Cambia argomento</button></div></div>`;
+  if (!QZ.q.length) {
+    const SP = [['basico', 'Basico'], ['avanzato', 'Avanzato'], ['negh', 'NeGh']];
+    return `<h2>Quiz di autoverifica</h2><p class="note">10 domande sempre diverse, tratte dai contenuti dell'app. Utili per il ripasso e i mantenimenti; non sono quiz ufficiali.</p>
+    <div class="card"><b>Le tue specializzazioni</b><p class="note" style="margin:4px 0 8px">Il livello Avanzato comprende anche le domande su Basico e SFA, che ne sono requisiti. NeGh è indipendente.</p>
+    <div class="levels" style="flex-wrap:wrap">${SP.map(([k, n]) => `<button class="lv qzs" data-lv="${k}" aria-pressed="${QSPEC.has(k)}">${n}</button>`).join('')}</div></div>
+    <div class="folds">${[['circolari', 'Circolari: concetti chiave', '#00838f'], ['manovre', 'Manovre e argomenti', '#c62828'], ['materiali', 'Materiali e norme', '#b8862b'], ['norme', 'Normative EN', '#2457c5'], ['glossario', 'Glossario', '#6a3fb5'], ['mix', 'Misto', '#555']].map(([c, n, col]) => `<button class="card tool qzc" data-c="${c}" style="--tc:${col}"><span class="ico">?</span><b>${n}</b></button>`).join('')}</div>`;
+  }
+  if (QZ.i >= QZ.q.length) return `<h2>Quiz completato</h2><div class="card" style="text-align:center"><p style="font-size:2.4rem;margin:6px 0"><b>${QZ.ok}/${QZ.q.length}</b></p><p style="margin:0">${QZ.ok >= QZ.q.length * .9 ? 'Ottimo!' : QZ.ok >= QZ.q.length * .6 ? 'Buono, ripassa le risposte sbagliate.' : 'Da ripassare.'}</p><div class="btns" style="justify-content:center"><button class="btn" id="qz-again">Nuovo quiz</button><button class="btn ghost" id="qz-home">Cambia argomento</button></div></div>`;
   const x = QZ.q[QZ.i], done = QZ.ans !== null;
   return `<h2>Domanda ${QZ.i + 1} di ${QZ.q.length}</h2><div class="card"><p style="margin:0;font-weight:600">${esc(x.q)}</p>
     <div class="qzo">${x.o.map((o, k) => `<button class="qzb${done ? (o === x.a ? ' ok' : k === QZ.ans ? ' ko' : '') : ''}" data-k="${k}"${done ? ' disabled' : ''}>${esc(o)}</button>`).join('')}</div>
-    ${done ? `<p class="note" style="margin:0">${x.o[QZ.ans] === x.a ? '✓ Esatto.' : '✗ Risposta corretta: ' + esc(x.a) + '.'} ${esc(x.sp || '')} <a href="${x.h}">Vai alla scheda</a></p><div class="btns"><button class="btn" id="qz-next">${QZ.i + 1 < QZ.q.length ? 'Avanti' : 'Risultato'}</button></div>` : ''}
-    <p class="note" style="margin:0">Punteggio: ${QZ.ok}</p></div>`;
+    ${done ? `<p class="note" style="margin:0">${x.o[QZ.ans] === x.a ? '✓ Esatto.' : '✗ Risposta corretta: ' + esc(x.a) + '.'} ${esc(x.sp || '')} <a href="${x.h}">Apri la fonte</a></p><div class="btns"><button class="btn" id="qz-next">${QZ.i + 1 < QZ.q.length ? 'Avanti' : 'Risultato'}</button></div>` : ''}
+    <p class="note" style="margin:0">Punteggio: ${QZ.ok}</p></div>
+    <div class="btns" style="justify-content:center"><button class="btn ghost" id="qz-stop">✕ Interrompi quiz</button></div>`;
 }
 function bindQuiz() {
-  document.querySelectorAll('.qzc').forEach(b => b.onclick = () => { QZ.cat = b.dataset.c; QZ.q = qzMake(QZ.cat); QZ.i = 0; QZ.ok = 0; QZ.ans = null; render(); scrollTo(0, 0); });
+  document.querySelectorAll('.qzs').forEach(b => b.onclick = () => { const k = b.dataset.lv; if (QSPEC.has(k)) { if (QSPEC.size > 1) QSPEC.delete(k); } else QSPEC.add(k); qzSave(); render(); });
+  document.querySelectorAll('.qzc').forEach(b => b.onclick = () => { QZ.cat = b.dataset.c; QZ.q = qzMake(QZ.cat); QZ.i = 0; QZ.ok = 0; QZ.ans = null; if (!QZ.q.length) { alert('Nessuna domanda disponibile per le specializzazioni scelte.'); return; } render(); scrollTo(0, 0); });
   document.querySelectorAll('.qzb').forEach(b => b.onclick = () => { const x = QZ.q[QZ.i]; QZ.ans = +b.dataset.k; if (x.o[QZ.ans] === x.a) QZ.ok++; render(); });
   const n = document.getElementById('qz-next'); if (n) n.onclick = () => { QZ.i++; QZ.ans = null; render(); scrollTo(0, 0); };
   const a = document.getElementById('qz-again'); if (a) a.onclick = () => { QZ.q = qzMake(QZ.cat); QZ.i = 0; QZ.ok = 0; QZ.ans = null; render(); };
   const h = document.getElementById('qz-home'); if (h) h.onclick = () => { QZ.q = []; render(); };
+  const st = document.getElementById('qz-stop'); if (st) st.onclick = () => { if (QZ.i === 0 && QZ.ans === null || confirm('Interrompere il quiz e tornare alla scelta degli argomenti?')) { QZ.q = []; render(); scrollTo(0, 0); } };
 }
 
 /* ===================== SEGNALA, CONDIVIDI, NOVITÀ ===================== */
@@ -9707,12 +10247,12 @@ function setLevel(lv) {
   const avail = D.livelli.filter(l => levelHasContent(l.id)).map(l => l.id);
   if (avail.every(x => levels.has(x))) levels.clear();
   try { localStorage.setItem('saf-levels', JSON.stringify([...levels])); } catch(e) {}
-  document.querySelectorAll('.lv').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lv ? levels.has(b.dataset.lv) : !levels.size)));
+  document.querySelectorAll('#levels .lv').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lv ? levels.has(b.dataset.lv) : !levels.size)));
   render();
 }
 $('#levels').innerHTML = `<button class="lv" data-lv="" aria-pressed="true">Tutti</button>` + D.livelli.filter(l => levelHasContent(l.id)).map(l => `<button class="lv" data-lv="${l.id}" aria-pressed="false">${esc(l.nome)}</button>`).join('');
 [...levels].forEach(x => { if (!levelHasContent(x)) levels.delete(x); });
-document.querySelectorAll('.lv').forEach(b => b.addEventListener('click', () => setLevel(b.dataset.lv)));
+document.querySelectorAll('#levels .lv').forEach(b => b.addEventListener('click', () => setLevel(b.dataset.lv)));
 $('#q').addEventListener('input', () => { if (location.hash && location.hash !== '#home') { location.hash = 'home'; } else render(); });
 $('#sf').addEventListener('submit', e => { e.preventDefault(); $('#q').blur(); });
 $('#brand').addEventListener('click', () => { $('#q').value = ''; location.hash = 'home'; render(); });
