@@ -64,10 +64,40 @@ if (!/^(pdf\/)?[\w.\-]+\.pdf$/.test(file)) {
     box.querySelectorAll('.pg').forEach(el => io.observe(el));
     sc.scrollTop = document.getElementById('p' + Math.min(Math.max(start, 1), d.numPages)).offsetTop - 6;
     sc.addEventListener('scroll', counter, {passive: true}); counter();
+    loadRatios(d);
     try { if (!localStorage.getItem('saf-viewer-hint')) { const h = document.createElement('div'); h.id = 'hint'; h.textContent = 'Allarga con due dita per ingrandire il testo, doppio tocco per ingrandire o tornare alla pagina intera.'; document.body.appendChild(h); setTimeout(() => h.remove(), 5000); h.onclick = () => h.remove(); localStorage.setItem('saf-viewer-hint', '1'); } } catch (e) {}
   }).catch(e => { document.getElementById('msg').textContent = 'Impossibile aprire il documento: ' + e.message; });
 }
 
+/* proporzioni reali di ogni pagina, lette in background: se una pagina sopra quella visibile cambia altezza, la vista non salta */
+async function loadRatios(d) {
+  for (let i = 1; i <= d.numPages; i++) {
+    try { const v = (await d.getPage(i)).getViewport({scale: 1}); setRatio(i, v.height / v.width); } catch (e) {}
+    if (i % 20 === 0) await new Promise(r => setTimeout(r, 0));
+  }
+}
+function setRatio(n, r) {
+  const el = document.getElementById('p' + n);
+  if (!el || Math.abs(el.dataset.ratio - r) < 1e-4) return;
+  const a = anchor(), old = el.offsetHeight;
+  el.dataset.ratio = r; el.style.height = (width() * r) + 'px';
+  if (pinch) return;
+  if (a) restore(a); else if (el.offsetTop < sc.scrollTop) sc.scrollTop += el.offsetHeight - old;
+}
+/* punto della pagina sotto le coordinate (cx, cy) dello schermo, in proporzione alla pagina */
+function anchor(cx, cy) {
+  if (!box.firstElementChild) return null;
+  if (cx == null) { cx = sc.clientWidth / 2; cy = sc.clientHeight / 2; }
+  const px = sc.scrollLeft + cx, py = sc.scrollTop + cy;
+  let el = null;
+  for (const p of box.children) { if (p.offsetTop + p.offsetHeight + 11 >= py) { el = p; break; } }
+  el = el || box.lastElementChild;
+  return {el, cx, cy, fx: (px - el.offsetLeft) / el.offsetWidth, fy: (py - el.offsetTop) / el.offsetHeight};
+}
+function restore(a, panX = 0, panY = 0) {
+  sc.scrollLeft = a.el.offsetLeft + a.fx * a.el.offsetWidth - a.cx - panX;
+  sc.scrollTop = a.el.offsetTop + a.fy * a.el.offsetHeight - a.cy - panY;
+}
 function width() { return Math.min(sc.clientWidth - 12, 900) * zoom; }
 function layout() {
   const w = width();
@@ -79,8 +109,9 @@ async function draw(n) {
   const page = await doc.getPage(n);
   if (rendered.get(n) !== z) return;
   const el = document.getElementById('p' + n);
-  const w = width(), vp0 = page.getViewport({scale: 1});
-  el.style.height = (w * vp0.height / vp0.width) + 'px';
+  const vp0 = page.getViewport({scale: 1});
+  setRatio(n, vp0.height / vp0.width);
+  const w = width();
   let scale = w / vp0.width * (window.devicePixelRatio || 1);
   const area = vp0.width * vp0.height * scale * scale;
   if (area > MAXPX) scale *= Math.sqrt(MAXPX / area);
@@ -106,12 +137,9 @@ function showZoom() { const z = document.getElementById('zl'); z.textContent = M
 /* imposta lo zoom mantenendo fermo il punto (cx, cy) dello schermo */
 function setZoom(nz, cx, cy, panX = 0, panY = 0) {
   nz = Math.min(ZMAX, Math.max(ZMIN, nz));
-  const r = sc.getBoundingClientRect();
-  if (cx == null) { cx = r.width / 2; cy = r.height / 2; }
-  const px = sc.scrollLeft + cx, py = sc.scrollTop + cy, f = nz / zoom;
+  const a = anchor(cx, cy);
   zoom = nz; layout();
-  sc.scrollLeft = px * f - cx - panX;
-  sc.scrollTop = py * f - cy - panY;
+  if (a) restore(a, panX, panY);
   visible(); counter(); showZoom();
 }
 
@@ -159,12 +187,12 @@ sc.addEventListener('wheel', e => {
   const r = sc.getBoundingClientRect();
   setZoom(zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15), e.clientX - r.left, e.clientY - r.top);
 }, {passive: false});
-window.addEventListener('resize', () => { rendered.clear(); layout(); visible(); });
+window.addEventListener('resize', () => { const a = anchor(); rendered.clear(); layout(); if (a) restore(a); visible(); });
 
 document.getElementById('back').onclick = () => { if (history.length > 1) history.back(); else location.href = './'; };
 document.getElementById('zoomin').onclick = () => setZoom(zoom * 1.4);
 document.getElementById('zoomout').onclick = () => setZoom(zoom / 1.4);
-document.getElementById('fit').onclick = () => setZoom(1, 0, 0);
+document.getElementById('fit').onclick = () => setZoom(1);
 /* condivisione: prima il file PDF, altrimenti il collegamento */
 document.getElementById('share').onclick = async () => {
   const name = decodeURIComponent(file.split('/').pop());
