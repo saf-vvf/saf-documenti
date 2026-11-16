@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="SAFe">
 <meta name="theme-color" content="#14181d">
-<title>SAF – Visualizzatore PDF</title>
+<title>SAFe – Lettore PDF</title>
 <style>
 :root{--bg:#2a2f36;--bar:#14181d;--ink:#eef1f4;--muted:#9aa4b0;--line:#3a424c;--hb:56px}
 *{box-sizing:border-box}
@@ -181,6 +183,8 @@ sc.addEventListener('touchend', e => {
     } else { lastTap = now; lastXY = [t.clientX, t.clientY]; }
   }
 }, {passive: false});
+/* iPhone/iPad: blocca lo zoom di Safari, lo gestisce il lettore */
+['gesturestart', 'gesturechange', 'gestureend'].forEach(t => document.addEventListener(t, e => e.preventDefault(), {passive: false}));
 /* computer: Ctrl + rotellina */
 sc.addEventListener('wheel', e => {
   if (!e.ctrlKey) return; e.preventDefault();
