@@ -262,7 +262,8 @@ a.card.tool{border-left:5px solid var(--tc);--gc:var(--tc)}
 .row{background:linear-gradient(90deg,color-mix(in srgb,var(--rc,transparent) 7%,var(--surface)),var(--surface) 50%)}
 .gl{border-left:4px solid var(--rc,var(--line));background:linear-gradient(90deg,color-mix(in srgb,var(--rc,transparent) 6%,var(--surface)),var(--surface) 50%)}
 .row.brow{display:flex;align-items:center;padding:0 10px 0 0;gap:4px}.brow .rlink{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;text-decoration:none;color:inherit}
-.ract{display:flex;gap:6px;flex:none}.rico{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);display:grid;place-items:center;font-size:.9rem;text-decoration:none;cursor:pointer;padding:0}.rico .shic{width:15px;height:15px}
+.ract{display:flex;gap:6px;flex:none}.rico{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);display:grid;place-items:center;font-size:.9rem;text-decoration:none;cursor:pointer;padding:0}.tema{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.tema-b{font:inherit;font-size:.9rem;padding:10px 6px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}.tema-b[aria-checked="true"]{background:#fdeb05;border-color:#fdeb05;color:#111;font-weight:700}
+.rico .shic{width:15px;height:15px}
 .shic{width:1em;height:1em;vertical-align:-2px;fill:currentColor;stroke:currentColor;stroke-width:2}
 .btn.shr.sm{padding:8px 12px;margin-top:6px}
 button.seg-l{background:none;border:0;font:inherit;cursor:pointer;padding:0;margin-right:14px}
@@ -8193,6 +8194,13 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-17.4",
+   "data": "2026-11-17",
+   "voci": [
+    "In Informazioni puoi scegliere il tema dell'app: automatico, chiaro o scuro."
+   ]
+  },
+  {
    "id": "2026-11-17.3",
    "data": "2026-11-17",
    "voci": [
@@ -9936,6 +9944,10 @@ const lvOf = s => MAN[s.manuale].livello;
 const lvOk = lv => !levels.size || !lv || (Array.isArray(lv) && !lv.length) || (Array.isArray(lv) ? lv.some(x => levels.has(x)) : levels.has(lv));
 const LIV = Object.fromEntries(D.livelli.map(l => [l.id, l]));
 const pill = lv => lv && LIV[lv] ? `<span class="pill p-${lv}">${esc(LIV[lv].nome)}</span>` : '';
+/* tema: automatico (come il telefono), chiaro o scuro */
+const temaGet = () => { try { return localStorage.getItem('saf-tema') || 'auto'; } catch (e) { return 'auto'; } };
+function temaApply(t) { const r = document.documentElement; if (!r || !r.setAttribute) return; if (t === 'chiaro') r.setAttribute('data-theme', 'light'); else if (t === 'scuro') r.setAttribute('data-theme', 'dark'); else r.removeAttribute('data-theme'); }
+temaApply(temaGet());
 (function levelStyles() {
   const light = D.livelli.map(l => `--lv-${l.id}:${l.colore}`).join(';');
   const dark = D.livelli.map(l => `--lv-${l.id}:${l.colore_scuro}`).join(';');
@@ -10137,6 +10149,8 @@ function viewInfo() {
     <p style="margin:0">I documenti che apri restano salvati sul telefono. Per averli tutti disponibili anche in grotta, in forra o senza copertura, scaricali ora (circa 290 MB, meglio con il Wi-Fi).</p>
     <div class="btns"><button class="btn" type="button" id="offline">Scarica tutti i documenti</button></div>
     <p class="note" style="margin:0" id="offmsg">Verifica in corso…</p></div>
+  <div class="card"><h3>Aspetto</h3><p class="note" style="margin:0 0 8px">Scegli il tema dell'app. "Automatico" segue l'impostazione del telefono.</p>
+    <div class="tema" role="radiogroup">${[['auto', '📱 Automatico'], ['chiaro', '☀️ Chiaro'], ['scuro', '🌙 Scuro']].map(([k, n]) => `<button type="button" class="tema-b" data-tema="${k}" role="radio" aria-checked="${temaGet() === k}">${n}</button>`).join('')}</div></div>
   <div class="card"><h3>Supporto e segnalazioni</h3>
     <p style="margin:0">Per errori nei contenuti, documenti mancanti o aggiornati, scrivi a:</p>
     <p style="margin:0;font-size:1.1rem;font-weight:600;word-break:break-all">${mail}</p>
@@ -10505,7 +10519,8 @@ async function condividiApp() {
   try { if (navigator.share) { await navigator.share({title: 'SAFe – Supporto Operatore', text: txt}); return; } } catch (e) { if (e.name === 'AbortError') return; }
   try { await navigator.clipboard.writeText(txt); if (m) m.textContent = 'Messaggio copiato: incollalo in WhatsApp, Telegram o in una mail.'; } catch (e) { if (m) m.textContent = 'Condivisione non disponibile: copia il link ' + url; }
 }
-function bindInfoExtra() { const b = document.getElementById('shapp'); if (b) b.onclick = condividiApp; }
+function bindInfoExtra() { const b = document.getElementById('shapp'); if (b) b.onclick = condividiApp;
+  document.querySelectorAll('.tema-b').forEach(x => x.onclick = () => { try { localStorage.setItem('saf-tema', x.dataset.tema); } catch (e) {} temaApply(x.dataset.tema); document.querySelectorAll('.tema-b').forEach(y => y.setAttribute('aria-checked', String(y === x))); }); }
 function novitaCheck() {
   const N = D.novita || []; if (!N.length) return;
   const id = n => n.id || n.data, last = id(N[0]); let seen = null;
