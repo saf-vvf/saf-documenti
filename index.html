@@ -245,6 +245,27 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .mopt.pri{background:var(--mc);color:#fff}.mopt.pri small{color:#fff;opacity:.9}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mopt.pri{color:#0e1318}:root:not([data-theme="light"]) .mopt.pri small{color:#0e1318}}:root[data-theme="dark"] .mopt.pri,:root[data-theme="dark"] .mopt.pri small{color:#0e1318}
 .mfoot{margin-top:10px;text-align:right}.seg-l{font-size:.8rem;color:var(--muted);text-decoration:none}
+/* etichette colorate: barra a sinistra, sfumatura appena accennata ed effetto vetro con luce dal lato dell'etichetta */
+:root{--glass-hi:rgba(255,255,255,.85);--glass-lo:rgba(16,24,32,.06);--glass-sh:0 2px 8px rgba(16,24,32,.10);--glass-glow:.35}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass-hi:rgba(255,255,255,.07);--glass-lo:rgba(0,0,0,.30);--glass-sh:0 3px 10px rgba(0,0,0,.40);--glass-glow:.6}}
+:root[data-theme="dark"]{--glass-hi:rgba(255,255,255,.07);--glass-lo:rgba(0,0,0,.30);--glass-sh:0 3px 10px rgba(0,0,0,.40);--glass-glow:.6}
+.fold{overflow:hidden;--gc:var(--fc,var(--line))}
+a.card.tool{border-left:5px solid var(--tc);--gc:var(--tc)}
+.calc{--gc:var(--cc,#e07000)}
+.mcard{--gc:var(--mc)}
+.card.lab{border-left:5px solid var(--lc);--gc:var(--lc)}
+.fold,a.card.tool,.calc,.mcard,.card.lab{
+ background:linear-gradient(180deg,var(--glass-hi) 0,transparent 38%,transparent 62%,var(--glass-lo) 100%),
+  radial-gradient(130% 160% at 0% 50%,color-mix(in srgb,var(--gc) 9%,transparent) 0,transparent 60%),var(--surface);
+ box-shadow:inset 1px 1px 0 var(--glass-hi),inset 0 -1px 0 var(--glass-lo),var(--glass-sh),-5px 0 16px -9px color-mix(in srgb,var(--gc) calc(var(--glass-glow)*100%),transparent)}
+.fold>summary{background:transparent}
+.row{background:linear-gradient(90deg,color-mix(in srgb,var(--rc,transparent) 7%,var(--surface)),var(--surface) 50%)}
+.gl{border-left:4px solid var(--rc,var(--line));background:linear-gradient(90deg,color-mix(in srgb,var(--rc,transparent) 6%,var(--surface)),var(--surface) 50%)}
+.row.brow{display:flex;align-items:center;padding:0 10px 0 0;gap:4px}.brow .rlink{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;text-decoration:none;color:inherit}
+.ract{display:flex;gap:6px;flex:none}.rico{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);display:grid;place-items:center;font-size:.9rem;text-decoration:none;cursor:pointer;padding:0}.rico .shic{width:15px;height:15px}
+.shic{width:1em;height:1em;vertical-align:-2px;fill:currentColor;stroke:currentColor;stroke-width:2}
+.btn.shr.sm{padding:8px 12px;margin-top:6px}
+button.seg-l{background:none;border:0;font:inherit;cursor:pointer;padding:0;margin-right:14px}
 .qzo{display:grid;gap:8px;margin:12px 0}
 .qzb{font:inherit;text-align:left;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .qzb.ok{border-color:#1d8a3a;background:color-mix(in srgb,#1d8a3a 18%,var(--surface))}
@@ -8172,6 +8193,16 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-17.3",
+   "data": "2026-11-17",
+   "voci": [
+    "Pulsante \"Condividi\" su ogni documento, anche direttamente nell'elenco dei bugiardini: invia il PDF senza aprirlo.",
+    "Nuovo stile: sezioni con effetto vetro ed etichetta colorata a sinistra.",
+    "Glossario filtrato per Basico, Avanzato e NeGh con i filtri in alto.",
+    "Coordinate: riconosciuti i link lunghi di Google Maps; per i link brevi (maps.app.goo.gl) l'app spiega come ricavare le coordinate."
+   ]
+  },
+  {
    "id": "2026-11-17.2",
    "data": "2026-11-17",
    "voci": [
@@ -9916,6 +9947,9 @@ const pill = lv => lv && LIV[lv] ? `<span class="pill p-${lv}">${esc(LIV[lv].nom
 const levelHasContent = id => D.schede.some(s => MAN[s.manuale].livello === id) || D.circolari.some(c => c.livelli.includes(id));
 const VIEWER = 'viewer.html?file=';
 const pdf = (url, p) => VIEWER + encodeURIComponent(url) + (p ? '#page=' + p : '');
+const PUB = 'https://saf-vvf.github.io/saf-documenti/';
+const SHIC = '<svg class="shic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>';
+const shareBtn = (url, title) => `<button type="button" class="btn ghost seg shr" data-doc="${esc(url)}" data-tit="${esc(title)}">${SHIC} Condividi</button>`;
 const argChips = list => `<div class="chips">${(list||[]).filter(c=>ARG[c]).map(c => `<a class="chip" href="#a-${c}">${esc(ARG[c].nome)}</a>`).join('')}</div>`;
 const bugFor = id => D.bugiardini.filter(b => (b.schede_collegate||[]).includes(id));
 
@@ -9927,8 +9961,9 @@ function schedaRow(s) {
 const brand = b => D.produttori[b.produttore].nome.split(' ')[0].replace(/\./g, '');
 function bugTitle(b) { const i = b.titolo.indexOf(' – '), art = i < 0 ? b.titolo : b.titolo.slice(0, i), desc = i < 0 ? '' : b.titolo.slice(i + 3); return `<b class="bmar">${esc(brand(b))}</b> <b class="bart">${esc(art)}</b>${desc ? ` – ${esc(desc)}` : ''}`; }
 function bugRow(b) {
-  return `<a class="row t-bug" href="#b-${b.id}"><span class="num">PDF</span><span class="t">${bugTitle(b)}</span>
-  <span class="s">${DOCT[b.tipo_documento]}${b.norme ? ' · ' + esc(b.norme.join(', ')) : ''}</span></a>`;
+  const tit = brand(b) + ' ' + b.titolo;
+  return `<div class="row t-bug brow"><a class="rlink" href="#b-${b.id}"><span class="num">PDF</span><span class="t">${bugTitle(b)}</span>
+  <span class="s">${DOCT[b.tipo_documento]}${b.norme ? ' · ' + esc(b.norme.join(', ')) : ''}</span></a><span class="ract"><button type="button" class="rico shr" data-doc="${esc(b.url)}" data-tit="${esc(tit)}" title="Condividi" aria-label="Condividi">${SHIC}</button><a class="rico" href="${segnalaHref(tit)}" title="Segnala" aria-label="Segnala">⚑</a></span></div>`;
 }
 const circLabel = c => c.descrizione ? `${c.etichetta ? esc(c.etichetta) + ' ' : ''}<b class="cdesc">${esc(c.descrizione)}</b>` : `<b>${esc(c.numero)}</b> – ${esc(c.titolo)}`;
 const fdate = s => String(s || '').split('-').reverse().join('/');
@@ -9998,7 +10033,7 @@ function viewManuali() {
     <div class="mh">${pill(m.livello)}<b>${esc(m.titolo)}</b><span class="note">${esc(m.ed)}${m.pagine ? ' · ' + m.pagine + ' pagine' : ''}</span></div>
     <div class="mlab">Apri il manuale</div>
     <div class="mopen"><a class="mopt pri" href="#m-${m.id}"><b>📑 Per schede</b><small>${det}</small></a><a class="mopt" href="${pdf(m.url)}"><b>📄 Documento intero</b><small>PDF completo da sfogliare</small></a></div>
-    <div class="mfoot"><a class="seg-l" href="${segnalaHref(m.titolo + ' (' + m.ed + ')')}">⚑ Segnala un problema</a></div></div>`;
+    <div class="mfoot"><button type="button" class="seg-l shr" data-doc="${esc(m.url)}" data-tit="${esc(m.titolo + ' ' + m.ed)}">${SHIC} Condividi</button><a class="seg-l" href="${segnalaHref(m.titolo + ' (' + m.ed + ')')}">⚑ Segnala un problema</a></div></div>`;
   }).join('');
 }
 function viewManuale(id) {
@@ -10015,11 +10050,11 @@ function viewScheda(id) {
   const cyc = D.cicli[id];
   const rel = D.schede.filter(x => x.id !== id && x.tipo === s.tipo && x.argomenti.some(a => s.argomenti.includes(a)) && lvOk(lvOf(x))).slice(0, 6);
   const pg = s.pagine[0] === s.pagine[1] ? `pag. ${s.pagine[0]}` : `pagg. ${s.pagine[0]}–${s.pagine[1]}`;
-  return `<div class="card">
+  return `<div class="card lab" style="--lc:var(--lv-${m.livello})">
     <div>${pill(m.livello)}<span class="pill ${{manovra:'p-man',attrezzatura:'p-att',capitolo:'p-cap'}[s.tipo]}">${TIPI[s.tipo]}${s.tipo!=='capitolo' ? ' n. ' + esc(s.n.replace(/^0/,'')) : ''}</span></div>
     <h2>${esc(s.titolo)}</h2>
     <dl class="meta"><dt>Manuale</dt><dd><a href="#m-${m.id}">${esc(m.titolo)}</a> · ${esc(m.ed)}</dd><dt>Pagine</dt><dd>${pg}</dd></dl>
-    <div class="btns"><a class="btn" href="${pdf(m.url, s.pagine[0])}">Apri la scheda nel PDF (pag. ${s.pagine[0]})</a><a class="btn ghost seg" href="${segnalaHref(m.titolo + ' – scheda ' + (s.n || '') + ' ' + s.titolo + ' (' + pg + ')')}">⚑ Segnala</a></div>
+    <div class="btns"><a class="btn" href="${pdf(m.url, s.pagine[0])}">Apri la scheda nel PDF (pag. ${s.pagine[0]})</a>${shareBtn(m.url, m.titolo + ' – scheda ' + (s.n || '') + ' ' + s.titolo + ' (' + pg + ')')}<a class="btn ghost seg" href="${segnalaHref(m.titolo + ' – scheda ' + (s.n || '') + ' ' + s.titolo + ' (' + pg + ')')}">⚑ Segnala</a></div>
     ${argChips(s.argomenti)}${s.norme ? `<div class="chips">${s.norme.map(n => `<a class="chip" href="#n-${n}" style="border-color:#2457c5">${esc(normLabel(n))}</a>`).join('')}</div>` : ''}</div>
   ${cyc ? `<div class="card"><h3>Mantenimento</h3><p style="margin:0">Rientra nel <b>${cyc.map(c => ['','I','II','III','IV'][c]).join(', ')} ciclo</b> di mantenimento SAF Avanzato${cyc.length>1?'':''}${id==='ava-man-39'?' (ripetuta in ogni ciclo)':''}.</p><a class="note" href="#c-circ-dcf-2025-01">Circ. DCF-01/2025 – Allegato IV</a></div>` : ''}
   ${bugs.length ? `<div class="area"><h3>Bugiardini collegati</h3>${list(bugs.map(bugRow))}</div>` : ''}
@@ -10052,13 +10087,13 @@ function viewCircolari() {
 function viewCircolare(id) {
   const c = CIR[id]; if (!c) return viewHome();
   const al = c.allegati.map(a => `<div class="row" style="grid-template-columns:auto 1fr"><span class="num">${esc(a.n)}</span><span class="t">${esc(a.titolo)}</span>
-    <span class="s"><a class="btn" style="padding:8px 12px;margin-top:6px" href="${pdf(a.url, a.pagine && a.pagine[0])}">${a.pagine ? `Apri (pagg. ${a.pagine[0]}–${a.pagine[1]} della circolare)` : 'Apri allegato'}</a></span></div>`);
+    <span class="s"><a class="btn" style="padding:8px 12px;margin-top:6px" href="${pdf(a.url, a.pagine && a.pagine[0])}">${a.pagine ? `Apri (pagg. ${a.pagine[0]}–${a.pagine[1]} della circolare)` : 'Apri allegato'}</a>${a.pagine ? '' : shareBtn(a.url, (c.etichetta ? c.etichetta + ' – ' : '') + 'Allegato ' + a.n + ' ' + a.titolo).replace('btn ghost seg shr', 'btn ghost seg shr sm')}</span></div>`);
   const rel = [...(c.integra||[]).map(x => ['Integra', x]), ...(c.integrata_da||[]).map(x => ['Integrata da', x]), ...(c.chiarisce||[]).map(x => ['Chiarisce', x]), ...D.circolari.filter(o => (o.chiarisce||[]).includes(c.id)).map(o => ['Chiarita da', o.id])];
-  return `<div class="card"><div>${pill(c.livelli[0])}<span class="pill p-tipo">Circolare</span>${c.stato ? `<span class="pill p-tipo">${esc(c.stato)}</span>` : ''}</div>
+  return `<div class="card lab" style="--lc:var(--cs-${c.sezione},var(--c-cir))"><div>${pill(c.livelli[0])}<span class="pill p-tipo">Circolare</span>${c.stato ? `<span class="pill p-tipo">${esc(c.stato)}</span>` : ''}</div>
   <h2 class="circh" style="--fc:var(--cs-${c.sezione},var(--c-cir))">${circLabel(c)}</h2>${c.descrizione ? `<p style="margin:0"><span class="note">Oggetto:</span> ${esc(c.titolo)}</p>` : ''}
   <dl class="meta"><dt>Numero</dt><dd>${esc(c.numero)}</dd><dt>Data</dt><dd>${esc(fdate(c.data))}</dd><dt>Ente</dt><dd>${esc(c.ente)}</dd>${c.protocollo ? `<dt>Protocollo</dt><dd>${esc(c.protocollo)}</dd>` : ''}
   ${rel.map(([k,x]) => `<dt>${k}</dt><dd><a href="#c-${x}">${esc(CIR[x] ? CIR[x].numero : x)}</a></dd>`).join('')}</dl>
-  <div class="btns"><a class="btn" href="${pdf(c.url)}">Apri circolare</a><a class="btn ghost seg" href="${segnalaHref((c.etichetta ? c.etichetta + ' ' : '') + (c.descrizione || c.titolo))}">⚑ Segnala</a></div>${argChips(c.argomenti)}</div>
+  <div class="btns"><a class="btn" href="${pdf(c.url)}">Apri circolare</a>${shareBtn(c.url, (c.etichetta ? c.etichetta + ' ' : '') + (c.descrizione || c.titolo))}<a class="btn ghost seg" href="${segnalaHref((c.etichetta ? c.etichetta + ' ' : '') + (c.descrizione || c.titolo))}">⚑ Segnala</a></div>${argChips(c.argomenti)}</div>
   ${c.allegati.length ? `<div class="area"><h3>Allegati (${c.allegati.length})</h3><div class="list">${al.join('')}</div></div>` : ''}
   ${c.requisiti_corso_avanzato ? `<div class="card"><h3>Requisiti di accesso al corso SAF Avanzato</h3><ul style="margin:0;padding-left:18px">${c.requisiti_corso_avanzato.map(r => `<li>${esc(r)}</li>`).join('')}</ul></div>` : ''}
   ${c.cicli_mantenimento ? `<div class="card"><h3>Cicli di mantenimento SAF Avanzato</h3><p class="note" style="margin:0">Ogni ciclo minimo 36 ore, circa ogni 6 mesi. Tocca una scheda per aprirla.</p>
@@ -10080,11 +10115,11 @@ function viewBugiardino(id) {
   const b = BUG[id]; if (!b) return viewHome();
   const p = D.produttori[b.produttore];
   const sc = (b.schede_collegate||[]).map(x => SCH[x]).filter(Boolean);
-  return `<div class="card"><div><span class="pill p-tipo">${DOCT[b.tipo_documento]}</span>${b.tipo_documento==='scheda-tecnica' ? '<span class="pill p-warn">non è la nota d\'uso</span>' : ''}</div>
+  return `<div class="card lab" style="--lc:var(--c-bug)"><div><span class="pill p-tipo">${DOCT[b.tipo_documento]}</span>${b.tipo_documento==='scheda-tecnica' ? '<span class="pill p-warn">non è la nota d\'uso</span>' : ''}</div>
   <h2 class="bugh">${bugTitle(b)}</h2>
   <dl class="meta"><dt>Produttore</dt><dd>${esc(p.nome)}</dd>${b.revisione ? `<dt>Revisione</dt><dd>${esc(b.revisione)}</dd>` : ''}${b.data ? `<dt>Data</dt><dd>${esc(String(b.data).split('-').reverse().join('/'))}</dd>` : ''}
   ${b.norme ? `<dt>Norme</dt><dd>${esc(b.norme.join(' · '))}</dd>` : ''}${b.classificazione ? `<dt>Tipo</dt><dd>${esc(b.classificazione)}</dd>` : ''}<dt>Lingue</dt><dd>${esc(b.lingue)}</dd></dl>
-  <div class="btns">${b.pagine_it ? `<a class="btn" href="${pdf(b.url, b.pagine_it[0])}">Apri in italiano (pag. ${b.pagine_it[0]})</a><a class="btn sec" href="${pdf(b.url)}">Documento completo</a>` : `<a class="btn" href="${pdf(b.url)}">Apri documento</a>`}<a class="btn ghost seg" href="${segnalaHref(brand(b) + ' ' + b.titolo)}">⚑ Segnala</a></div>
+  <div class="btns">${b.pagine_it ? `<a class="btn" href="${pdf(b.url, b.pagine_it[0])}">Apri in italiano (pag. ${b.pagine_it[0]})</a><a class="btn sec" href="${pdf(b.url)}">Documento completo</a>` : `<a class="btn" href="${pdf(b.url)}">Apri documento</a>`}${shareBtn(b.url, brand(b) + ' ' + b.titolo)}<a class="btn ghost seg" href="${segnalaHref(brand(b) + ' ' + b.titolo)}">⚑ Segnala</a></div>
   ${kitOf(b.id) ? `<p class="note" style="margin:0">Fa parte del <b>${esc(kitOf(b.id).nome)}</b>.</p>` : ''}
   ${argChips(b.argomenti)}</div>
   ${b.modelli ? `<div class="area"><h3>Modelli coperti (${b.modelli.length})</h3><div class="list">${b.modelli.map(m => `<div class="row"><span class="num">${esc(m.ref||'–')}</span><span class="t">${esc(m.nome)}</span></div>`).join('')}</div></div>` : ''}
@@ -10122,7 +10157,7 @@ function viewInfo() {
 
 /* --- altri manuali (solo consultazione) --- */
 function altroCard(a) {
-  return `<div class="card"><div class="altro-h"><span class="sig">${esc(a.sigla)}</span><b>${esc(a.titolo)}</b></div><p class="note" style="margin:0">${esc(a.ed)} · ${esc(a.ente)} · ${a.pagine} pagine</p><p style="margin:0">${esc(a.descrizione)}</p><div class="btns"><a class="btn" href="${pdf(a.url)}">Apri manuale</a><a class="btn ghost seg" href="${segnalaHref(a.sigla + ' – ' + a.titolo + ' (' + a.ed + ')')}">⚑ Segnala</a></div></div>`;
+  return `<div class="card lab" style="--lc:var(--c-cap)"><div class="altro-h"><span class="sig">${esc(a.sigla)}</span><b>${esc(a.titolo)}</b></div><p class="note" style="margin:0">${esc(a.ed)} · ${esc(a.ente)} · ${a.pagine} pagine</p><p style="margin:0">${esc(a.descrizione)}</p><div class="btns"><a class="btn" href="${pdf(a.url)}">Apri manuale</a>${shareBtn(a.url, a.sigla + ' – ' + a.titolo)}<a class="btn ghost seg" href="${segnalaHref(a.sigla + ' – ' + a.titolo + ' (' + a.ed + ')')}">⚑ Segnala</a></div></div>`;
 }
 function viewAltri() {
   return `<h2>Altri manuali</h2><p class="note">Manuali disponibili in sola consultazione, senza indice delle schede.</p>${D.altri_manuali.map(altroCard).join('')}`;
@@ -10303,11 +10338,12 @@ async function ftsRun(q) {
 
 /* ===================== GLOSSARIO SAF ===================== */
 const MSIG = {'man-basico-2021': 'Basico', 'man-avanzato-2023': 'Avanzato', 'man-negh-2025': 'NeGh'};
-const glossRow = (g, open) => { const m = MAN[g.m]; return `<details class="gl"${open ? ' open' : ''}><summary><b>${esc(g.t)}</b><small>${esc(MSIG[g.m] || '')}</small></summary><p>${esc(g.d)}</p><a class="glsrc" href="${pdf(m.url, g.p)}">Apri ${esc(m.titolo)} · pag. ${g.p}</a></details>`; };
+const glossRow = (g, open) => { const m = MAN[g.m]; return `<details class="gl" style="--rc:var(--lv-${m.livello})"${open ? ' open' : ''}><summary><b>${esc(g.t)}</b><small>${esc(MSIG[g.m] || '')}</small></summary><p>${esc(g.d)}</p><a class="glsrc" href="${pdf(m.url, g.p)}">Apri ${esc(m.titolo)} · pag. ${g.p}</a></details>`; };
+const glossVis = () => (D.glossario || []).filter(g => MAN[g.m] && lvOk(MAN[g.m].livello));
 function viewGlossario() {
-  const G = D.glossario || [];
+  const G = glossVis();
   const L = [...new Set(G.map(g => norm(g.t)[0].toUpperCase()))];
-  return `<h2>Glossario SAF</h2><p class="note">${G.length} termini dai glossari dei manuali Basico, Avanzato e Neve-Ghiaccio-Valanghe. Tocca la fonte per aprire la pagina del manuale.</p>
+  return `<h2>Glossario SAF</h2><p class="note">${G.length} termini${levels.size ? ' per ' + [...levels].map(l => LIV[l] ? LIV[l].nome : l).join(', ') : ' dai glossari dei manuali Basico, Avanzato e Neve-Ghiaccio-Valanghe'}. Usa i filtri in alto per vedere solo i termini delle tue specializzazioni; tocca la fonte per aprire la pagina del manuale.</p>
   <input class="skid glq" id="glq" placeholder="Filtra i termini (es. ancoraggio, valanga, WLL)" autocomplete="off">
   <div class="glidx">${L.map(l => `<a href="#gl-${l}" data-l="${l}">${l}</a>`).join('')}</div>
   <div id="gllist">${L.map(l => `<h3 class="gll" id="gl-${l}">${l}</h3>` + G.filter(g => norm(g.t)[0].toUpperCase() === l).map(g => glossRow(g)).join('')).join('')}</div>`;
@@ -10317,7 +10353,7 @@ function bindGlossario() {
   document.querySelectorAll('.glidx a').forEach(a => a.onclick = e => { e.preventDefault(); document.getElementById('gl-' + a.dataset.l)?.scrollIntoView({behavior: 'smooth'}); });
   q.oninput = () => { const w = norm(q.value).trim(); const box = document.getElementById('gllist');
     if (!w) { box.innerHTML = viewGlossario().split('<div id="gllist">')[1].replace(/<\/div>$/, ''); return; }
-    const r = (D.glossario || []).filter(g => norm(g.t + ' ' + g.d).includes(w)).sort((a, b) => (norm(b.t).includes(w)) - (norm(a.t).includes(w)));
+    const r = glossVis().filter(g => norm(g.t + ' ' + g.d).includes(w)).sort((a, b) => (norm(b.t).includes(w)) - (norm(a.t).includes(w)));
     box.innerHTML = r.length ? r.map(g => glossRow(g, r.length <= 3)).join('') : '<p class="empty">Nessun termine trovato.</p>'; };
 }
 
@@ -10605,6 +10641,8 @@ const GEO = (() => {
     // collegamenti e URI di mappe
     if ((m = s.match(/(?:[?&](?:q|ll|query|destination|center)=|@|geo:)\s*(?:loc:)?(-?\d{1,2}\.\d+)\s*,\s*(-?\d{1,3}\.\d+)/i))) return ok(+m[1], +m[2], 'Collegamento mappe (gradi decimali)');
     if ((m = s.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/))) return ok(+m[1], +m[2], 'Collegamento Google Maps');
+    if ((m = s.match(/\/maps\/(?:search|place|dir(?:\/[^/]*)?)\/(-?\d{1,2}\.\d+)(?:,|%2C)\s*(?:\+|%20)*(-?\d{1,3}\.\d+)/i))) return ok(+m[1], +m[2], 'Collegamento Google Maps');
+    if ((m = s.match(/(?:https?:\/\/)?(?:maps\.app\.goo\.gl|goo\.gl\/maps|g\.co\/kgs)\/[^\s]+/i))) return {short: m[0]};
     const u = s.toUpperCase().replace(/[ \t]/g, ' ');
     const isED = /ED\s?50/.test(u), core = u.replace(/ED\s?50|WGS\s?84|ETRF\d*|UTM|MGRS|ROMA\s?40|GAUSS[- ]?BOAGA|FUSO\s+(OVEST|EST)/g, ' ').trim();
     // MGRS: 33T UH 93628 48750
@@ -10730,6 +10768,13 @@ function geoFind() {
 function geoConv() {
   const v = document.getElementById('geo-in').value, m = document.getElementById('geo-pm');
   const r = GEO.parse(v);
+  if (r && r.short) {
+    const u = /^https?:/i.test(r.short) ? r.short : 'https://' + r.short;
+    m.innerHTML = `<span class="warn">È un link breve di Google Maps: le coordinate non sono scritte nel link e l'app non può leggerle da sola.</span><br>
+    1. Tocca <b>Apri il link</b>: si apre Google Maps sul punto.<br>2. In alto, nella barra di ricerca, ci sono le coordinate (es. <code>46.108557, 12.498520</code>): tienile premute e copiale.<br>3. Torna qui e tocca <b>Incolla dagli appunti</b>.<br>
+    <a class="btn ghost" style="margin-top:6px" href="${esc(u)}" target="_blank" rel="noopener">Apri il link</a>`;
+    return;
+  }
   if (!r) { m.innerHTML = v.trim() ? '<span class="warn">Formato non riconosciuto: controlla le cifre o apri "Formati riconosciuti".</span>' : ''; return; }
   m.textContent = '✓ Riconosciuto: ' + r.how + '.';
   geoStop(); const s = document.getElementById('geo-st'); if (s) s.textContent = '';
@@ -10785,6 +10830,31 @@ function bindInst() {
   const c = document.getElementById('inst-cp'); if (c) c.onclick = async () => { const m = document.getElementById('inst-m'); try { await navigator.clipboard.writeText(location.origin + location.pathname); m.textContent = '✓ Link copiato: incollalo nella barra di Chrome o Safari.'; } catch (e) { m.textContent = 'Link: ' + location.origin + location.pathname; } };
   const x = document.getElementById('inst-x'); if (x) x.onclick = () => { try { localStorage.setItem('saf-inst-hide', String(Date.now() + 3 * 864e5)); } catch (e) {} document.getElementById('inst')?.remove(); };
 }
+/* --- condivisione dei documenti senza aprire il visualizzatore --- */
+const SHPREP = {};
+async function shareDoc(btn) {
+  const url = btn.dataset.doc, tit = btn.dataset.tit || url, name = url.split('/').pop(), link = PUB + 'viewer.html?file=' + encodeURIComponent(url);
+  const old = btn.dataset.lbl || btn.innerHTML; btn.dataset.lbl = old;
+  const say = (t, k) => { btn.innerHTML = t; clearTimeout(btn._t); if (!k) btn._t = setTimeout(() => btn.innerHTML = old, 2500); };
+  try {
+    if (navigator.canShare && navigator.canShare({files: [new File([''], 'x.pdf', {type: 'application/pdf'})]})) {
+      let f = SHPREP[url];
+      if (!f) {
+        say('Preparo il file…', 1);
+        const r = await fetch(VIEWER.startsWith('http') ? PUB + url : url); if (!r.ok) throw new Error('rete');
+        f = SHPREP[url] = new File([await r.blob()], name, {type: 'application/pdf'});
+      }
+      try { await navigator.share({files: [f], title: tit}); btn.innerHTML = old; return; }
+      catch (e) { if (e.name === 'AbortError') { btn.innerHTML = old; return; } if (e.name === 'NotAllowedError') { say(SHIC + ' Tocca di nuovo per condividere', 1); return; } throw e; }
+    }
+    if (navigator.share) { await navigator.share({title: tit, text: tit, url: link}); return; }
+    await navigator.clipboard.writeText(tit + '\n' + link); say('✓ Collegamento copiato');
+  } catch (e) {
+    if (e && e.name === 'AbortError') { btn.innerHTML = old; return; }
+    try { await navigator.clipboard.writeText(tit + '\n' + link); say('✓ Collegamento copiato'); } catch (e2) { say('Condivisione non disponibile'); }
+  }
+}
+if (document.addEventListener) document.addEventListener('click', e => { const b = e.target.closest && e.target.closest('.shr[data-doc]'); if (b) { e.preventDefault(); shareDoc(b); } });
 function bindExtra() { bindInst(); bindCoordinate(); bindGlossario(); bindCalcoli(); bindQuiz(); bindInfoExtra(); const f = document.getElementById('fts'); if (f) ftsRun(f.dataset.q); }
 
 /* --- uso senza rete (service worker) --- */
