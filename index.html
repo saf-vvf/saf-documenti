@@ -236,6 +236,15 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .gbtn{font:inherit;font-size:.82rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .geohelp{margin-top:8px;font-size:.85rem}.geohelp summary{cursor:pointer;color:var(--muted)}.geohelp ul{padding-left:18px;margin:6px 0}.geohelp li{margin:4px 0}.geohelp code{font-size:.8rem;background:var(--bg);padding:1px 4px;border-radius:4px}
 .inst{position:relative;border:2px solid #fdeb05;margin-bottom:12px}.inst-t{font-weight:700;font-size:1.05rem;margin:0 28px 6px 0}.inst p{margin:0 0 6px}.inst-x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:6px}
+.mcard{border-left:6px solid var(--mc);background:var(--surface);background:color-mix(in srgb,var(--mc) 7%,var(--surface))}
+.mcard .mh b{display:block;font-size:1.08rem;color:var(--mc);margin:6px 0 2px}.mcard .mh .note{display:block}
+.mlab{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+.mopen{display:grid;grid-template-columns:1fr 1fr;gap:8px}.mopen.one{grid-template-columns:1fr;margin-top:10px}
+.mopt{display:block;padding:12px;border-radius:10px;border:2px solid var(--mc);text-decoration:none;color:var(--ink);background:var(--surface)}
+.mopt b{display:block;font-size:.98rem}.mopt small{display:block;font-size:.78rem;margin-top:4px;color:var(--muted)}
+.mopt.pri{background:var(--mc);color:#fff}.mopt.pri small{color:#fff;opacity:.9}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mopt.pri{color:#0e1318}:root:not([data-theme="light"]) .mopt.pri small{color:#0e1318}}:root[data-theme="dark"] .mopt.pri,:root[data-theme="dark"] .mopt.pri small{color:#0e1318}
+.mfoot{margin-top:10px;text-align:right}.seg-l{font-size:.8rem;color:var(--muted);text-decoration:none}
 .qzo{display:grid;gap:8px;margin:12px 0}
 .qzb{font:inherit;text-align:left;padding:12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
 .qzb.ok{border-color:#1d8a3a;background:color-mix(in srgb,#1d8a3a 18%,var(--surface))}
@@ -8163,6 +8172,13 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-17.2",
+   "data": "2026-11-17",
+   "voci": [
+    "Sezione Manuali rinnovata: ogni manuale ha il colore del suo livello e due pulsanti chiari per aprirlo, \"Per schede\" o \"Documento intero\"."
+   ]
+  },
+  {
    "id": "2026-11-17.1",
    "data": "2026-11-17",
    "voci": [
@@ -9975,16 +9991,21 @@ function viewHome() {
   <div class="folds">${Object.entries(areas).map(([k,v],i) => `<details class="fold" style="--fc:var(--a${i%8})"><summary><span>${esc(k)}</span><small>${v.length}</small></summary>${argChips(v)}</details>`).join('')}</div>`;
 }
 function viewManuali() {
-  return `<h2>Manuali</h2>` + D.manuali.filter(m => lvOk(m.livello)).map(m => {
-    const ss = D.schede.filter(s => s.manuale === m.id);
-    return `<div class="card"><div>${pill(m.livello)}<b>${esc(m.titolo)}</b> <span class="note">${esc(m.ed)}</span></div>
-    <div class="btns"><a class="btn sec" href="#m-${m.id}"><span class="bart">Indice schede</span> (${ss.length})</a><a class="btn sec" href="${pdf(m.url)}">Apri PDF</a><a class="btn ghost seg" href="${segnalaHref(m.titolo + ' (' + m.ed + ')')}">⚑ Segnala</a></div></div>`;
+  return `<h2>Manuali</h2><p class="note">Scegli come aprire ogni manuale: dall'indice delle schede, per andare dritto a una manovra o a un materiale, oppure il documento intero.</p>` + D.manuali.filter(m => lvOk(m.livello)).map(m => {
+    const ss = D.schede.filter(s => s.manuale === m.id), n = t => ss.filter(s => s.tipo === t).length;
+    const det = [n('manovra') && n('manovra') + ' manovre', n('attrezzatura') && n('attrezzatura') + ' materiali', n('capitolo') && n('capitolo') + ' info utili'].filter(Boolean).join(' · ');
+    return `<div class="card mcard" style="--mc:var(--lv-${m.livello})">
+    <div class="mh">${pill(m.livello)}<b>${esc(m.titolo)}</b><span class="note">${esc(m.ed)}${m.pagine ? ' · ' + m.pagine + ' pagine' : ''}</span></div>
+    <div class="mlab">Apri il manuale</div>
+    <div class="mopen"><a class="mopt pri" href="#m-${m.id}"><b>📑 Per schede</b><small>${det}</small></a><a class="mopt" href="${pdf(m.url)}"><b>📄 Documento intero</b><small>PDF completo da sfogliare</small></a></div>
+    <div class="mfoot"><a class="seg-l" href="${segnalaHref(m.titolo + ' (' + m.ed + ')')}">⚑ Segnala un problema</a></div></div>`;
   }).join('');
 }
 function viewManuale(id) {
   const m = MAN[id]; if (!m) return viewHome();
   const ss = D.schede.filter(s => s.manuale === id);
-  return `<h2>${esc(m.titolo)}</h2><p class="note">${pill(m.livello)}${esc(m.ed)} · ${m.pagine} pagine${m.prot ? ' · prot. ' + esc(m.prot) : ''}</p>
+  return `<div class="card mcard" style="--mc:var(--lv-${m.livello})"><div class="mh">${pill(m.livello)}<b>${esc(m.titolo)}</b><span class="note">${esc(m.ed)} · ${m.pagine} pagine${m.prot ? ' · prot. ' + esc(m.prot) : ''}</span></div>
+  <div class="mopen one"><a class="mopt" href="${pdf(m.url)}"><b>📄 Apri il documento intero</b><small>Oppure scegli una scheda qui sotto: si apre alla pagina giusta</small></a></div></div>
   ${['manovra','attrezzatura','capitolo'].map(t => `<div class="area"><h3>${{manovra:'Schede manovre',attrezzatura:'Schede materiali',capitolo:'Informazioni utili'}[t]}</h3>${list(ss.filter(s => s.tipo === t).map(schedaRow))}</div>`).join('')}`;
 }
 function viewScheda(id) {
