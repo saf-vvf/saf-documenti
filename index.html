@@ -264,6 +264,9 @@ a.card.tool{border-left:5px solid var(--tc);--gc:var(--tc)}
 .row.brow{display:flex;align-items:center;padding:0 10px 0 0;gap:4px}.brow .rlink{flex:1;min-width:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 14px;text-decoration:none;color:inherit}
 .ract{display:flex;gap:6px;flex:none}.rico{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--muted);display:grid;place-items:center;font-size:.9rem;text-decoration:none;cursor:pointer;padding:0}.tema{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.tema-b{font:inherit;font-size:.9rem;padding:10px 6px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}.tema-b[aria-checked="true"]{background:#fdeb05;border-color:#fdeb05;color:#111;font-weight:700}
 .rico .shic{width:15px;height:15px}
+.isteps{margin:6px 0 8px;padding-left:20px}.isteps li{margin:6px 0}.ishr{display:inline-block;padding:0 5px;border:1px solid var(--line);border-radius:6px;font-size:.85em}
+#iosbar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;gap:6px;background:#fdeb05;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,.35);padding:4px 4px 4px 14px}#iosbar a{flex:1;color:#111;font-weight:700;text-decoration:none;padding:10px 0}#iosbar button{border:0;background:none;color:#111;font-size:1rem;padding:10px;cursor:pointer}
+.inst.flash{animation:instf 1.2s ease 2}@keyframes instf{50%{box-shadow:0 0 0 4px #fdeb05}}
 .shic{width:1em;height:1em;vertical-align:-2px;fill:currentColor;stroke:currentColor;stroke-width:2}
 .btn.shr.sm{padding:8px 12px;margin-top:6px}
 button.seg-l{background:none;border:0;font:inherit;cursor:pointer;padding:0;margin-right:14px}
@@ -8210,6 +8213,16 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-18.2",
+   "data": "2026-11-18",
+   "solo": "ios-browser",
+   "voci": [
+    "Su iPhone aggiungi SAFe alla schermata Home: si apre come un'app, a tutto schermo e funziona anche senza rete.",
+    "Con Safari: tocca ⋯ accanto alla barra dell'indirizzo → Condividi → \"Aggiungi alla schermata Home\" → \"Aggiungi\".",
+    "Con Chrome: tocca Condividi ⬆︎ nella barra dell'indirizzo → \"Aggiungi alla schermata Home\" → \"Aggiungi\"."
+   ]
+  },
+  {
    "id": "2026-11-18.1",
    "data": "2026-11-18",
    "voci": [
@@ -8298,7 +8311,7 @@ window.SAFDATA = {
    ]
   }
  ],
- "condivisione": "*SAFe* – _Supporto Operatore SAF (v{versione})_\nL'app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nTutta la documentazione SAF in tasca, sempre aggiornata e *consultabile anche senza connessione*.\n\n📘 *Manuali* : SAF Basico, Avanzato e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda. Ogni manovra o materiale si apre alla pagina giusta.\n📄 *Circolari* : {circolari} circolari divise per sezione, con allegati e collegamenti tra le circolari correlate.\n🔧 *Bugiardini* : {bugiardini} libretti d'uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede.\n📚 *Altri manuali* : SFA, Vademecum TEC, TAS 1 e TPSS in consultazione.\n\n*Strumenti*\n🔍 Ricerca per parola, argomento o normativa EN, anche dentro il testo dei documenti, con filtri per specializzazione\n📏 *Normative EN* con spiegazione e materiali collegati\n🎒 *Controllo sacche* con riepilogo da inviare\n📖 Glossario SAF con oltre {glossario} termini, filtrabile per specializzazione\n🧮 *Calcolatori* : forze sugli ancoraggi, rinvii, paranchi, fattore di caduta\n📍 *Coordinate* : trova e condividi la tua posizione in gradi, UTM, MGRS o Gauss-Boaga, e converte le coordinate ricevute\n❓ *Quiz di autoverifica* per specializzazione, utili per i mantenimenti\n📤 *Condividi* : invia qualsiasi documento in PDF con un tocco, senza aprirlo\n⚑ Segnalazione di errori o documenti nuovi direttamente dall'app\n\nPer installarla apri il link e *segui i passi successivi* :\n\nhttps://saf-vvf.github.io/saf-documenti/\n\n📱 *Android* :\napri il link in Chrome e tocca \"📲 Installa l'app\" (oppure menu ⋮ → \"Installa app\")\n\n🍏 *iPhone* :\nin Safari, Condividi → \"Aggiungi alla schermata Home\"\n\n_Se il link si apre dentro WhatsApp, scegli prima \"Apri in Chrome\" (o in Safari)._\n\n_Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF._\n\nSupporto:\n*Francesco Franz*\nComando VVF Pordenone · app.safe.vvf@gmail.com",
+ "condivisione": "*SAFe* – _Supporto Operatore SAF (v{versione})_\nL'app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nTutta la documentazione SAF in tasca, sempre aggiornata e *consultabile anche senza connessione*.\n\n📘 *Manuali* : SAF Basico, Avanzato e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda. Ogni manovra o materiale si apre alla pagina giusta.\n📄 *Circolari* : {circolari} circolari divise per sezione, con allegati e collegamenti tra le circolari correlate.\n🔧 *Bugiardini* : {bugiardini} libretti d'uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede.\n📚 *Altri manuali* : SFA, Vademecum TEC, TAS 1 e TPSS in consultazione.\n\n*Strumenti*\n🔍 Ricerca per parola, argomento o normativa EN, anche dentro il testo dei documenti, con filtri per specializzazione\n📏 *Normative EN* con spiegazione e materiali collegati\n🎒 *Controllo sacche* con riepilogo da inviare\n📖 Glossario SAF con oltre {glossario} termini, filtrabile per specializzazione\n🧮 *Calcolatori* : forze sugli ancoraggi, rinvii, paranchi, fattore di caduta\n📍 *Coordinate* : trova e condividi la tua posizione in gradi, UTM, MGRS o Gauss-Boaga, e converte le coordinate ricevute\n❓ *Quiz di autoverifica* per specializzazione, utili per i mantenimenti\n📤 *Condividi* : invia qualsiasi documento in PDF con un tocco, senza aprirlo\n⚑ Segnalazione di errori o documenti nuovi direttamente dall'app\n\nPer installarla apri il link e *segui i passi successivi* :\n\nhttps://saf-vvf.github.io/saf-documenti/\n\n📱 *Android* :\napri il link in Chrome e tocca \"📲 Installa l'app\" (oppure menu ⋮ → \"Installa app\")\n\n🍏 *iPhone* :\nin Safari tocca ⋯ → Condividi → \"Aggiungi alla schermata Home\" → \"Aggiungi\"\nin Chrome tocca Condividi ⬆︎ nella barra dell'indirizzo → \"Aggiungi alla schermata Home\"\n\n_Se il link si apre dentro WhatsApp, scegli prima \"Apri in Chrome\" (o in Safari)._\n\n_Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF._\n\nSupporto:\n*Francesco Franz*\nComando VVF Pordenone · app.safe.vvf@gmail.com",
  "glossario": [
   {
    "t": "ABS",
@@ -10181,7 +10194,7 @@ function viewInfo() {
     <div class="btns"><a class="btn" href="${segnalaHref()}">Segnala un documento</a><a class="btn sec" href="mailto:${mail}?subject=SAF%20Supporto%20Operatore%20-%20segnalazione">Scrivi una email</a><button class="btn sec" type="button" id="copymail">Copia indirizzo</button></div>
     <p class="note" style="margin:0" id="copymsg">"Segnala un documento" apre una mail già impostata: allega il PDF o il link. Per gli errori indica sempre documento e pagina.</p></div>
   <div class="card"><h3>Condividi l'app</h3><p style="margin:0">Invia ai colleghi il link per installarla, con una breve presentazione.</p><div class="btns"><button class="btn" type="button" id="shapp">Condividi l'app</button></div><p class="note" style="margin:0" id="shmsg"></p>
-    <p class="note" style="margin:8px 0 0"><b>Come installarla</b><br>Android: apri il link in Chrome, poi menu ⋮ → "Installa app".<br>iPhone: apri il link in Safari, poi Condividi (quadrato con freccia) → "Aggiungi alla schermata Home".</p></div>
+    <p class="note" style="margin:8px 0 0"><b>Come installarla</b><br>Android: apri il link in Chrome, poi menu ⋮ → "Installa app".<br>iPhone con Safari: tocca ⋯ accanto alla barra dell'indirizzo → Condividi → "Aggiungi alla schermata Home" → "Aggiungi".<br>iPhone con Chrome: tocca Condividi ⬆︎ nella barra dell'indirizzo → "Aggiungi alla schermata Home" → "Aggiungi".</p></div>
   <div class="card"><h3>Sviluppo</h3>
     <dl class="meta"><dt>Ideazione e contenuti</dt><dd>Francesco Franz – Comando di Pordenone</dd>
     <dt>Progetto</dt><dd>SAFe – Supporto Operatore: consultazione di manuali, circolari e note informative del settore SAF</dd>
@@ -10553,7 +10566,8 @@ function novitaCheck() {
   /* confronto numerico: '2026-11-16.13' viene dopo '2026-11-16.3' */
   const key = v => { const [d, n] = String(v).split('.'); return [d, parseInt(n || '0', 10)]; };
   const newer = (a, b) => { const x = key(a), y = key(b); return x[0] > y[0] || (x[0] === y[0] && x[1] > y[1]); };
-  const nuove = N.filter(n => !seen || newer(id(n), seen)); if (!nuove.length) return;
+  const iosWeb = () => window.SAF_SPLASH && /iPhone|iPad|iPod/.test(navigator.userAgent) && !(matchMedia('(display-mode: standalone)').matches || navigator.standalone);
+  const nuove = N.filter(n => (!seen || newer(id(n), seen)) && (!n.solo || (n.solo === 'ios-browser' && iosWeb()))); if (!nuove.length) return;
   setTimeout(() => {
     if (!document.body) return; const w = document.createElement('div'); w.id = 'novita';
     w.innerHTML = `<div class="nv"><h3>Novità nell'app</h3>${nuove.map(n => `<p class="note" style="margin:8px 0 2px"><b>${esc(fdate(n.data))}</b></p><ul>${n.voci.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`).join('')}<div class="btns"><button class="btn" id="nv-ok">OK</button></div></div>`;
@@ -10855,6 +10869,7 @@ function bindCoordinate() {
 let DPROMPT = null;
 window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); DPROMPT = e; if (!location.hash || location.hash === '#home') { try { render(); } catch (x) {} } });
 window.addEventListener('appinstalled', () => { DPROMPT = null; try { localStorage.setItem('saf-inst-hide', String(Date.now() + 365 * 864e5)); } catch (e) {} const b = document.getElementById('inst'); if (b) b.remove(); });
+const SHR = '<span class="ishr">⬆︎</span>';
 function instBanner() {
   if (!window.SAF_SPLASH) return '';
   if (matchMedia('(display-mode: standalone)').matches || navigator.standalone) return '';
@@ -10865,12 +10880,27 @@ function instBanner() {
   if (DPROMPT) body = `<p>Installala sul telefono: si apre come un'app, funziona anche senza rete e si aggiorna da sola.</p><div class="btns"><button class="btn" id="inst-go">📲 Installa l'app</button></div>`;
   else if (webview && ios) body = `<p>Questa pagina è aperta dentro un'altra app. Per installarla <b>aprila in Safari</b>: tocca il menu (⋯ o ⬆︎) e scegli "Apri in Safari".</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
   else if (webview) body = `<p>Questa pagina è aperta dentro un'altra app. Per installarla <b>aprila in Chrome</b>: tocca il menu ⋮ in alto e scegli "Apri in Chrome" (o "Apri nel browser").</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
-  else if (ios) body = `<p>Per installarla tocca <b>Condividi</b> (il quadrato con la freccia ⬆︎), poi <b>"Aggiungi alla schermata Home"</b>.</p>`;
+  else if (ios && /CriOS/.test(ua)) body = `<p>Aggiungila alla schermata Home: si apre come un'app, a tutto schermo e anche senza rete.</p><ol class="isteps"><li>Tocca il pulsante <b>Condividi</b> ${SHR} nella barra dell'indirizzo (in alto a destra, o in basso se hai spostato la barra).</li><li>Scegli <b>"Aggiungi alla schermata Home"</b> (se non lo vedi, scorri l'elenco o tocca "Altro").</li><li>Tocca <b>"Aggiungi"</b>.</li></ol>`;
+  else if (ios && /FxiOS|EdgiOS|OPiOS/.test(ua)) body = `<p>Aggiungila alla schermata Home: si apre come un'app, a tutto schermo e anche senza rete.</p><ol class="isteps"><li>Apri il menu del browser e tocca <b>Condividi</b> ${SHR}.</li><li>Scegli <b>"Aggiungi alla schermata Home"</b> e conferma con <b>"Aggiungi"</b>.</li></ol><p class="note" style="margin:0">Se l'opzione non c'è, apri il link in Safari.</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
+  else if (ios) body = `<p>Aggiungila alla schermata Home: si apre come un'app, a tutto schermo e anche senza rete.</p><ol class="isteps"><li>Tocca <b>⋯</b> accanto alla barra dell'indirizzo, poi <b>Condividi</b> ${SHR} (in alcune versioni il pulsante Condividi ${SHR} è già nella barra in basso).</li><li>Scorri e scegli <b>"Aggiungi alla schermata Home"</b>.</li><li>Lascia attivo <b>"Apri come app web"</b> e tocca <b>"Aggiungi"</b>.</li></ol>`;
   else if (android) body = `<p>Per installarla tocca il menu <b>⋮</b> in alto a destra e scegli <b>"Installa app"</b> (o "Aggiungi a schermata Home"). Se il menu non c'è, sei nel browser di un'altra app: scegli prima "Apri in Chrome".</p><div class="btns"><button class="btn ghost" id="inst-cp">Copia il link</button></div>`;
   else return '';
   return `<div class="card inst" id="inst"><button class="inst-x" id="inst-x" aria-label="Chiudi">✕</button><div class="inst-t">Installa SAFe sul telefono</div>${body}<p class="note" id="inst-m" style="margin:4px 0 0"></p></div>`;
 }
-function bindInst() {
+function iosBar() {
+  if (!window.SAF_SPLASH || matchMedia('(display-mode: standalone)').matches || navigator.standalone) return;
+  const ua = navigator.userAgent; if (!(/iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1))) return;
+  try { if (+localStorage.getItem('saf-inst-hide') > Date.now()) return; } catch (e) {}
+  let b = document.getElementById('iosbar'); const home = !location.hash || location.hash === '#home';
+  if (home) { if (b) b.remove(); return; }
+  if (b) return;
+  b = document.createElement('div'); b.id = 'iosbar';
+  b.innerHTML = '<a href="#home">📲 Aggiungi SAFe alla schermata Home</a><button aria-label="Chiudi">✕</button>';
+  b.querySelector('a').onclick = () => setTimeout(() => { const i = document.getElementById('inst'); if (i) { i.scrollIntoView({behavior: 'smooth'}); i.classList.add('flash'); } }, 150);
+  b.querySelector('button').onclick = () => { try { localStorage.setItem('saf-inst-hide', String(Date.now() + 3 * 864e5)); } catch (e) {} b.remove(); };
+  document.body.appendChild(b);
+}
+function bindInst() { iosBar();
   const g = document.getElementById('inst-go'); if (g) g.onclick = async () => { const p = DPROMPT; if (!p) return; DPROMPT = null; p.prompt(); try { const r = await p.userChoice; if (r && r.outcome === 'accepted') document.getElementById('inst')?.remove(); else render(); } catch (e) {} };
   const c = document.getElementById('inst-cp'); if (c) c.onclick = async () => { const m = document.getElementById('inst-m'); try { await navigator.clipboard.writeText(location.origin + location.pathname); m.textContent = '✓ Link copiato: incollalo nella barra di Chrome o Safari.'; } catch (e) { m.textContent = 'Link: ' + location.origin + location.pathname; } };
   const x = document.getElementById('inst-x'); if (x) x.onclick = () => { try { localStorage.setItem('saf-inst-hide', String(Date.now() + 3 * 864e5)); } catch (e) {} document.getElementById('inst')?.remove(); };
