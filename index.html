@@ -14151,7 +14151,9 @@ const VER = '1.1';
 const AGG = '18/11/2026'; // data dei contenuti: aggiornarla a ogni modifica
 function viewInfo() {
   const mail = 'app.safe.vvf@gmail.com';
+  const NV = (D.novita || []).slice(0, 6);
   return `<h2>Informazioni</h2>
+  ${NV.length ? `<details class="fold" style="--fc:#e07000"><summary><span>🆕 Ultime novità</span><small>${NV.length}</small></summary><div class="normbody">${NV.map(n => `<p class="note" style="margin:8px 0 2px"><b>${esc(fdate(n.data))}</b></p><ul style="margin:0 0 6px;padding-left:20px">${n.voci.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`).join('')}</div></details>` : ''}
   <div class="card"><h3>Uso senza rete</h3>
     <p style="margin:0">I documenti che apri restano salvati sul telefono. Per averli tutti disponibili anche in grotta, in forra o senza copertura, scaricali ora (circa 320 MB, meglio con il Wi-Fi).</p>
     <div class="btns"><button class="btn" type="button" id="offline">Scarica tutti i documenti</button></div>
@@ -14535,14 +14537,17 @@ function novitaCheck() {
   const key = v => { const [d, n] = String(v).split('.'); return [d, parseInt(n || '0', 10)]; };
   const newer = (a, b) => { const x = key(a), y = key(b); return x[0] > y[0] || (x[0] === y[0] && x[1] > y[1]); };
   const last = N.map(id).reduce((m, v) => newer(v, m) ? v : m);  /* la più recente, in qualunque ordine sia l'elenco */
-  try { seen = localStorage.getItem('saf-novita'); if (!seen || newer(last, seen)) localStorage.setItem('saf-novita', last); } catch (e) { return; }
-  if (FIRSTRUN) return;  /* primo avvio assoluto: nessun messaggio */
+  const segna = () => { try { const s = localStorage.getItem('saf-novita'); if (!s || newer(last, s)) localStorage.setItem('saf-novita', last); } catch (e) {} };
+  try { seen = localStorage.getItem('saf-novita'); } catch (e) { return; }
+  if (FIRSTRUN) { segna(); return; }  /* primo avvio assoluto: nessun messaggio */
   const iosWeb = () => window.SAF_SPLASH && /iPhone|iPad|iPod/.test(navigator.userAgent) && !(matchMedia('(display-mode: standalone)').matches || navigator.standalone);
   const nuove = N.filter(n => (!seen || newer(id(n), seen)) && (!n.solo || (n.solo === 'ios-browser' && iosWeb()))); if (!nuove.length) return;
   setTimeout(() => {
     if (!document.body) return; const w = document.createElement('div'); w.id = 'novita';
     w.innerHTML = `<div class="nv"><h3>Novità nell'app</h3>${nuove.map(n => `<p class="note" style="margin:8px 0 2px"><b>${esc(fdate(n.data))}</b></p><ul>${n.voci.map(v => `<li>${esc(v)}</li>`).join('')}</ul>`).join('')}<div class="btns"><button class="btn" id="nv-ok">OK</button></div></div>`;
-    document.body.appendChild(w); document.getElementById('nv-ok').onclick = () => w.remove(); w.onclick = e => { if (e.target === w) w.remove(); };
+    /* le novità si considerano lette solo quando si chiude il messaggio; un tocco sullo sfondo nei primi 2 s (es. sul campo di ricerca) non lo chiude */
+    const t0 = Date.now(), chiudi = () => { segna(); w.remove(); };
+    document.body.appendChild(w); document.getElementById('nv-ok').onclick = chiudi; w.onclick = e => { if (e.target === w && Date.now() - t0 > 2000) chiudi(); };
   }, document.getElementById('splash') ? 3200 : 300);
 }
 /* --- coordinate: calcoli geodetici (WGS84, UTM, MGRS, ED50, Roma40 Gauss-Boaga) --- */
