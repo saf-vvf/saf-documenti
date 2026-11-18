@@ -14474,19 +14474,33 @@ $('#q').addEventListener('input', () => { if (location.hash && location.hash !==
 $('#sf').addEventListener('submit', e => { e.preventDefault(); $('#q').blur(); });
 $('#brand').addEventListener('click', () => { $('#q').value = ''; location.hash = 'home'; render(); });
 $('#back').addEventListener('click', () => history.back());
-/* conferma di uscita (solo app installata): il tasto Indietro dalla prima pagina chiede se uscire */
+/* conferma di uscita (solo app installata): compare solo quando si è già sulla prima pagina e si preme ancora Indietro.
+   Chrome salta le voci di cronologia aggiunte senza un tocco dell'utente: per questo le "voci di guardia" (stessa pagina #home)
+   si aggiungono una per volta, a ogni tocco sulla prima pagina, fino a GMAX. Indietro dalla prima pagina scende su una guardia
+   e mostra la domanda; altri Indietro scendono sulle guardie successive senza uscire. */
 (() => {
-  if (!(window.matchMedia && (matchMedia('(display-mode: standalone)').matches || navigator.standalone)) || !history.pushState) return;
-  const base = location.pathname + location.search, start = location.hash || '#home';
-  history.replaceState({safeg: 1}, '', base + '#home'); history.pushState({safeg: 2}, '', base + start);
+  if (!(window.matchMedia && (matchMedia('(display-mode: standalone)').matches || navigator.standalone)) || !history.pushState || !document.addEventListener) return;
+  const base = location.pathname + location.search, GMAX = 5;
+  let liv = 1, esco = false;
+  history.replaceState({safeg: 1}, '', base + '#home');
+  const aggiungi = () => { if (esco || document.getElementById('exitq')) return; const st = history.state; if (!st || st.safeg !== liv) return; while (liv < GMAX) { liv++; history.pushState({safeg: liv}, '', base + '#home'); } };
+  document.addEventListener('click', aggiungi, true);
   window.addEventListener('popstate', e => {
-    if (!e.state || e.state.safeg !== 1 || document.getElementById('exitq')) return;
+    const g = e.state && e.state.safeg; if (!g || esco) return;
+    const sceso = g < liv; liv = g;
+    if (!sceso || document.getElementById('exitq')) return;
     const w = document.createElement('div'); w.id = 'exitq';
     w.innerHTML = '<div class="nv"><p style="margin:0 0 4px;font-size:1.15rem;font-weight:700">Vuoi uscire da SAFe?</p><div class="btns" style="justify-content:flex-end"><button class="btn ghost" id="ex-no">Resta</button><button class="btn" id="ex-si">Esci</button></div><p class="note" id="ex-m" style="margin:6px 0 0"></p></div>';
     document.body.appendChild(w);
-    const resta = () => { w.remove(); history.pushState({safeg: 2}, '', base + '#home'); };
+    const resta = () => { w.remove(); esco = false; aggiungi(); };
     w.querySelector('#ex-no').onclick = resta; w.onclick = ev => { if (ev.target === w) resta(); };
-    w.querySelector('#ex-si').onclick = () => { try { window.close(); } catch (x) {} setTimeout(() => { const m = document.getElementById('ex-m'); if (m) m.textContent = 'Premi ancora Indietro per chiudere l\'app.'; }, 300); };
+    w.querySelector('#ex-si').onclick = ev => {
+      ev.stopPropagation();
+      try { window.close(); } catch (x) {}
+      if (esco) return; esco = true;
+      if (liv > 1) { history.go(1 - liv); liv = 1; }
+      setTimeout(() => { const m = document.getElementById('ex-m'); if (m) m.textContent = 'Premi ancora Indietro per chiudere l\'app.'; }, 250);
+    };
   });
 })();
 window.addEventListener('hashchange', () => { if (location.hash.slice(1) !== 'home') { } render(); window.scrollTo(0, 0); });
