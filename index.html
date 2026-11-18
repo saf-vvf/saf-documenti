@@ -267,6 +267,7 @@ a.card.tool{border-left:5px solid var(--tc);--gc:var(--tc)}
 .isteps{margin:6px 0 8px;padding-left:20px}.isteps li{margin:6px 0}.ishr{display:inline-block;padding:0 5px;border:1px solid var(--line);border-radius:6px;font-size:.85em}
 #iosbar{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:50;display:flex;align-items:center;gap:6px;background:#fdeb05;border-radius:14px;box-shadow:0 4px 16px rgba(0,0,0,.35);padding:4px 4px 4px 14px}#iosbar a{flex:1;color:#111;font-weight:700;text-decoration:none;padding:10px 0}#iosbar button{border:0;background:none;color:#111;font-size:1rem;padding:10px;cursor:pointer}
 .inst.flash{animation:instf 1.2s ease 2}@keyframes instf{50%{box-shadow:0 0 0 4px #fdeb05}}
+.gen-b{margin:4px 0 10px}.gen-t{font-size:.78rem;font-weight:700;color:var(--muted);margin:6px 2px 4px;text-transform:uppercase;letter-spacing:.04em}
 .shic{width:1em;height:1em;vertical-align:-2px;fill:currentColor;stroke:currentColor;stroke-width:2}
 .btn.shr.sm{padding:8px 12px;margin-top:6px}
 button.seg-l{background:none;border:0;font:inherit;cursor:pointer;padding:0;margin-right:14px}
@@ -280,8 +281,8 @@ button.seg-l{background:none;border:0;font:inherit;cursor:pointer;padding:0;marg
 .glidx a{min-width:30px;text-align:center;padding:5px 6px;border-radius:6px;background:var(--surface);border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700;font-size:.85rem}
 .gll{margin:16px 0 4px;font-family:var(--display);color:#fdeb05;border-bottom:2px solid #fdeb05;display:inline-block}
 .glq{width:100%;box-sizing:border-box}
-#novita{position:fixed;inset:0;z-index:300;background:#000a;display:flex;align-items:center;justify-content:center;padding:16px}
-#novita .nv{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 18px 10px;max-width:460px;width:100%;max-height:80vh;overflow:auto;border-top:5px solid #fdeb05}
+#exitq,#novita{position:fixed;inset:0;z-index:300;background:#000a;display:flex;align-items:center;justify-content:center;padding:16px}
+#exitq .nv,#novita .nv{background:var(--surface);color:var(--ink);border-radius:14px;padding:18px 18px 10px;max-width:460px;width:100%;max-height:80vh;overflow:auto;border-top:5px solid #fdeb05}
 #novita h3{margin:0 0 4px;font-family:var(--display)}#novita ul{margin:4px 0 8px;padding-left:20px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -7228,6 +7229,28 @@ window.SAFDATA = {
    "fonte_url": "",
    "file": "bug-kong-cevedale.pdf",
    "url": "bug-kong-cevedale.pdf"
+  },
+  {
+   "id": "bug-camp-oltre-100kg",
+   "tipo": "bugiardino",
+   "tipo_documento": "dichiarazione",
+   "produttore": "camp",
+   "generale": true,
+   "titolo": "Utilizzatori oltre 100 kg – indicazioni per tutti i prodotti CAMP (fino a 150 kg)",
+   "revisione": "r7 – Premana, febbraio 2022",
+   "lingue": "italiano",
+   "argomenti": [
+    "normativa-dpi",
+    "imbracature",
+    "anticaduta",
+    "controllo-dpi"
+   ],
+   "schede_collegate": [],
+   "stato": "da-verificare",
+   "fonte_url": "",
+   "file": "bug-camp-oltre-100kg.pdf",
+   "url": "bug-camp-oltre-100kg.pdf",
+   "note": "Tabella per tipologia di prodotto: utilizzo consentito, consentito con precauzioni o non consentito per peso complessivo 100–120 kg e 120–150 kg (attrezzatura compresa). Il sistema deve essere composto solo da dispositivi CAMP idonei alla fascia di peso."
   }
  ],
  "produttori": {
@@ -8212,6 +8235,14 @@ window.SAFDATA = {
   }
  ],
  "novita": [
+  {
+   "id": "2026-11-18.3",
+   "data": "2026-11-18",
+   "voci": [
+    "Bugiardini CAMP: dichiarazione del produttore sull'uso di tutti i prodotti CAMP da parte di persone oltre 100 kg (fino a 150 kg), in evidenza in cima alla sezione CAMP e richiamata in ogni bugiardino CAMP.",
+    "Nell'app installata, premendo Indietro dalla prima pagina viene chiesto se uscire."
+   ]
+  },
   {
    "id": "2026-11-18.2",
    "data": "2026-11-18",
@@ -9973,7 +10004,7 @@ const SCH = Object.fromEntries(D.schede.map(s => [s.id, s]));
 const BUG = Object.fromEntries(D.bugiardini.map(b => [b.id, b]));
 const CIR = Object.fromEntries(D.circolari.map(c => [c.id, c]));
 const TIPI = {manovra:'Scheda manovra', attrezzatura:'Scheda materiali', capitolo:'Informazioni utili'};
-const DOCT = {'nota-informativa':'Nota informativa','scheda-tecnica':'Scheda tecnica','manuale-uso-manutenzione':'Manuale uso e manutenzione','allegato-tecnico':'Allegato tecnico','approfondimento':'Approfondimento'};
+const DOCT = {'nota-informativa':'Nota informativa','scheda-tecnica':'Scheda tecnica','manuale-uso-manutenzione':'Manuale uso e manutenzione','allegato-tecnico':'Allegato tecnico','approfondimento':'Approfondimento','dichiarazione':'Dichiarazione del produttore'};
 let levels = new Set();
 try { const s = JSON.parse(localStorage.getItem('saf-levels') || '[]'); if (Array.isArray(s)) levels = new Set(s); } catch(e) {}
 
@@ -10156,7 +10187,9 @@ function viewBugiardini() {
     const kits = Object.entries(KITS).filter(([, k]) => k.produttore === p.id);
     const loose = all.filter(b => !b.kit);
     const kitHtml = kits.map(([kid, k]) => { const kb = k.voci.map(x => BUG[x]).filter(Boolean); return `<details class="fold kit" style="--fc:var(--c-bug)"><summary><span><b class="bmar">${esc(brand({produttore: k.produttore}))}</b> <b class="bart">${esc(k.nome)}</b></span><small>${kb.length}</small></summary><p class="note" style="margin:6px 12px">${esc(k.descrizione || '')}</p>${list(kb.map(bugRow))}</details>`; }).join('');
-    return `<details class="fold" style="--fc:var(--c-bug)"><summary><span>${esc(p.nome)}</span><small>${all.length}</small></summary>${kitHtml}${list(loose.map(bugRow))}</details>`;
+    const gen = loose.filter(b => b.generale), rest = loose.filter(b => !b.generale);
+    const genHtml = gen.length ? `<div class="gen-b"><div class="gen-t">📌 Vale per tutti i prodotti ${esc(p.nome.replace(/ S\.?p\.?A\.?$/i, ''))}</div>${list(gen.map(bugRow))}</div>` : '';
+    return `<details class="fold" style="--fc:var(--c-bug)"><summary><span>${esc(p.nome)}</span><small>${all.length}</small></summary>${genHtml}${kitHtml}${list(rest.map(bugRow))}</details>`;
   }).join('') + `</div>`;
 }
 const kitOf = id => Object.values(D.kits || {}).find(k => k.voci.includes(id));
@@ -10173,6 +10206,7 @@ function viewBugiardino(id) {
   ${argChips(b.argomenti)}</div>
   ${b.modelli ? `<div class="area"><h3>Modelli coperti (${b.modelli.length})</h3><div class="list">${b.modelli.map(m => `<div class="row"><span class="num">${esc(m.ref||'–')}</span><span class="t">${esc(m.nome)}</span></div>`).join('')}</div></div>` : ''}
   ${sc.length ? `<div class="area"><h3>Schede materiali dei manuali</h3>${list(sc.map(schedaRow))}</div>` : ''}
+  ${(() => { const g = D.bugiardini.filter(x => x.generale && x.produttore === b.produttore && x.id !== b.id); return g.length ? `<div class="area"><h3>📌 Vale anche per questo prodotto</h3>${list(g.map(bugRow))}</div>` : ''; })()}
   ${(b.vedi_anche||[]).filter(x => BUG[x]).length ? `<div class="area"><h3>Vedi anche</h3>${list(b.vedi_anche.filter(x => BUG[x]).map(x => bugRow(BUG[x])))}</div>` : ''}
   ${b.note ? `<p class="note">${esc(b.note)}</p>` : ''}`;
 }
@@ -11009,6 +11043,21 @@ $('#q').addEventListener('input', () => { if (location.hash && location.hash !==
 $('#sf').addEventListener('submit', e => { e.preventDefault(); $('#q').blur(); });
 $('#brand').addEventListener('click', () => { $('#q').value = ''; location.hash = 'home'; render(); });
 $('#back').addEventListener('click', () => history.back());
+/* conferma di uscita (solo app installata): il tasto Indietro dalla prima pagina chiede se uscire */
+(() => {
+  if (!(window.matchMedia && (matchMedia('(display-mode: standalone)').matches || navigator.standalone)) || !history.pushState) return;
+  const base = location.pathname + location.search, start = location.hash || '#home';
+  history.replaceState({safeg: 1}, '', base + '#home'); history.pushState({safeg: 2}, '', base + start);
+  window.addEventListener('popstate', e => {
+    if (!e.state || e.state.safeg !== 1 || document.getElementById('exitq')) return;
+    const w = document.createElement('div'); w.id = 'exitq';
+    w.innerHTML = '<div class="nv"><h3>Vuoi uscire da SAFe?</h3><div class="btns" style="justify-content:flex-end"><button class="btn ghost" id="ex-no">Resta</button><button class="btn" id="ex-si">Esci</button></div><p class="note" id="ex-m" style="margin:6px 0 0"></p></div>';
+    document.body.appendChild(w);
+    const resta = () => { w.remove(); history.pushState({safeg: 2}, '', base + '#home'); };
+    w.querySelector('#ex-no').onclick = resta; w.onclick = ev => { if (ev.target === w) resta(); };
+    w.querySelector('#ex-si').onclick = () => { try { window.close(); } catch (x) {} setTimeout(() => { const m = document.getElementById('ex-m'); if (m) m.textContent = 'Premi ancora Indietro per chiudere l\'app.'; }, 300); };
+  });
+})();
 window.addEventListener('hashchange', () => { if (location.hash.slice(1) !== 'home') { } render(); window.scrollTo(0, 0); });
 setLevel('__init__');
 
