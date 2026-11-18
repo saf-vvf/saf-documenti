@@ -11051,7 +11051,7 @@ $('#back').addEventListener('click', () => history.back());
   window.addEventListener('popstate', e => {
     if (!e.state || e.state.safeg !== 1 || document.getElementById('exitq')) return;
     const w = document.createElement('div'); w.id = 'exitq';
-    w.innerHTML = '<div class="nv"><h3>Vuoi uscire da SAFe?</h3><div class="btns" style="justify-content:flex-end"><button class="btn ghost" id="ex-no">Resta</button><button class="btn" id="ex-si">Esci</button></div><p class="note" id="ex-m" style="margin:6px 0 0"></p></div>';
+    w.innerHTML = '<div class="nv"><p style="margin:0 0 4px;font-size:1.15rem;font-weight:700">Vuoi uscire da SAFe?</p><div class="btns" style="justify-content:flex-end"><button class="btn ghost" id="ex-no">Resta</button><button class="btn" id="ex-si">Esci</button></div><p class="note" id="ex-m" style="margin:6px 0 0"></p></div>';
     document.body.appendChild(w);
     const resta = () => { w.remove(); history.pushState({safeg: 2}, '', base + '#home'); };
     w.querySelector('#ex-no').onclick = resta; w.onclick = ev => { if (ev.target === w) resta(); };
