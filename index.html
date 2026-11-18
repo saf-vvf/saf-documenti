@@ -8631,22 +8631,23 @@ window.SAFDATA = {
    "p": 199
   },
   {
+   "t": "Effetto pendolo",
+   "d": "Spostamento orizzontale di un operatore rispetto la verticale in fase di caduta.",
+   "m": "man-basico-2021",
+   "p": 255
+  },
+  {
    "t": "EN",
    "d": "Sigla che identifica le norme elaborate dal CEN (Comité Européen de Normalisation), Organismo di Normazione Europea. I Paesi membri CEN devono obbligatoriamente recepire le norme EN (nel caso dell’Italia esse diventano UNI EN). Queste norme servono ad uniformare la normativa tecnica in tutta Europa, quindi non è consentita l’esistenza a livello nazionale di norme che non siano in armonia con il loro contenuto.",
    "m": "man-basico-2021",
    "p": 255
   },
   {
-   "t": "Enziopatogenetico",
+   "t": "Eziopatogenetico",
    "d": "Studio delle cause di una malattia e dei loro meccanismi di insorgenza e di sviluppo.",
    "m": "man-basico-2021",
-   "p": 255
-  },
-  {
-   "t": "Effetto pendolo",
-   "d": "Spostamento orizzontale di un operatore rispetto la verticale in fase di caduta.",
-   "m": "man-basico-2021",
-   "p": 255
+   "p": 255,
+   "nota": "Nel manuale è scritto per errore \"Enziopatogenetico\"."
   },
   {
    "t": "Falesia",
@@ -8781,14 +8782,14 @@ window.SAFDATA = {
    "p": 226
   },
   {
-   "t": "Limite dell’innevamento",
-   "d": "Limite (espresso in metri al di sopra del livello del mare) tra le zone coperte di neve e le zone non innevate; il limite dell’innevamento può variare in funzione dell’esposizione.",
+   "t": "Limite della nevicata",
+   "d": "Altitudine sul livello del mare in corrispondenza della quale le precipitazioni cadono prevalentemente sotto forma di neve che si deposita al suolo; tale limite si colloca in genere 300 m al di sotto della quota dello zero termico, può anche raggiungere i 600 m al di sotto della quota dello zero termico, in caso di precipitazioni abbondanti e/o entro valli chiuse.",
    "m": "man-negh-2025",
    "p": 226
   },
   {
-   "t": "Limite della nevicata",
-   "d": "Altitudine sul livello del mare in corrispondenza della quale le precipitazioni cadono prevalentemente sotto forma di neve che si deposita al suolo; tale limite si colloca in genere 300 m al di sotto della quota dello zero termico, può anche raggiungere i 600 m al di sotto della quota dello zero termico, in caso di precipitazioni abbondanti e/o entro valli chiuse.",
+   "t": "Limite dell’innevamento",
+   "d": "Limite (espresso in metri al di sopra del livello del mare) tra le zone coperte di neve e le zone non innevate; il limite dell’innevamento può variare in funzione dell’esposizione.",
    "m": "man-negh-2025",
    "p": 226
   },
@@ -10375,7 +10376,7 @@ async function ftsRun(q) {
 
 /* ===================== GLOSSARIO SAF ===================== */
 const MSIG = {'man-basico-2021': 'Basico', 'man-avanzato-2023': 'Avanzato', 'man-negh-2025': 'NeGh'};
-const glossRow = (g, open) => { const m = MAN[g.m]; return `<details class="gl" style="--rc:var(--lv-${m.livello})"${open ? ' open' : ''}><summary><b>${esc(g.t)}</b><small>${esc(MSIG[g.m] || '')}</small></summary><p>${esc(g.d)}</p><a class="glsrc" href="${pdf(m.url, g.p)}">Apri ${esc(m.titolo)} · pag. ${g.p}</a></details>`; };
+const glossRow = (g, open) => { const m = MAN[g.m]; return `<details class="gl" style="--rc:var(--lv-${m.livello})"${open ? ' open' : ''}><summary><b>${esc(g.t)}</b><small>${esc(MSIG[g.m] || '')}</small></summary><p>${esc(g.d)}</p>${g.nota ? `<p class="note" style="margin:0 0 6px">${esc(g.nota)}</p>` : ''}<a class="glsrc" href="${pdf(m.url, g.p)}">Apri ${esc(m.titolo)} · pag. ${g.p}</a></details>`; };
 const glossVis = () => (D.glossario || []).filter(g => MAN[g.m] && lvOk(MAN[g.m].livello));
 function viewGlossario() {
   const G = glossVis();
