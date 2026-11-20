@@ -271,9 +271,11 @@ mark{background:rgba(253,235,5,.35);color:inherit;border-radius:3px;padding:0 1p
 .sdfs{position:absolute;left:10px;bottom:22px;z-index:1000;width:44px;height:44px;border-radius:10px;border:0;background:#fff;color:#222;font-size:1.4rem;box-shadow:0 2px 8px #0005;cursor:pointer}
 body.sdnoscroll{overflow:hidden}
 .sdpin span{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px #0006;font-size:16px}
-.sdch{font-size:1.2rem;letter-spacing:.06em}.sdinfo h4{margin:14px 0 4px}.sdinfo h4:first-of-type{margin-top:4px}
+.sdch{font-size:1.2rem;letter-spacing:.06em}.sdinfo h4,.sdlist h4{margin:0 0 8px;color:var(--lc);font-size:1.05rem}.sdinfo,.sdlist,.sdcard{margin-top:10px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .sdinfo h4,:root:not([data-theme="light"]) .sdlist h4{color:color-mix(in srgb,var(--lc) 60%,#fff)}}:root[data-theme="dark"] .sdinfo h4,:root[data-theme="dark"] .sdlist h4{color:color-mix(in srgb,var(--lc) 60%,#fff)}.sdlist .list,.sdlist ul{margin:0}
 .sdcall{padding:5px 12px;font-size:.95rem;min-height:0}.sdmini{padding:8px 0;border-bottom:1px solid var(--line)}.sdmini:last-child{border:0}
 .sdrow .num{font-size:.8rem}
+.sdql{display:block;margin:14px 0 6px}.sdtop{position:relative}
 .sdtipo{display:inline-block;font-size:1rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--chip,#2a2f36);border:1px solid var(--line)}
 .sdsede{margin-top:10px;grid-template-columns:max-content 1fr;align-items:center}.sdsede dd{min-width:0;overflow-wrap:anywhere}
 .sdinfo .meta{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 10px}.sdinfo .meta dd{min-width:0;overflow-wrap:anywhere;text-align:right}
@@ -15142,45 +15144,47 @@ function sdScheda(o, titolo) {
     <div class="btns"><a class="btn" href="${sdNav(o.p)}" target="_blank" rel="noopener">🧭 Naviga fin qui</a><button class="btn sec" data-sdmap="${o.k}">🗺️ Mappa</button>${o.u ? `<a class="btn sec" href="${esc(o.u)}" target="_blank" rel="noopener">vigilfuoco.it</a>` : ''}</div>
     <div class="sdmapbox" id="sdmap-${o.k}" hidden></div>
   </div>
-  ${c ? `<div class="card sdinfo">
-    ${isC ? '' : `<p style="margin:0 0 6px">Comando provinciale: <a href="#t-sedi~${c.k}"><b>Comando VV.F. di ${esc(c.n)}</b></a><br><span class="note">${esc(c.a)}</span></p>`}
-    <h4>📻 Canali radio</h4>
+  ${c ? `${isC ? '' : `<div class="card lab sdinfo" style="--lc:#8a5a2b"><h4>🏢 Comando provinciale</h4><p style="margin:0"><a href="#t-sedi~${c.k}"><b>Comando VV.F. di ${esc(c.n)}</b></a><br><span class="note">${esc(c.a)}</span></p></div>`}
+    <div class="card lab sdinfo" style="--lc:#2e7d32"><h4>📻 Canali radio</h4>
     <dl class="meta"><dt>Comando ${esc(c.n)}</dt><dd><b class="sdch">${esc(c.ch || '—')}</b></dd><dt>Direzione ${esc(c.d)}</dt><dd><b class="sdch">${esc(c.chd || (dr && dr.ch) || '—')}</b></dd><dt>Nazionale (CON)</dt><dd><b class="sdch">${esc((SD.nazionali[0] || {}).ch || '—')}</b></dd></dl>
-    <h4>☎️ Sale operative</h4>
+</div>
+    <div class="card lab sdinfo" style="--lc:#e07000"><h4>☎️ Sale operative</h4>
     <dl class="meta"><dt>SO Comando ${esc(c.n)}</dt><dd>${sdTel(c.t)}</dd><dt>SO Direzione ${esc(c.d)}</dt><dd>${sdTel(c.td || (dr && dr.t))}</dd>${c.tc ? `<dt>Centralino</dt><dd>${sdTel(c.tc)}</dd>` : ''}${c.e ? `<dt>Email SO</dt><dd><a href="mailto:${esc(c.e)}">${esc(c.e)}</a></dd>` : ''}</dl>
-    ${conf.length ? `<h4>🗺️ Comandi confinanti (${conf.length})</h4><div class="chips">${conf.map(x => `<a class="chip" href="#t-sedi~${x.k}">${esc(x.n)}</a>`).join('')}</div>` : ''}
-  </div>` : ''}`;
+</div>
+    ${conf.length ? `<div class="card lab sdinfo" style="--lc:#6a1b9a"><h4>🗺️ Comandi confinanti (${conf.length})</h4><div class="chips">${conf.map(x => `<a class="chip" href="#t-sedi~${x.k}">${esc(x.n)}</a>`).join('')}</div></div>` : ''}` : ''}`;
 }
 function viewSedi(k) {
   if (!SD) { sdLoad(); return `<h2>Sedi VVF</h2>${SDerr && SDerr !== 'loading' ? `<div class="card"><p style="margin:0">${esc(SDerr)}</p></div>` : '<p class="note">Carico l\'elenco delle sedi…</p>'}`; }
   const o = sdItem(k);
   if (o) {
     const near = SD.sedi.filter(s => s.s === (o.k[0] === 'c' ? o.s : o.s) && s !== o).sort((a, b) => sdDist(o.p, a.p) - sdDist(o.p, b.p)).slice(0, 6);
-    return `<h2>Sedi VVF</h2>${sdScheda(o)}${near.length ? `<div class="area"><h3>Altre sedi del comando, le più vicine</h3>${list(near.map(s => sdRow(s)))}</div>` : ''}<p class="note">${esc(SD.fonte)}</p>`;
+    return `<h2>Sedi VVF</h2>${sdScheda(o)}${near.length ? `<div class="card lab sdlist" style="--lc:#00838f"><h4>🚒 Altre sedi del comando, le più vicine</h4>${list(near.map(s => sdRow(s)))}</div>` : ''}<p class="note">${esc(SD.fonte)}</p>`;
   }
   let loc = '';
   if (SDpos) {
     const {c, fuori} = sdComandoDi(SDpos);
     const vic = SD.sedi.filter(s => !['direzione'].includes(s.t)).map(s => [sdDist(SDpos, s.p), s]).sort((a, b) => a[0] - b[0]).slice(0, 5).map(x => x[1]);
     loc = sdScheda(c, fuori ? '📍 Sei fuori dai confini italiani: comando più vicino' : `📍 Sei nel territorio del Comando di ${esc(c.n)}${SDpos[2] ? ` (posizione ±${Math.round(SDpos[2])} m)` : ''}`) +
-      `<div class="area"><h3>Sedi VVF più vicine a te</h3>${list(vic.map(s => sdRow(s, s.s !== c.s ? ' · altro comando' : '')))}<p class="note">Il comando è ricavato dai confini provinciali. Per i distaccamenti l'app indica le sedi più vicine in linea d'aria: non sempre coincidono con quella di competenza per l'intervento.</p></div>`;
+      `<div class="card lab sdlist" style="--lc:#00838f"><h4>🚒 Sedi VVF più vicine a te</h4>${list(vic.map(s => sdRow(s, s.s !== c.s ? ' · altro comando' : '')))}<p class="note" style="margin-bottom:0">Il comando è ricavato dai confini provinciali. Per i distaccamenti l'app indica le sedi più vicine in linea d'aria: non sempre coincidono con quella di competenza per l'intervento.</p></div>`;
   }
   return `<h2>Sedi VVF</h2>
   <p class="note">Trova il comando competente per il territorio in cui ti trovi, i canali radio, i numeri delle sale operative e le sedi vicine, oppure cerca qualunque sede VVF in Italia.</p>
-  <div class="card geo"><button class="btn geobig" id="sd-loc">📍 ${SDpos ? 'Aggiorna la mia posizione' : 'Localizzami'}</button><p class="note" id="sd-st" style="margin:8px 0 0"></p></div>
-  ${loc}
-  <div class="card"><label for="sd-q"><b>Cerca una sede VVF</b></label><input id="sd-q" type="search" placeholder="Comune, comando, distaccamento, sigla provincia…" value="${esc(SDq)}" autocomplete="off" style="width:100%;margin-top:6px"><div id="sd-res"></div></div>
+  <div class="card geo lab sdtop" style="--lc:#e0a800"><button class="btn geobig" id="sd-loc">📍 ${SDpos ? 'Aggiorna la mia posizione' : 'Localizzami'}</button><p class="note" id="sd-st" style="margin:6px 0 0"></p>
+    <label for="sd-q" class="sdql"><b>🔍 Cerca una sede VVF</b></label><input id="sd-q" type="search" placeholder="Comune, comando, distaccamento, sigla provincia…" value="${esc(SDq)}" autocomplete="off" style="width:100%"></div>
+  <div id="sd-res"></div>
+  <div id="sd-locres"${SDq.trim() ? ' hidden' : ''}>${loc}</div>
   <details class="fold" style="--fc:#3d7bd9"><summary><span>🏛️ Direzioni regionali e centri nazionali</span><small>${SD.direzioni.length + SD.nazionali.length}</small></summary><div class="normbody">${[...SD.nazionali, ...SD.direzioni].map(x => `<div class="sdmini"><b>${esc(x.n.length < 30 && !/Centro/.test(x.n) ? 'Direzione ' + x.n : x.n)}</b><br><span class="note">${esc(x.a || '')}</span><br>${x.ch ? `📻 canale <b>${esc(x.ch)}</b> · ` : ''}${sdTel(x.t)}${x.p ? ` <a class="btn sec" href="${sdNav(x.p)}" target="_blank" rel="noopener">🧭</a>` : ''}</div>`).join('')}</div></details>
   <p class="note">${esc(SD.fonte)} Verifica sempre numeri e canali con le disposizioni del tuo comando.</p>`;
 }
 function sdSearch() {
   const el = document.getElementById('sd-res'), inp = document.getElementById('sd-q'); if (!el || !inp) return;
   SDq = inp.value; const w = norm(SDq).split(/\s+/).filter(x => x.length > 1);
+  const lr = document.getElementById('sd-locres'); if (lr) lr.hidden = !!w.length;  /* durante la ricerca i dati della propria posizione si nascondono */
   if (!w.length) { el.innerHTML = ''; return; }
   const txt = o => norm(o.k[0] === 'c' ? `comando ${o.n} ${o.s} ${o.r} ${o.a} ${o.d}` : `${o.n} ${o.c || ''} ${o.s} ${(sdCom(o.s) || {}).n || ''} ${SDTIPO[o.t] || ''}`);
   const hits = [...SD.comandi, ...SD.sedi].filter(o => w.every(x => txt(o).includes(x)));
   hits.sort((a, b) => (a.k[0] === 'c' ? 0 : 1) - (b.k[0] === 'c' ? 0 : 1) || (SDpos ? sdDist(SDpos, a.p) - sdDist(SDpos, b.p) : 0));
-  el.innerHTML = hits.length ? `<p class="note" style="margin:8px 0 4px">${hits.length} sedi trovate${hits.length > 40 ? ', mostro le prime 40' : ''}</p>${list(hits.slice(0, 40).map(o => sdRow(o)))}` : '<p class="note">Nessuna sede trovata.</p>';
+  el.innerHTML = `<div class="card lab sdlist" style="--lc:#2457c5"><h4>🔍 ${hits.length ? (hits.length === 1 ? '1 sede trovata' : hits.length + ' sedi trovate') + (hits.length > 40 ? ', le prime 40' : '') : 'Nessuna sede trovata'}</h4>${hits.length ? list(hits.slice(0, 40).map(o => sdRow(o))) : ''}<p class="note" style="margin-bottom:0">Svuota il campo di ricerca per tornare ai dati della tua posizione.</p></div>`;
 }
 function sdLocate() {
   const st = document.getElementById('sd-st'), b = document.getElementById('sd-loc');
