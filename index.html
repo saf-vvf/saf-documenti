@@ -274,6 +274,7 @@ body.sdnoscroll{overflow:hidden}
 .sdch{font-size:1.2rem;letter-spacing:.06em}.sdinfo h4{margin:14px 0 4px}.sdinfo h4:first-of-type{margin-top:4px}
 .sdcall{padding:5px 12px;font-size:.95rem;min-height:0}.sdmini{padding:8px 0;border-bottom:1px solid var(--line)}.sdmini:last-child{border:0}
 .sdrow .num{font-size:.8rem}
+.sdsede{margin-top:10px;grid-template-columns:max-content 1fr;align-items:center}.sdsede dd{min-width:0;overflow-wrap:anywhere}
 .sdinfo .meta{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:6px 10px}.sdinfo .meta dd{min-width:0;overflow-wrap:anywhere;text-align:right}
 .sdcard,.sdinfo{min-width:0;overflow-wrap:anywhere}.sdcall{white-space:nowrap}
 #sd-q{box-sizing:border-box;padding:12px 14px;font-size:1rem;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}.leaflet-container{font:inherit}
@@ -15134,7 +15135,9 @@ function sdScheda(o, titolo) {
   return `<div class="card lab sdcard" style="--lc:#c8102e">
     ${titolo ? `<p class="note" style="margin:0 0 4px">${titolo}</p>` : ''}
     <h3 style="margin:0">${esc(nome)}</h3>
-    <p style="margin:4px 0 0">${isC ? '' : `<span class="pill p-cap">${esc(SDTIPO[o.t] || o.t)}</span> `}${esc(ind)}${d != null ? ` · <b>${sdKm(d)}</b> in linea d'aria` : ''}</p>
+    <p style="margin:4px 0 0">${isC ? esc(ind) : `<span class="pill p-cap">${esc(SDTIPO[o.t] || o.t)}</span>`}${d != null ? ` · <b>${sdKm(d)}</b> in linea d'aria` : ''}</p>
+    ${isC ? '' : `<dl class="meta sdsede"><dt>Indirizzo</dt><dd>${o.v ? esc(o.v + (o.c ? ' ' + o.c : '') + ' (' + o.s + ')') : `<span class="sdaddr" data-k="${o.k}">${esc((o.c ? o.c + ' ' : '') + '(' + o.s + ')')} <span class="note">· cerco l'indirizzo…</span></span>`}</dd>
+      <dt>Telefono</dt><dd>${o.tel ? sdTel(o.tel) : `<span class="note">Numero della sede non presente nei dati: contatta la sala operativa del comando qui sotto${o.u ? ' o verifica sulla pagina vigilfuoco.it' : ''}.</span>`}</dd></dl>`}
     <div class="btns"><a class="btn" href="${sdNav(o.p)}" target="_blank" rel="noopener">🧭 Naviga fin qui</a><button class="btn sec" data-sdmap="${o.k}">🗺️ Mappa</button>${o.u ? `<a class="btn sec" href="${esc(o.u)}" target="_blank" rel="noopener">vigilfuoco.it</a>` : ''}</div>
     <div class="sdmapbox" id="sdmap-${o.k}" hidden></div>
   </div>
@@ -15230,10 +15233,27 @@ function sdMapOpen(k, box) {
   const nome = o.k[0] === 'c' ? 'Comando VV.F. di ' + o.n : o.n;
   mapShow(box, {pts: [{p: o.p, emoji: '🚒', html: `<b>${esc(nome)}</b><br><a href="${sdNav(o.p)}" target="_blank" rel="noopener">🧭 Naviga</a>`}], near: SD.sedi.filter(s => s !== o && sdDist(o.p, s.p) < 40), me: SDpos});
 }
+/* indirizzo dei distaccamenti senza indirizzo nei dati: ricavato dalla posizione con OpenStreetMap (Nominatim), salvato sul telefono */
+let SDaddr = {}; try { SDaddr = JSON.parse(localStorage.getItem('saf-sedi-addr') || '{}'); } catch (e) {}
+function sdAddrFill() {
+  document.querySelectorAll('.sdaddr[data-k]').forEach(el => {
+    const o = sdItem(el.dataset.k); if (!o) return;
+    const key = o.p.join(','), show = a => { el.innerHTML = `${esc(a)} <span class="note">· ricavato dalla posizione (OpenStreetMap)</span>`; };
+    if (SDaddr[key]) return show(SDaddr[key]);
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&accept-language=it&lat=${o.p[0]}&lon=${o.p[1]}`).then(r => r.json()).then(j => {
+      const a = j.address || {}, loc = a.city || a.town || a.village || a.hamlet || a.municipality || o.c || '';
+      const t = [[a.road, a.house_number].filter(Boolean).join(' '), [a.postcode, loc].filter(Boolean).join(' ')].filter(Boolean).join(', ') + ' (' + o.s + ')';
+      if (!a.road && !loc) throw 0;
+      SDaddr[key] = t; try { localStorage.setItem('saf-sedi-addr', JSON.stringify(SDaddr)); } catch (e) {}
+      show(t);
+    }).catch(() => { const n = el.querySelector('.note'); if (n) n.textContent = '· indirizzo non disponibile senza rete'; });
+  });
+}
 function bindSedi() {
   if (document.body && document.body.classList) document.body.classList.remove('sdnoscroll');
   if (!location.hash.startsWith('#t-sedi')) return;
   const b = document.getElementById('sd-loc'); if (b) b.onclick = sdLocate;
+  if (SD) sdAddrFill();
   const q = document.getElementById('sd-q'); if (q) { q.addEventListener('input', sdSearch); if (SDq) sdSearch(); }
   document.querySelectorAll('[data-sdmap]').forEach(x => x.onclick = () => sdMapOpen(x.dataset.sdmap, document.getElementById('sdmap-' + x.dataset.sdmap)));
 }

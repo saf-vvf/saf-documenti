@@ -195,7 +195,17 @@ sc.addEventListener('wheel', e => {
   const r = sc.getBoundingClientRect();
   setZoom(zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15), e.clientX - r.left, e.clientY - r.top);
 }, {passive: false});
-window.addEventListener('resize', () => { const a = anchor(); rendered.clear(); layout(); if (a) restore(a); visible(); });
+/* rotazione dello schermo: il punto di lettura si salva a ogni scorrimento e si ripristina dopo il ridimensionamento
+   (durante la rotazione il browser può spostare lo scorrimento, quindi non si calcola il punto in quel momento) */
+let lastA = null, rzT = null, rzA = null, stable = innerWidth + 'x' + innerHeight;
+sc.addEventListener('scroll', () => { if (!rzA && !pinch && innerWidth + 'x' + innerHeight === stable) lastA = anchor(); }, {passive: true});
+window.addEventListener('orientationchange', () => { if (!rzA) rzA = lastA || anchor(); });
+if (screen.orientation && screen.orientation.addEventListener) screen.orientation.addEventListener('change', () => { if (!rzA) rzA = lastA || anchor(); });
+window.addEventListener('resize', () => {
+  if (!rzA) rzA = lastA || anchor();
+  rendered.clear(); layout(); if (rzA) restore(rzA); visible();
+  clearTimeout(rzT); rzT = setTimeout(() => { if (rzA) { restore(rzA); visible(); } rzA = null; stable = innerWidth + 'x' + innerHeight; lastA = anchor(); }, 350);
+});
 
 document.getElementById('back').onclick = () => { if (history.length > 1) history.back(); else location.href = './'; };
 document.getElementById('zoomin').onclick = () => setZoom(zoom * 1.4);
