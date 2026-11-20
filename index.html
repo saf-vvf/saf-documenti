@@ -15125,8 +15125,8 @@ const sdDir = n => SD.direzioni.find(d => d.n.toLowerCase() === String(n).toLowe
 const sdTel = t => t ? `<a class="btn sdcall" href="tel:${esc(t.replace(/[^\d+]/g, ''))}">📞 ${esc(t)}</a>` : '<span class="note">non disponibile</span>';
 const sdNav = p => `https://www.google.com/maps/dir/?api=1&destination=${p[0]},${p[1]}&travelmode=driving`;
 function sdItem(k) { if (!SD || !k) return null; const n = +k.slice(1); return k[0] === 'c' ? SD.comandi[n] : k[0] === 's' ? SD.sedi[n] : null; }
-function sdRow(o, extra) {
-  const isC = o.k[0] === 'c', d = SDpos ? sdDist(SDpos, o.p) : null;
+function sdRow(o, extra, from) {
+  const isC = o.k[0] === 'c', ref = from || SDpos, d = ref ? sdDist(ref, o.p) : null;
   const sub = isC ? `Sede centrale · ${esc(o.r)}` : `${esc(SDTIPO[o.t] || o.t)}${o.c ? ' · ' + esc(o.c) : ''} · ${esc(o.s)}`;
   return `<a class="row sdrow t-${isC ? 'c' : o.t}" href="#t-sedi~${o.k}"><span class="num">${isC ? esc(o.s) : '🚒'}</span><span class="t">${isC ? 'Comando VV.F. di ' + esc(o.n) : esc(o.n)}</span><span class="s">${sub}${d != null ? ' · ' + sdKm(d) : ''}${extra || ''}</span></a>`;
 }
@@ -15157,13 +15157,21 @@ function viewSedi(k) {
   if (!SD) { sdLoad(); return `<h2>Sedi VVF</h2>${SDerr && SDerr !== 'loading' ? `<div class="card"><p style="margin:0">${esc(SDerr)}</p></div>` : '<p class="note">Carico l\'elenco delle sedi…</p>'}`; }
   const o = sdItem(k);
   if (o) {
-    const near = SD.sedi.filter(s => s.s === (o.k[0] === 'c' ? o.s : o.s) && s !== o).sort((a, b) => sdDist(o.p, a.p) - sdDist(o.p, b.p)).slice(0, 6);
-    return `<h2>Sedi VVF</h2>${sdScheda(o)}${near.length ? `<div class="card lab sdlist" style="--lc:#00838f"><h4>🚒 Altre sedi del comando, le più vicine</h4>${list(near.map(s => sdRow(s)))}</div>` : ''}<p class="note">${esc(SD.fonte)}</p>`;
+    const byD = (x, y) => sdDist(o.p, x.p) - sdDist(o.p, y.p);
+    let lst;
+    if (o.k[0] === 'c') {  /* comando: tutte le sedi che gli appartengono */
+      const all = SD.sedi.filter(s => s.s === o.s && !(s.t === 'centrale' && sdDist(o.p, s.p) < 0.3)).sort(byD);
+      lst = all.length ? `<div class="card lab sdlist" style="--lc:#00838f"><h4>🚒 Sedi del Comando di ${esc(o.n)} (${all.length})</h4>${list(all.map(s => sdRow(s, '', o.p)))}<p class="note" style="margin-bottom:0">Distanze in linea d'aria dalla sede centrale.</p></div>` : '';
+    } else {  /* distaccamento: le sedi più vicine, anche di altri comandi */
+      const near = SD.sedi.filter(s => s !== o && s.t !== 'direzione').sort(byD).slice(0, 8);
+      lst = near.length ? `<div class="card lab sdlist" style="--lc:#00838f"><h4>🚒 Sedi più vicine a questa</h4>${list(near.map(s => sdRow(s, s.s !== o.s ? ' · altro comando' : '', o.p)))}<p class="note" style="margin-bottom:0">Distanze in linea d'aria da questa sede.</p></div>` : '';
+    }
+    return `<h2>Sedi VVF</h2>${sdScheda(o)}${lst}<p class="note">${esc(SD.fonte)}</p>`;
   }
   let loc = '';
   if (SDpos) {
     const {c, fuori} = sdComandoDi(SDpos);
-    const vic = SD.sedi.filter(s => !['direzione'].includes(s.t)).map(s => [sdDist(SDpos, s.p), s]).sort((a, b) => a[0] - b[0]).slice(0, 5).map(x => x[1]);
+    const vic = SD.sedi.filter(s => !['direzione'].includes(s.t)).map(s => [sdDist(SDpos, s.p), s]).sort((a, b) => a[0] - b[0]).slice(0, 8).map(x => x[1]);
     loc = sdScheda(c, fuori ? '📍 Sei fuori dai confini italiani: comando più vicino' : `📍 Sei nel territorio del Comando di ${esc(c.n)}${SDpos[2] ? ` (posizione ±${Math.round(SDpos[2])} m)` : ''}`) +
       `<div class="card lab sdlist" style="--lc:#00838f"><h4>🚒 Sedi VVF più vicine a te</h4>${list(vic.map(s => sdRow(s, s.s !== c.s ? ' · altro comando' : '')))}<p class="note" style="margin-bottom:0">Il comando è ricavato dai confini provinciali. Per i distaccamenti l'app indica le sedi più vicine in linea d'aria: non sempre coincidono con quella di competenza per l'intervento.</p></div>`;
   }
