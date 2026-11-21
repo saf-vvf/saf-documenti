@@ -261,7 +261,7 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .geocross::before,.geocross::after{content:"";position:absolute;background:#c8102e;box-shadow:0 0 0 1px #fff8}.geocross::before{left:50%;top:-12px;bottom:-12px;width:2px;margin-left:-1px}.geocross::after{top:50%;left:-12px;right:-12px;height:2px;margin-top:-1px}
 .geoseta{position:absolute;left:56px;right:8px;bottom:12px;flex-wrap:wrap;z-index:500;display:flex;gap:8px;justify-content:center;pointer-events:none}.geoseta .btn{pointer-events:auto;box-shadow:0 2px 8px #0006}.geoseta .btn.ghost{background:var(--surface)}
 .geoleg{position:absolute;right:8px;bottom:22px;z-index:500;background:#fffe;color:#222;font-size:.74rem;line-height:1.5;padding:5px 8px;border-radius:8px;box-shadow:0 1px 4px #0005;pointer-events:none}
-.geolg{display:inline-block;width:18px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:5px}.geovia{background:none;border:0}.geovia span{display:flex;width:24px;height:24px;align-items:center;justify-content:center;background:#fff;border-radius:6px;box-shadow:0 1px 4px #0007;font-size:15px}
+.geolg{display:inline-block;width:18px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:5px}.geolg.g{border-top:3px dotted #555}.geovia{background:none;border:0}.geovia span{display:flex;width:24px;height:24px;align-items:center;justify-content:center;background:#fff;border-radius:6px;box-shadow:0 1px 4px #0007;font-size:15px}
 .geohint{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:500;background:#000b;color:#fff;font-size:.78rem;padding:4px 10px;border-radius:999px;pointer-events:none;white-space:nowrap}.geodrop{background:none;border:0}.geodrop svg{filter:drop-shadow(0 2px 3px #0007)}.geohelp summary{cursor:pointer;color:var(--muted)}.geohelp ul{padding-left:18px;margin:6px 0}.geohelp li{margin:4px 0}.geohelp code{font-size:.8rem;background:var(--bg);padding:1px 4px;border-radius:4px}
 .inst{position:relative;border:2px solid #fdeb05;margin-bottom:12px}.inst-t{font-weight:700;font-size:1.05rem;margin:0 28px 6px 0}.inst p{margin:0 0 6px}.inst-x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:6px}
 .mcard{border-left:6px solid var(--mc);background:var(--surface);background:color-mix(in srgb,var(--mc) 7%,var(--surface))}
@@ -290,7 +290,7 @@ a.card.tool{border-left:5px solid var(--tc);--gc:var(--tc)}
 mark{background:rgba(253,235,5,.35);color:inherit;border-radius:3px;padding:0 1px}
 .sdmapbox{margin-top:10px;position:relative;z-index:0;isolation:isolate;border-radius:12px;overflow:hidden;border:1px solid var(--line)}.sdmap{height:280px;background:#ddd}
 .sdmapbox.full{position:fixed;inset:0;z-index:9000;margin:0;border-radius:0;border:0}.sdmapbox.full .sdmap{height:100%}
-.sdfs{position:absolute;left:10px;bottom:22px;z-index:1000;width:44px;height:44px;border-radius:10px;border:0;background:#fff;color:#222;font-size:1.4rem;box-shadow:0 2px 8px #0005;cursor:pointer}
+.sdfs{position:absolute;left:10px;bottom:22px;z-index:1000;width:44px;height:44px;border-radius:10px;border:0;background:#fff;color:#222;font-size:1.4rem;box-shadow:0 2px 8px #0005;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0}
 body.sdnoscroll{overflow:hidden}
 .sdpin span{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px #0006;font-size:16px}
 .sdch{font-size:1.2rem;letter-spacing:.06em}.sdinfo h4,.sdlist h4{margin:0 0 8px;color:var(--lc);font-size:1.05rem}.sdinfo,.sdlist,.sdcard{margin-top:10px}
@@ -12068,6 +12068,13 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-21.2",
+   "data": "2026-11-21",
+   "voci": [
+    "Coordinate: migliorato il sistema di calcolo del percorso per i mezzi di soccorso. Ora usa anche le strade sterrate e le piste chiuse al traffico, segnala con 🚧 sbarre e cancelli, evita gli accessi dalla riva sbagliata dei corsi d'acqua e indica la partenza con una bandierina verde."
+   ]
+  },
+  {
    "id": "2026-11-21.1",
    "data": "2026-11-21",
    "voci": [
@@ -15039,15 +15046,59 @@ function geoRouteBox() {
     ${GEOR.start === 'map' ? `<div class="georow2"><span class="note">${GEOR.pick ? '🎯 Metti il mirino sul punto di partenza e tocca <b>Imposta partenza qui</b>' : GEOR.sp ? `Partenza: ${GEOR.sp[0].toFixed(5)}, ${GEOR.sp[1].toFixed(5)}` : 'Partenza non ancora scelta'}</span>${GEOR.pick ? '' : `<button type="button" class="btn ghost" id="geo-pick" style="padding:6px 12px">🎯 ${GEOR.sp ? 'Cambia' : 'Scegli sulla mappa'}</button>`}</div>` : ''}
     <div class="georow2"><span class="note">Tipo</span><select id="geo-prof">${GPROF.map(([k, n]) => `<option value="${k}"${k === GEOR.prof ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
     <div class="btns" style="margin-top:8px"><button class="btn" id="geo-route">Calcola il percorso</button>${r ? `<button class="btn ghost geopaste" id="geo-gpx">⬇️ Salva GPX</button>` : ''}</div>
-    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `${r.legs && r.legs.length > 1 ? r.legs.map(l => `${l.t === 'auto' ? '🚗 In auto' : '🥾 A piedi'}: <b>${l.km.toFixed(1).replace('.', ',')} km</b>, circa ${geoMin(l.min)}${l.t !== 'auto' && l.up >= 10 ? `, ↗ ${Math.round(l.up)} m` : ''}${l.t !== 'auto' && l.dn >= 10 ? ` ↘ ${Math.round(l.dn)} m` : ''}`).join('<br>') + '<br>Totale: ' : ''}<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${geoMin(r.min)}` : ''}${r.legs && r.legs.length > 1 ? '' : r.up ? ` · ↗ ${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}${r.n > 1 ? `<br><span style="font-size:.85em">Scelto l'accesso più rapido tra ${r.n} possibili (conta anche il dislivello a piedi).</span>` : ''}${r.kt ? '<br>' + Object.keys(GTER).filter(k => r.kt[k] >= .05).map(k => `<span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]} ${r.kt[k].toFixed(1).replace('.', ',')} km`).join(' · ') : ''}` : ''}</p></div>`;
+    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `${r.legs && r.legs.length > 1 ? r.legs.map(l => `${l.t === 'auto' ? '🚗 In auto' : '🥾 A piedi'}: <b>${l.km.toFixed(1).replace('.', ',')} km</b>, circa ${geoMin(l.min)}${l.t !== 'auto' && l.up >= 10 ? `, ↗ ${Math.round(l.up)} m` : ''}${l.t !== 'auto' && l.dn >= 10 ? ` ↘ ${Math.round(l.dn)} m` : ''}`).join('<br>') + '<br>Totale: ' : ''}<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${geoMin(r.min)}` : ''}${r.legs && r.legs.length > 1 ? '' : r.up ? ` · ↗ ${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}${r.bars && r.bars.length ? `<br>🚧 ${r.bars.length === 1 ? '1 sbarra o cancello' : r.bars.length + ' sbarre o cancelli'} sul percorso in auto: considerati transitabili per i mezzi di soccorso.` : ''}${r.aq === 2 ? '<br><b style="color:#e65100">⚠️ L\'ultimo tratto senza sentiero fino al punto attraversa un corso d\'acqua: controlla sulla mappa di arrivare dalla riva giusta.</b>' : r.aq === 1 ? '<br>⚠️ L\'ultimo tratto fino al punto attraversa un ruscello.' : ''}${r.n > 1 ? `<br><span style="font-size:.85em">Scelto l'accesso più rapido tra ${r.n} possibili (conta anche il dislivello a piedi${r.prof === 'mix' ? ' ed evita la riva sbagliata dei corsi d\'acqua' : ''}).${r.prof === 'mix' && r.soc === false ? ' Profilo dei mezzi di soccorso non disponibile: usate solo le strade aperte al traffico.' : ''}</span>` : ''}${r.kt ? '<br>' + Object.keys(GTER).filter(k => r.kt[k] >= .05).map(k => `<span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]} ${r.kt[k].toFixed(1).replace('.', ',')} km`).join(' · ') : ''}` : ''}</p></div>`;
 }
 /* un tratto calcolato da BRouter tra due punti con un profilo */
-function geoBR(a, b, prof) {
-  const u = `https://brouter.de/brouter?lonlats=${a[1].toFixed(6)},${a[0].toFixed(6)}|${b[1].toFixed(6)},${b[0].toFixed(6)}&profile=${prof}&alternativeidx=0&format=geojson`;
-  return fetch(u, {cache: 'no-store'}).then(r => { if (!r.ok) return r.text().then(t => { throw new Error(t || r.status); }); return r.json(); }).then(j => {
-    const f = j.features[0], pr = f.properties, pts = f.geometry.coordinates.map(c => [c[1], c[0], c[2]]), sg = geoSegs(pts, pr.messages);
-    return {pts, segs: sg ? sg.segs : [{c: prof === 'car-fast' ? 'a' : 'p', pts}], kt: sg ? sg.km : null, km: +pr['track-length'] / 1000, min: +pr['total-time'] / 60, up: +(pr['filtered ascend'] || pr['plain-ascend'] || 0)};
-  });
+/* profilo BRouter "mezzi di soccorso": sterrate e piste percorribili, divieti ignorati, sbarre e cancelli non bloccano
+   (derivato da car-vario di BRouter). Si carica sul server alla prima richiesta; se non riesce si usa car-fast. */
+const BRF_SOCCORSO = "#\n# SAFe – mezzi di soccorso VVF (derivato da car-vario di BRouter, MIT)\n# - strade sterrate e piste forestali percorribili\n# - divieti di accesso ignorati (mezzi di soccorso)\n# - sbarre, cancelli e catene non bloccano il transito (l'app li segnala)\n#\n# Car-Routing based on a kinematic model\n#\n# Depending on the vmax-parameter (target-speed)\n# and can handle the costfactor\n# this can be anything from least-time routing to eco-routing\n#\n#\n---model:btools.router.KinematicModel\n\n---context:global\n\n# Car profile\nassign validForCars        = true\n\n# Use the following switches to change behaviour\nassign avoid_toll          = false  # %avoid_toll% | Avoid paid roads | boolean\nassign avoid_unpaved       = false  # %avoid_unpaved% | Avoid unpaved roads, if possible | boolean\nassign avoid_motorways     = false  # %avoid_motorways% | Avoid motorways | boolean\n\nassign add_beeline         = false  # %add_beeline% | Enable beeline on distant start/end points | boolean\nassign use_offroad         = false  # %use_offroad% | Enable additional roads | boolean\n\nassign consider_river      = false  # %consider_river% | Activate to prefer a route along rivers, lakes, etc. | boolean\nassign consider_forest     = false  # %consider_forest% | Activate to prefer a route in forest or parks | boolean\nassign consider_town       = false  # %consider_town% | Activate to bypass cities / big towns as far as possible | boolean\n\n# Kinematic model parameters\nassign vmax             = 90     # %vmax% | Target speed (in km/h) | number\nassign recup_efficiency = 0.7    # %recup_efficiency% | (ratio) | number\nassign totalweight      = 1640   # %totalweight% | Total weight of the car (in kg) | number\nassign f_roll           = 232    # %f_roll% | Rolling friction (in Newton) | number\nassign f_air            = 0.4    # %f_air% | Drag force (in Newton / (m/s)^2), 0.5*cw*A*rho | number\nassign f_recup          = 400    # %f_recup% | Newton | number\nassign p_standby        = 250    # %p_standby% | Watt | number\n\n# Turn instructions settings\nassign turnInstructionMode          = 1     # %turnInstructionMode% | Mode for the generated turn instructions | [0=none, 1=auto-choose, 2=locus-style, 3=osmand-style, 4=comment-style, 5=gpsies-style, 6=orux-style, 7=locus-old-style]\n\n# Technical parameters\nassign pass1coefficient    = 1.3\n\n\n---context:way   # following code refers to way-tags\n\n# classifier constants\nassign classifier_none        = 1\nassign classifier_ferry       = 2\n\nassign is_avoided_toll_road and  avoid_toll toll=yes\nassign is_avoided_motorway and avoid_motorways highway=motorway|motorway_link\n\n\n#\n# calculate logical car access\n#\nassign isresidentialorliving = or highway=residential|living_street living_street=yes\n\nassign caraccess\n       switch highway=motorway|motorway_link       1\n       switch highway=trunk|trunk_link             1\n       switch highway=primary|primary_link         1\n       switch highway=secondary|secondary_link     1\n       switch highway=tertiary|tertiary_link       1\n       switch highway=unclassified                 1\n       switch highway=track|road                   1\n       switch route=ferry                          1\n       switch isresidentialorliving                1\n       switch highway=service                      1\n       0\n\nassign caraccess_destination\n       switch motorcar=\n              switch motor_vehicle=\n                     switch vehicle=\n                            access=destination\n                            vehicle=destination\n                     motor_vehicle=destination\n              motorcar=destination\n\n#\n# for any change in initialclassifier, initialcost is added once\n#\nassign initialclassifier =\n     if route=ferry then classifier_ferry\n     else classifier_none\n\n\n#\n# calculate the initial cost\n# this is added to the total cost each time the costfactor\n# changed\n#\nassign initialcost =\n     if      ( and highway= not route=ferry ) then 10000\n     else if ( equal initialclassifier classifier_ferry ) then 10000\n     else 0\n\nassign accessspeedlimit = if caraccess then 999 else 0\n\nassign isbadoneway = if reversedirection=yes then ( if oneway= then junction=roundabout else oneway=yes|true|1 ) else oneway=-1\nassign onewayspeedlimit = if isbadoneway then 0 else 999\n\nassign islinktype = highway=motorway_link|trunk_link|primary_link|secondary_link|tertiary_link\n\nassign maxspeed_surface =\n  switch or surface= surface=paved|asphalt|concrete 999\n  switch surface=paving_stones|cobblestone|sett 30\n  switch surface=fine_gravel|compacted 30\n  switch surface=gravel|unpaved 25\n  15\n\nassign maxspeed_tracktype =\n  switch tracktype= 999\n  switch tracktype=grade1 40\n  switch tracktype=grade2 25\n  switch tracktype=grade3 15\n  10\n\nassign maxspeed_implicit =\n  switch highway=motorway                  999\n  switch highway=motorway_link             130\n  switch highway=trunk                     250\n  switch highway=trunk_link                100\n  switch highway=primary|primary_link      100\n  switch highway=secondary|secondary_link   90\n  switch highway=tertiary|tertiary_link     80\n  switch highway=unclassified               50\n  switch route=ferry                        10\n  switch highway=bridleway                  10\n  switch isresidentialorliving              30\n  switch highway=service                    30\n  switch highway=track|road switch tracktype=grade1 30 20\n  0\n\nassign maxspeed_forward =\n  switch maxspeed:forward=50 50\n  switch maxspeed:forward=30 30\n  switch maxspeed:forward=10 10\n  switch maxspeed:forward=20 20\n  switch maxspeed:forward=40 40\n  switch maxspeed:forward=60 60\n  switch maxspeed:forward=70 70\n  switch maxspeed:forward=80 80\n  switch maxspeed:forward=90 90\n  switch maxspeed:forward=100 100\n  switch maxspeed:forward=110 110\n  switch maxspeed:forward=120 120\n  switch maxspeed:forward=130 130\n  switch maxspeed:forward=urban 50\n  switch maxspeed:forward=rural 100\n  999\n\nassign maxspeed_backward =\n  switch maxspeed:backward=50 50\n  switch maxspeed:backward=30 30\n  switch maxspeed:backward=10 10\n  switch maxspeed:backward=20 20\n  switch maxspeed:backward=40 40\n  switch maxspeed:backward=60 60\n  switch maxspeed:backward=70 70\n  switch maxspeed:backward=80 80\n  switch maxspeed:backward=90 90\n  switch maxspeed:backward=100 100\n  switch maxspeed:backward=110 110\n  switch maxspeed:backward=120 120\n  switch maxspeed:backward=130 130\n  switch maxspeed:backward=urban 50\n  switch maxspeed:backward=rural 100\n  999\n\nassign maxspeed_explicit =\n  switch maxspeed=50 50\n  switch maxspeed=30 30\n  switch maxspeed=10 10\n  switch maxspeed=20 20\n  switch maxspeed=40 40\n  switch maxspeed=60 60\n  switch maxspeed=70 70\n  switch maxspeed=80 80\n  switch maxspeed=90 90\n  switch maxspeed=100 100\n  switch maxspeed=110 110\n  switch maxspeed=120 120\n  switch maxspeed=130 130\n  switch maxspeed=urban 50\n  switch maxspeed=rural 100\n  if reversedirection=yes then maxspeed_backward else maxspeed_forward\n\nassign maxspeed =\n  min onewayspeedlimit\n  min accessspeedlimit\n  min maxspeed_explicit\n  min maxspeed_implicit\n  min maxspeed_surface maxspeed_tracktype\n\nassign no_river_penalty\n   switch consider_river\n     switch estimated_river_class=  10\n     switch estimated_river_class=1  1.3\n     switch estimated_river_class=2  1\n     switch estimated_river_class=3  0.7\n     switch estimated_river_class=4  0.4\n     switch estimated_river_class=5  0.1\n     switch estimated_river_class=6  0 99 0\n\nassign no_forest_penalty\n   switch consider_forest\n     switch estimated_forest_class=  10\n     switch estimated_forest_class=1  0.5\n     switch estimated_forest_class=2  0.4\n     switch estimated_forest_class=3  0.25\n     switch estimated_forest_class=4  0.15\n     switch estimated_forest_class=5  0.1\n     switch estimated_forest_class=6  0 99 0\n\nassign town_penalty\n   switch consider_town\n     switch estimated_town_class=  0\n     switch estimated_town_class=1  5\n     switch estimated_town_class=2  9\n     switch estimated_town_class=3  12\n     switch estimated_town_class=4  13\n     switch estimated_town_class=5  14\n     switch estimated_town_class=6  16 99 0\n\nassign costfactor =\n  if ( equal maxspeed 0 ) then 10000\n  else if is_avoided_toll_road then 10000\n  else if is_avoided_motorway then 10\n  else min 9999\n  add town_penalty\n  add no_forest_penalty\n  add no_river_penalty\n  0\n\nassign minspeed =\n    switch highway=motorway|motorway_link|trunk  75 0\n\n# way priorities used for voice hint generation\n\nassign priorityclassifier =\n\n  if      ( highway=motorway                  ) then  30\n  else if ( highway=motorway_link             ) then  29\n  else if ( highway=trunk                     ) then  28\n  else if ( highway=trunk_link                ) then  27\n  else if ( highway=primary                   ) then  26\n  else if ( highway=primary_link              ) then  25\n  else if ( highway=secondary                 ) then  24\n  else if ( highway=secondary_link            ) then  23\n  else if ( highway=tertiary                  ) then  22\n  else if ( highway=tertiary_link             ) then  21\n  else if ( highway=unclassified              ) then  20\n  else if ( isresidentialorliving             ) then  6\n  else if ( highway=service                   ) then  6\n  else if ( highway=track                     ) then if tracktype=grade1 then 4 else 2\n  else if ( highway=bridleway|road            ) then  2\n  else 0\n\n# some more classifying bits used for voice hint generation...\n\nassign isgoodoneway = if reversedirection=yes then oneway=-1\n                      else if oneway= then junction=roundabout else oneway=yes|true|1\nassign isroundabout = junction=roundabout\nassign isgoodforcars = if greater priorityclassifier 6 then true\n                  else if or isresidentialorliving highway=service then true\n                  else if ( and highway=track tracktype=grade1 ) then true\n                  else false\n\n# ... encoded into a bitmask\n\nassign classifiermask add          isbadoneway\n                      add multiply isgoodoneway   2\n                      add multiply isroundabout   4\n                      add multiply islinktype     8\n                      add multiply isgoodforcars 16\n                      add multiply isresidentialorliving 32\n                          multiply caraccess_destination 64\n\n---context:node  # following code refers to node tags\n\n#\n# calculate logical car access to nodes\n#\nassign caraccess\n       not barrier=bollard|block|jersey_barrier|log|cycle_barrier|kissing_gate|stile|turnstile|full-height_turnstile|height_restrictor\n\nassign initialcost =\n       switch and avoid_toll barrier=toll_booth 1000000\n       switch caraccess\n              0\n              1000000\n\nassign maxspeed =\n\n       if or crossing=traffic_signals highway=traffic_signals\n       then\n         switch greater way:priorityclassifier 24 5\n         switch greater way:priorityclassifier 22 3\n         switch greater way:priorityclassifier 20 1\n         0\n       else if railway=level_crossing then 0\n       else 999\n";
+let GSOC = null;
+function geoSoc(nuovo) {
+  if (GSOC && !nuovo) return GSOC;
+  return GSOC = fetch('https://brouter.de/brouter/profile', {method: 'POST', body: BRF_SOCCORSO}).then(r => r.json()).then(j => { if (!j.profileid) throw new Error(j.error || 'profilo'); return j.profileid; }).catch(e => { GSOC = null; return 'car-fast'; });
+}
+const GBAR = {gate: 'Cancello', lift_gate: 'Sbarra', swing_gate: 'Sbarra girevole', sliding_gate: 'Cancello scorrevole', chain: 'Catena', bump_gate: 'Cancello', hampshire_gate: 'Cancello', bar: 'Sbarra', rope: 'Corda', entrance: 'Varco', checkpoint: 'Posto di controllo', yes: 'Barriera'};
+/* un tratto calcolato da BRouter tra due punti con un profilo ('soccorso' = profilo dei mezzi di soccorso) */
+async function geoBR(a, b, prof, rip) {
+  const pid = prof === 'soccorso' ? await geoSoc() : prof;
+  const u = `https://brouter.de/brouter?lonlats=${a[1].toFixed(6)},${a[0].toFixed(6)}|${b[1].toFixed(6)},${b[0].toFixed(6)}&profile=${pid}&alternativeidx=0&format=geojson`;
+  const r = await fetch(u, {cache: 'no-store'});
+  if (!r.ok) { const t = await r.text(); if (prof === 'soccorso' && !rip && /profile|custom/i.test(t) && !/position|island|not mapped/i.test(t)) { await geoSoc(true); return geoBR(a, b, prof, 1); } throw new Error(t || r.status); }
+  const j = await r.json(), f = j.features[0], pr = f.properties, pts = f.geometry.coordinates.map(c => [c[1], c[0], c[2]]), sg = geoSegs(pts, pr.messages);
+  const bars = [];
+  const H = pr.messages && pr.messages[0];
+  if (H && prof !== 'hiking-mountain') {
+    const iX = H.indexOf('Longitude'), iY = H.indexOf('Latitude'), iN = H.indexOf('NodeTags');
+    if (iN >= 0) pr.messages.slice(1).forEach(row => { const m = /(?:^| )barrier=([a-z_]+)/.exec(row[iN] || ''); if (m && GBAR[m[1]]) bars.push([+row[iY] / 1e6, +row[iX] / 1e6, GBAR[m[1]]]); });
+  }
+  return {pts, bars, soc: prof === 'soccorso' && pid !== 'car-fast', segs: sg ? sg.segs : [{c: prof === 'hiking-mountain' ? 'p' : 'a', pts}], kt: sg ? sg.km : null, km: +pr['track-length'] / 1000, min: +pr['total-time'] / 60, up: +(pr['filtered ascend'] || pr['plain-ascend'] || 0)};
+}
+/* corsi d'acqua attorno alla meta (OpenStreetMap via Overpass): servono a scartare gli accessi sulla riva sbagliata */
+const GWAT = {};
+function geoWater(to) {
+  const k = to[0].toFixed(4) + ',' + to[1].toFixed(4); if (GWAT[k]) return GWAT[k];
+  const a = `(around:900,${to[0].toFixed(6)},${to[1].toFixed(6)})`;
+  const q = `[out:json][timeout:20];(way${a}[waterway~"^(river|canal|stream|riverbank)$"];way${a}[natural=water];relation${a}[natural=water];relation${a}[waterway=riverbank];);out geom;`;
+  const get = u => fetch(u, {method: 'POST', body: 'data=' + encodeURIComponent(q), headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  return GWAT[k] = get('https://overpass-api.de/api/interpreter').catch(() => get('https://overpass.kumi.systems/api/interpreter')).then(j => {
+    const W = {hard: [], soft: [], area: []}, g = x => (x || []).map(p => [p.lat, p.lon]);
+    (j.elements || []).forEach(e => {
+      const t = e.tags || {};
+      if (e.type === 'way' && /^(river|canal)$/.test(t.waterway)) W.hard.push(g(e.geometry));
+      else if (e.type === 'way' && t.waterway === 'stream') W.soft.push(g(e.geometry));
+      else if (e.type === 'way') W.area.push(g(e.geometry));
+      else if (e.type === 'relation') (e.members || []).forEach(m => { if (m.geometry) W.area.push(g(m.geometry)); });
+    });
+    return W;
+  }).catch(() => { delete GWAT[k]; return null; });
+}
+/* 0 = via libera, 1 = attraversa un ruscello, 2 = attraversa un fiume, un canale o uno specchio d'acqua */
+function geoAcqua(W, a, b) {
+  if (!W || sdDist(a, b) < .015) return 0;
+  const X = (p, q, r, s) => { const d = (q[1] - p[1]) * (s[0] - r[0]) - (q[0] - p[0]) * (s[1] - r[1]); if (!d) return false; const u = ((r[1] - p[1]) * (s[0] - r[0]) - (r[0] - p[0]) * (s[1] - r[1])) / d, v = ((r[1] - p[1]) * (q[0] - p[0]) - (r[0] - p[0]) * (q[1] - p[1])) / d; return u > 0 && u < 1 && v > 0 && v < 1; };
+  const n = L => L.reduce((c, l) => { for (let i = 1; i < l.length; i++) if (X(a, b, l[i - 1], l[i])) c++; return c; }, 0);
+  if (n(W.hard) > 0 || n(W.area) >= 2) return 2;
+  return n(W.soft) > 0 ? 1 : 0;
 }
 /* dislivelli dalla quota dei punti (con soglia di 5 m per non sommare il rumore) e tempo a piedi stile CAI/svizzero:
    4 km/h in piano, 400 m/h in salita, 800 m/h in discesa; tempo = maggiore + metà del minore */
@@ -15066,21 +15117,28 @@ async function geoMix(sp, to, say) {
   const off = (d, km) => { const r = d * Math.PI / 180; return [to[0] + km / 111.2 * Math.cos(r), to[1] + km / (111.2 * Math.cos(to[0] * Math.PI / 180)) * Math.sin(r)]; };
   const tg = [to, ...[0, 45, 90, 135, 180, 225, 270, 315].map(d => off(d, 2)), ...[22, 112, 202, 292].map(d => off(d, 4))];
   say('Cerco le strade che si avvicinano alla meta…');
-  const cars = (await geoPool(tg.map(t => () => geoBR(sp, t, 'car-fast')), 4)).filter(Boolean);
+  const wat = geoWater(to);
+  const cars = (await geoPool(tg.map(t => () => geoBR(sp, t, 'soccorso')), 4)).filter(Boolean);
   if (!cars.length) throw new Error('not mapped');
   const cand = [];
   cars.forEach(c => { const e = c.pts[c.pts.length - 1]; if (sdDist(e, to) > 7) return; if (!cand.some(x => sdDist(x.e, e) < .3)) cand.push({e, car: c}); else { const x = cand.find(x => sdDist(x.e, e) < .3); if (c.min < x.car.min) { x.e = e; x.car = c; } } });
   if (!cand.length) cand.push({e: cars[0].pts[cars[0].pts.length - 1], car: cars[0]});
   say(`Confronto ${cand.length} accessi possibili a piedi…`);
   const feet = await geoPool(cand.map(c => () => sdDist(c.e, to) > .05 ? geoBR(c.e, to, 'hiking-mountain').then(geoFoot) : Promise.resolve(null)), 4);
-  let best = null;
-  cand.forEach((c, i) => { const f = feet[i]; if (!f && sdDist(c.e, to) > .05) return; const t = c.car.min + (f ? f.min : 0); if (!best || t < best.t) best = {t, c, f}; });
+  const W = await wat;
+  let best = null, bad = null;
+  cand.forEach((c, i) => {
+    const f = feet[i]; if (!f && sdDist(c.e, to) > .05) return;
+    const fe = f ? f.pts[f.pts.length - 1] : c.e, aq = geoAcqua(W, fe, to), t = c.car.min + (f ? f.min : 0) + (aq === 1 ? 15 : 0), o = {t, c, f, aq};
+    if (aq === 2) { if (!bad || t < bad.t) bad = o; } else if (!best || t < best.t) best = o;
+  });
+  best = best || bad;
   if (!best) throw new Error('no route');
   const legs = [], cs = best.c.car.pts[0];
   if (sdDist(sp, cs) > .1) legs.push(['piedi', geoFoot(await geoBR(sp, cs, 'hiking-mountain'))]);
   legs.push(['auto', best.c.car]);
   if (best.f) legs.push(['piedi', best.f]);
-  legs.n = cand.length;
+  legs.n = cand.length; legs.aq = best.aq; legs.wchk = !!W;
   return legs;
 }
 function geoRouteCalc() {
@@ -15088,11 +15146,13 @@ function geoRouteCalc() {
     m.textContent = 'Calcolo del percorso…';
     const to = [GEOS.lat, GEOS.lon], prof = GEOR.prof;
     const say = t => { const e = document.getElementById('geo-rm'); if (e) e.textContent = t; };
-    (prof === 'mix' ? geoMix(sp, to, say).catch(e => { if (/not mapped|from-position|to-position|target island/i.test(String(e.message))) return geoBR(sp, to, 'hiking-mountain').then(x => [['piedi', geoFoot(x)]]); throw e; }) : geoBR(sp, to, prof).then(x => [['piedi', geoFoot(x)]])).then(legs => {
+    (prof === 'mix' ? geoMix(sp, to, say).catch(e => { if (/not mapped|from-position|to-position|target island/i.test(String(e.message))) return geoBR(sp, to, 'hiking-mountain').then(x => [['piedi', geoFoot(x)]]); throw e; }) : Promise.all([geoBR(sp, to, prof), geoWater(to)]).then(([x, W]) => { const l = [['piedi', geoFoot(x)]]; l.aq = geoAcqua(W, x.pts[x.pts.length - 1], to); return l; })).then(legs => {
       const r = {prof, from: sp, pts: [], segs: [], kt: {a: 0, s: 0, p: 0}, km: 0, min: 0, up: 0, legs: legs.map(([t, x]) => ({t, km: x.km, min: x.min, up: x.up, dn: x.dn || 0, a: x.pts[0], b: x.pts[x.pts.length - 1], pts: x.pts}))};
       legs.forEach(([, x]) => { r.pts.push(...x.pts); r.segs.push(...x.segs); r.km += x.km; r.min += x.min; r.up += x.up; if (x.kt) Object.keys(x.kt).forEach(k => r.kt[k] += x.kt[k]); else r.kt[x.segs[0].c] += x.km; });
       const car = r.legs.find(l => l.t === 'auto'); if (car && r.legs.length > 1) r.via = car.b;
-      r.n = legs.n || 0;
+      r.n = legs.n || 0; r.aq = legs.aq || 0;
+      r.bars = legs.flatMap(([, x]) => x.bars || []); r.soc = legs.some(([, x]) => x.soc);
+      const fin = r.pts[r.pts.length - 1]; r.gap = sdDist(fin, to) > .02 ? [fin, to] : null;
       GEOR.r = r; GEOMAP = true; geoRender(); bindGeoOut();
     }).catch(e => { m.textContent = /target island|not mapped|no route|from-position|to-position/i.test(String(e.message)) ? 'Nessun percorso trovato: prova a spostare la partenza o a scegliere "Tutto a piedi".' : 'Calcolo non riuscito: serve la connessione a internet. Riprova tra poco.'; });
   };
@@ -15136,7 +15196,7 @@ function geoRedraw() { const y = window.scrollY; geoRender(); bindGeoOut(); wind
 function geoGpx() {
   const r = GEOR.r; if (!r) return;
   const x = v => v.toFixed(6), nm = 'Percorso SAFe ' + new Date().toLocaleDateString('it-IT');
-  const g = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="SAFe – Supporto Operatore SAF" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${nm}</name></metadata>\n<wpt lat="${x(r.from[0])}" lon="${x(r.from[1])}"><name>Partenza</name></wpt>\n${r.via ? `<wpt lat="${x(r.via[0])}" lon="${x(r.via[1])}"><name>Fine tratto in auto</name></wpt>\n` : ''}<wpt lat="${x(GEOS.lat)}" lon="${x(GEOS.lon)}"><name>Arrivo</name></wpt>\n<trk><name>${nm}</name><trkseg>\n${r.pts.map(p => `<trkpt lat="${x(p[0])}" lon="${x(p[1])}">${p[2] != null && !isNaN(p[2]) ? `<ele>${Math.round(p[2])}</ele>` : ''}</trkpt>`).join('\n')}\n</trkseg></trk>\n</gpx>\n`;
+  const g = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="SAFe – Supporto Operatore SAF" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${nm}</name></metadata>\n<wpt lat="${x(r.from[0])}" lon="${x(r.from[1])}"><name>Partenza</name></wpt>\n${r.via ? `<wpt lat="${x(r.via[0])}" lon="${x(r.via[1])}"><name>Fine tratto in auto</name></wpt>\n` : ''}${(r.bars || []).map(q => `<wpt lat="${x(q[0])}" lon="${x(q[1])}"><name>${q[2]}</name></wpt>\n`).join('')}<wpt lat="${x(GEOS.lat)}" lon="${x(GEOS.lon)}"><name>Arrivo</name></wpt>\n<trk><name>${nm}</name><trkseg>\n${r.pts.map(p => `<trkpt lat="${x(p[0])}" lon="${x(p[1])}">${p[2] != null && !isNaN(p[2]) ? `<ele>${Math.round(p[2])}</ele>` : ''}</trkpt>`).join('\n')}\n</trkseg></trk>\n</gpx>\n`;
   const name = 'percorso-safe.gpx', m = document.getElementById('geo-rm');
   const msg = t => { if (!m) return; m.querySelector('.gpxm')?.remove(); m.insertAdjacentHTML('beforeend', `<span class="gpxm"><br>${t}</span>`); };
   const scarica = () => {
@@ -15204,8 +15264,8 @@ function geoMapDraw() {
   if (gps) return mapShow(box, {me: [GEOS.lat, GEOS.lon, GEOS.acc || 0], zoom: 16});
   const r = GEOR.r, st = GEOR.start === 'map' ? GEOR.sp : (r && r.from);
   mapShow(box, {pts: [{p, pin: true, html: `<b>Punto inserito</b><br>${esc(GEOS.how || '')}<br><a href="${sdNav(p)}" target="_blank" rel="noopener">🧭 Naviga</a>`}], zoom: 15,
-    start: st, line: r && !r.segs && r.pts, segs: r && r.segs && r.segs.map(x => ({pts: x.pts, col: GTER[x.c][1]})), via: r && r.via, fit: r ? r.pts : null, topo: true,
-    legend: r && r.segs ? Object.keys(GTER).filter(k => r.segs.some(x => x.c === k)).map(k => `<div><span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]}</div>`).join('') : '',
+    start: st, line: r && !r.segs && r.pts, segs: r && r.segs && r.segs.map(x => ({pts: x.pts, col: GTER[x.c][1]})), via: r && r.via, bars: r && r.bars, gap: r && r.gap, fit: r ? r.pts : null, topo: true,
+    legend: r && r.segs ? Object.keys(GTER).filter(k => r.segs.some(x => x.c === k)).map(k => `<div><span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]}</div>`).join('') + (r.gap ? '<div><span class="geolg g"></span>Senza sentiero</div>' : '') + (r.bars && r.bars.length ? '<div>🚧 Sbarra o cancello</div>' : '') : '',
     keep: GEOR.view, done: (m, bx) => {
       geoMe(m);
       if (GEOR.fs) { GEOR.fs = false; bx.querySelector('.sdfs').click(); }
@@ -15449,13 +15509,17 @@ function sdLeaflet() {
   return LFp;
 }
 /* mappa generica: punti principali con segnaposto, sedi VVF vicine opzionali, propria posizione; tre fondi; schermo intero */
+/* icone del pulsante schermo intero: frecce verso l'esterno (apri) e frecce convergenti verso il centro (chiudi) */
+const FS_IN = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H3v6M3 3l7 7M15 3h6v6M21 3l-7 7M9 21H3v-6M3 21l7-7M15 21h6v-6M21 21l-7-7"/></svg>';
+const FS_OUT = '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h6V4M10 10L3 3M20 10h-6V4M14 10l7-7M4 14h6v6M10 14l-7 7M20 14h-6v6M14 14l7 7"/></svg>';
+const FLAGSVG = '<svg viewBox="0 0 28 34" width="28" height="34" xmlns="http://www.w3.org/2000/svg"><path d="M5 2v31" stroke="#333" stroke-width="2.6" stroke-linecap="round"/><path d="M6.2 3.5C11 1.5 14 6 18.5 4.5S25 3 26 3.5V16c-2-.6-4.5-.8-7.5.6S11 17.5 6.2 16.5Z" fill="#2e7d32" stroke="#1b5e20" stroke-width="1"/><circle cx="5" cy="32.4" r="1.8" fill="#333"/></svg>';
 const PINSVG = '<svg viewBox="0 0 34 46" width="26" height="35" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6b7a"/><stop offset=".55" stop-color="#f22d45"/><stop offset="1" stop-color="#c3102a"/></linearGradient></defs><path d="M17 45.5C15.2 41 2 27.5 2 17A15 15 0 0 1 32 17C32 27.5 18.8 41 17 45.5Z" fill="url(#pg)" stroke="#9e0d22" stroke-width="1"/><circle cx="17" cy="17" r="6.3" fill="#fff" stroke="#b0102a" stroke-width="1.4"/><ellipse cx="10.5" cy="11" rx="3" ry="4.5" fill="#fff" opacity=".35" transform="rotate(30 10.5 11)"/></svg>';
 function mapShow(box, o) {
   if (!box) return;
   box.hidden = false; box.innerHTML = '<p class="note" style="padding:10px">Carico la mappa…</p>';
   sdLeaflet().then(L => {
     box.dataset.on = 1;
-    box.innerHTML = '<div class="sdmap"></div><button class="sdfs" title="Schermo intero" aria-label="Schermo intero">⛶</button>';
+    box.innerHTML = '<div class="sdmap"></div><button class="sdfs" title="Schermo intero" aria-label="Schermo intero">' + FS_IN + '</button>';
     if (SDmap) { try { SDmap.remove(); } catch (e) {} }
     const at = '&copy; OpenStreetMap';
     const base = {
@@ -15469,10 +15533,12 @@ function mapShow(box, o) {
     const drop = L.divIcon({className: 'geodrop', html: PINSVG, iconSize: [26, 35], iconAnchor: [13, 35], popupAnchor: [0, -32]});
     (o.pts || []).forEach(x => L.marker(x.p, {icon: x.pin ? drop : pin(x.col || '#c8102e', x.emoji || '📍')}).addTo(m).bindPopup(x.html || ''));
     if (o.segs) { const all = o.segs.flatMap(x => x.pts).map(q => [q[0], q[1]]); L.polyline(all, {color: '#fff', weight: 9, opacity: .9}).addTo(m); o.segs.forEach(x => L.polyline(x.pts.map(q => [q[0], q[1]]), {color: x.col, weight: 5, opacity: .95, dashArray: x.dash ? '9 7' : null, lineCap: x.dash ? 'butt' : 'round'}).addTo(m)); }
+    if (o.gap) L.polyline(o.gap, {color: '#555', weight: 3, opacity: .9, dashArray: '2 6'}).addTo(m);
+    (o.bars || []).forEach(q => L.marker([q[0], q[1]], {icon: L.divIcon({className: 'geovia geobar', html: '<span>🚧</span>', iconSize: [24, 24], iconAnchor: [12, 12]})}).addTo(m).bindPopup(`<b>${q[2]}</b><br>Transito possibile per i mezzi di soccorso: verifica sul posto.`));
     if (o.via) L.marker(o.via, {icon: L.divIcon({className: 'geovia', html: '<span>🅿️</span>', iconSize: [24, 24], iconAnchor: [12, 12]})}).addTo(m).bindPopup('Fine del tratto in auto: da qui si prosegue a piedi');
     if (o.legend) box.insertAdjacentHTML('beforeend', `<div class="geoleg">${o.legend}</div>`);
     if (o.line && o.line.length) L.polyline(o.line.map(q => [q[0], q[1]]), {color: '#1565c0', weight: 5, opacity: .85}).addTo(m);
-    if (o.start) L.circleMarker(o.start, {radius: 8, color: '#fff', weight: 3, fillColor: '#2e7d32', fillOpacity: 1}).addTo(m).bindPopup('Partenza');
+    if (o.start) L.marker(o.start, {icon: L.divIcon({className: 'geodrop', html: FLAGSVG, iconSize: [28, 34], iconAnchor: [5, 33], popupAnchor: [8, -30]})}).addTo(m).bindPopup('Partenza');
     (o.near || []).forEach(s => L.circleMarker(s.p, {radius: 5, color: '#c8102e', weight: 1, fillOpacity: .5}).addTo(m).bindPopup(`<b>${esc(s.n)}</b><br><a href="#t-sedi~${s.k}">Apri la scheda</a>`));
     const all = (o.pts || []).map(x => x.p);
     if (o.me) { L.circleMarker(o.me, {radius: 8, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1}).addTo(m).bindPopup('La tua posizione'); if (o.me[2]) L.circle(o.me.slice(0, 2), {radius: o.me[2], color: '#1a73e8', weight: 1, fillOpacity: .1}).addTo(m); all.push(o.me.slice(0, 2)); }
@@ -15480,7 +15546,7 @@ function mapShow(box, o) {
     else if (o.fit && o.fit.length > 1) m.fitBounds(o.fit.map(q => [q[0], q[1]]), {padding: [30, 30]});
     else if (o.start) m.fitBounds([all[0], o.start], {padding: [50, 50], maxZoom: 15});
     else if (all.length > 1 && sdDist(all[0], all[1]) < 300) m.fitBounds(all, {padding: [40, 40], maxZoom: 15}); else m.setView(all[0], o.zoom || 13);
-    box.querySelector('.sdfs').onclick = () => { const fs = box.classList.toggle('full'); box.querySelector('.sdfs').textContent = fs ? '✕' : '⛶'; document.body.classList.toggle('sdnoscroll', fs); setTimeout(() => m.invalidateSize(), 60); };
+    box.querySelector('.sdfs').onclick = () => { const fs = box.classList.toggle('full'); const bt = box.querySelector('.sdfs'); bt.innerHTML = fs ? FS_OUT : FS_IN; bt.title = bt.ariaLabel = fs ? 'Torna alla mappa nella pagina' : 'Schermo intero'; document.body.classList.toggle('sdnoscroll', fs); setTimeout(() => m.invalidateSize(), 60); };
     if (o.done) o.done(m, box);
   }).catch(() => { box.innerHTML = '<p class="note" style="padding:10px">La mappa richiede la connessione a internet.</p>'; });
 }
