@@ -240,7 +240,26 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .geov{font-family:ui-monospace,Menlo,monospace;font-size:1.08rem;font-weight:700;margin:2px 0;user-select:all;-webkit-user-select:all;word-break:break-word}
 .geoh{margin:0;font-size:.78rem}.geob{display:flex;gap:6px;margin-top:6px}
 .gbtn{font:inherit;font-size:.82rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
-.geohelp{margin-top:8px;font-size:.85rem}.geohelp summary{cursor:pointer;color:var(--muted)}.geohelp ul{padding-left:18px;margin:6px 0}.geohelp li{margin:4px 0}.geohelp code{font-size:.8rem;background:var(--bg);padding:1px 4px;border-radius:4px}
+.geohelp{margin-top:8px;font-size:.85rem}
+.geoinw{position:relative}.geoinw textarea{padding-right:42px}
+.geoclr{position:absolute;top:12px;right:6px;width:32px;height:32px;border-radius:50%;border:0;background:var(--line);color:var(--ink);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}.geoclr[hidden]{display:none}
+.btn.geopaste{border:2px solid #fdeb05}
+.geofold{margin:10px 0 0;border-top:1px solid var(--line);padding-top:8px}.geofold summary{cursor:pointer;padding:4px 0}
+.geofmt{display:grid;gap:4px;margin:8px 0}.geoopt{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.geoopt input{margin-top:3px}.geoopt span{display:grid;min-width:0}.geoopt b{font-weight:600;font-size:.95rem}.geoopt small{color:var(--muted);font-family:ui-monospace,Menlo,monospace;font-size:.8rem;overflow-wrap:anywhere}
+.geoopt:has(input:checked){border-color:#fdeb05;background:color-mix(in srgb,#fdeb05 8%,transparent)}
+.geolist .georow{display:flex;gap:10px;align-items:center;padding:7px 0}.geolist .geotx{flex:1;min-width:0}.geolist .geov{font-size:1rem;margin:1px 0}
+.geolist .geob{flex-direction:column;gap:4px;margin:0;flex:0 0 auto}.geolist .gbtn{padding:4px 10px;font-size:.78rem;min-width:84px}
+.georoute{margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-left:4px solid #1565c0;border-radius:10px}
+.georow2{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}.georow2>.note{min-width:62px;margin:0}
+.geoseg{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}.geoseg button{border:0;background:transparent;color:var(--ink);padding:7px 12px;font:inherit;font-size:.88rem;cursor:pointer}.geoseg button.on{background:#fdeb05;color:#111;font-weight:700}.geoseg{border:0;gap:6px;overflow:visible}.geoseg button{border:2px solid #fdeb05;border-radius:999px}
+.georoute select{flex:1;min-width:0}
+.geocross{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;z-index:500;pointer-events:none;border:2px solid #c8102e;border-radius:50%;box-shadow:0 0 0 2px #fff8}
+.geocross::before,.geocross::after{content:"";position:absolute;background:#c8102e;box-shadow:0 0 0 1px #fff8}.geocross::before{left:50%;top:-12px;bottom:-12px;width:2px;margin-left:-1px}.geocross::after{top:50%;left:-12px;right:-12px;height:2px;margin-top:-1px}
+.geoseta{position:absolute;left:0;right:0;bottom:12px;z-index:500;display:flex;gap:8px;justify-content:center;pointer-events:none}.geoseta .btn{pointer-events:auto;box-shadow:0 2px 8px #0006}
+.geoleg{position:absolute;right:8px;bottom:22px;z-index:500;background:#fffe;color:#222;font-size:.74rem;line-height:1.5;padding:5px 8px;border-radius:8px;box-shadow:0 1px 4px #0005;pointer-events:none}
+.geolg{display:inline-block;width:18px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:5px}.geovia{background:none;border:0}.geovia span{display:flex;width:24px;height:24px;align-items:center;justify-content:center;background:#fff;border-radius:6px;box-shadow:0 1px 4px #0007;font-size:15px}
+.geohint{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:500;background:#000b;color:#fff;font-size:.78rem;padding:4px 10px;border-radius:999px;pointer-events:none;white-space:nowrap}.geodrop{background:none;border:0}.geodrop svg{filter:drop-shadow(0 2px 3px #0007)}.geohelp summary{cursor:pointer;color:var(--muted)}.geohelp ul{padding-left:18px;margin:6px 0}.geohelp li{margin:4px 0}.geohelp code{font-size:.8rem;background:var(--bg);padding:1px 4px;border-radius:4px}
 .inst{position:relative;border:2px solid #fdeb05;margin-bottom:12px}.inst-t{font-weight:700;font-size:1.05rem;margin:0 28px 6px 0}.inst p{margin:0 0 6px}.inst-x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:6px}
 .mcard{border-left:6px solid var(--mc);background:var(--surface);background:color-mix(in srgb,var(--mc) 7%,var(--surface))}
 .mcard .mh b{display:block;font-size:1.08rem;color:var(--mc);margin:6px 0 2px}.mcard .mh .note{display:block}
@@ -12046,6 +12065,15 @@ window.SAFDATA = {
  ],
  "novita": [
   {
+   "id": "2026-11-21.1",
+   "data": "2026-11-21",
+   "voci": [
+    "Versione 1.3: strumento 📍 Coordinate rinnovato. Incolla le coordinate e tocca 🔎 Trova: il punto si apre subito sulla mappa topografica, con il nuovo segnaposto preciso.",
+    "Coordinate: nuovo 🧭 Percorso fino al punto, dalla tua posizione o da un punto scelto col mirino sulla mappa. In auto fin dove si può, poi a piedi scegliendo l'accesso più rapido anche per dislivello, oppure tutto a piedi. La traccia è colorata in base al fondo (asfalto, sterrata, sentiero) e si salva in GPX.",
+    "Coordinate: ✕ per cancellare il campo, esempi accanto a ogni formato da condividere, elenco dei formati più compatto e conferma prima di uscire dallo strumento."
+   ]
+  },
+  {
    "id": "2026-11-20.2",
    "data": "2026-11-20",
    "voci": [
@@ -12206,7 +12234,7 @@ window.SAFDATA = {
    ]
   }
  ],
- "condivisione": "*SAFe* – _Supporto Operatore SAF (v{versione})_\nL'app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nTutta la documentazione SAF in tasca, sempre aggiornata e *consultabile anche senza connessione*.\n\n📘 *Manuali* : SAF Basico, Avanzato, Elisoccorritori (con l'appendice equipaggiamenti tecnici) e Neve-Ghiaccio-Valanghe, indicizzati scheda per scheda e colorati per sezione come le linguette dei manuali. Ogni manovra o materiale si apre alla pagina giusta.\n📄 *Circolari* : {circolari} circolari divise per sezione, con allegati e collegamenti tra le circolari correlate.\n🔧 *Bugiardini* : {bugiardini} libretti d'uso e manutenzione delle attrezzature, ordinati per produttore e collegati alle schede.\n📚 *Altri manuali* : SFA, Vademecum TEC, TAS 1 e TPSS in consultazione.\n\n*Strumenti*\n🔍 Ricerca per parola, argomento o normativa EN, anche dentro il testo dei documenti, con filtri per specializzazione\n📏 *Normative EN* con spiegazione e materiali collegati\n🎒 *Controllo sacche* con riepilogo da inviare\n📖 Glossario SAF con oltre {glossario} termini, filtrabile per specializzazione\n🧮 *Calcolatori* : forze sugli ancoraggi, rinvii, paranchi, fattore di caduta\n📍 *Coordinate* : trova e condividi la tua posizione in gradi, UTM, MGRS o Gauss-Boaga, e converte le coordinate ricevute\n🚒 *Sedi VVF* : comando competente per dove ti trovi, canali radio, sale operative con chiamata diretta, comandi confinanti, navigazione e mappa di tutte le sedi VVF d'Italia\n❓ *Quiz di autoverifica* per specializzazione, utili per i mantenimenti\n📤 *Condividi* : invia qualsiasi documento in PDF con un tocco, senza aprirlo\n⚑ Segnalazione di errori o documenti nuovi direttamente dall'app\n\nPer installarla apri il link e *segui i passi successivi* :\n\nhttps://saf-vvf.github.io/saf-documenti/\n\n📱 *Android* :\napri il link in Chrome e tocca \"📲 Installa l'app\" (oppure menu ⋮ → \"Installa app\")\n\n🍏 *iPhone* :\nin Safari tocca ⋯ → Condividi → \"Aggiungi alla schermata Home\" → \"Aggiungi\"\nin Chrome tocca Condividi ⬆︎ nella barra dell'indirizzo → \"Aggiungi alla schermata Home\"\n\n_Se il link si apre dentro WhatsApp, scegli prima \"Apri in Chrome\" (o in Safari)._\n\n_Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF._\n\nSupporto:\n*Francesco Franz*\nComando VVF Pordenone · app.safe.vvf@gmail.com",
+ "condivisione": "*SAFe* – _Supporto Operatore SAF (v{versione})_\nL'app di consultazione per gli operatori SAF dei Vigili del Fuoco\n\nTutta la documentazione SAF in tasca, sempre aggiornata e *consultabile anche senza connessione*.\n\n📘 *Manuali* SAF di tutti i livelli, indicizzati scheda per scheda: ogni manovra o materiale si apre alla pagina giusta.\n📄 *Circolari* : {circolari} circolari divise per sezione, con allegati e correlate.\n🔧 *Bugiardini* : {bugiardini} libretti d'uso e manutenzione, collegati alle schede.\n📚 *Altri manuali* in consultazione.\n\n*Strumenti*\n🔍 Ricerca anche dentro i documenti, con filtri per specializzazione\n📏 *Normative EN*, 📖 *Glossario* e 🎒 *Controllo sacche*\n🧮 *Calcolatori* per ancoraggi, paranchi e fattore di caduta\n📍 *Coordinate* : posizione e conversione in tutti i formati, mappa topografica e percorso fino al punto (in auto fin dove si può, poi a piedi) da salvare in GPX\n🚒 *Sedi VVF* : comando competente, canali radio, sale operative e mappa di tutte le sedi d'Italia\n❓ *Quiz di autoverifica* per i mantenimenti\n📤 *Condividi* i documenti in PDF e ⚑ segnala errori dall'app\n\nPer installarla apri il link e *segui i passi successivi* :\n\nhttps://saf-vvf.github.io/saf-documenti/\n\n📱 *Android* :\napri il link in Chrome e tocca \"📲 Installa l'app\" (oppure menu ⋮ → \"Installa app\")\n\n🍏 *iPhone* :\nin Safari tocca ⋯ → Condividi → \"Aggiungi alla schermata Home\" → \"Aggiungi\"\nin Chrome tocca Condividi ⬆︎ nella barra dell'indirizzo → \"Aggiungi alla schermata Home\"\n\n_Se il link si apre dentro WhatsApp, scegli prima \"Apri in Chrome\" (o in Safari)._\n\n_Iniziativa non ufficiale: non sostituisce la documentazione ufficiale del CNVVF._\n\nSupporto:\n*Francesco Franz*\nComando VVF Pordenone · app.safe.vvf@gmail.com",
  "glossario": [
   {
    "t": "ABS",
@@ -14319,8 +14347,8 @@ function viewBugiardino(id) {
   ${b.note ? `<p class="note">${esc(b.note)}</p>` : ''}`;
 }
 
-const VER = '1.2';
-const AGG = '20/11/2026'; // data dei contenuti: aggiornarla a ogni modifica
+const VER = '1.3';
+const AGG = '21/11/2026'; // data dei contenuti: aggiornarla a ogni modifica
 function viewInfo() {
   const mail = 'app.safe.vvf@gmail.com';
   const NV = (D.novita || []).slice(0, 6);
@@ -14912,8 +14940,8 @@ function viewCoordinate() {
   </div>
   <div class="card geo">
     <label for="geo-in"><b>Incolla o scrivi delle coordinate</b></label>
-    <textarea id="geo-in" rows="2" placeholder="Es. 45.9562, 12.66 oppure 33T UH 93628 48750" autocomplete="off" autocapitalize="characters" spellcheck="false"></textarea>
-    <div class="btns" style="margin-top:6px"><button class="btn ghost" id="geo-paste">📋 Incolla dagli appunti</button><button class="btn" id="geo-conv">Converti</button></div>
+    <div class="geoinw"><textarea id="geo-in" rows="2" placeholder="Es. 45.9562, 12.66 oppure 33T UH 93628 48750" autocomplete="off" autocapitalize="characters" spellcheck="false"></textarea><button type="button" class="geoclr" id="geo-clr" aria-label="Cancella" hidden>✕</button></div>
+    <div class="btns" style="margin-top:6px"><button class="btn ghost geopaste" id="geo-paste">📋 Incolla dagli appunti</button><button class="btn" id="geo-conv">🔎 Trova</button></div>
     <p class="note" id="geo-pm" style="margin:6px 0 0"></p>
     <details class="geohelp"><summary>Formati riconosciuti</summary><ul>
       <li>Gradi decimali: <code>45.9562, 12.6600</code> · <code>N45.9562 E12.66</code> · <code>45,9562 12,66</code></li>
@@ -14933,16 +14961,158 @@ function geoRender() {
   const F = GEO.formats(GEOS.lat, GEOS.lon), fm = geoFmt();
   const when = GEOS.t ? new Date(GEOS.t).toLocaleString('it-IT', {hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric'}) : '';
   const src = GEOS.src === 'gps' ? `GPS del telefono${GEOS.acc ? ' · precisione ±' + Math.round(GEOS.acc) + ' m' : ''}${GEOS.alt != null ? ' · quota ' + Math.round(GEOS.alt) + ' m' : ''}${when ? ' · ' + when : ''}` : 'Da coordinate inserite: ' + esc(GEOS.how || '');
-  const opts = document.getElementById('geo-fmts').innerHTML.replace(`value="${fm}"`, `value="${fm}" selected`);
+  const FN = {dd: 'Gradi decimali', ddm: 'Gradi e primi decimali', dms: 'Gradi, primi e secondi', utm: 'UTM WGS84', mgrs: 'MGRS', gb: 'Gauss-Boaga Roma40', ed50: 'UTM ED50'};
+  const fl = [...Object.keys(FN).map(k => [k, FN[k], (F.find(f => f.id === k) || {}).v || '']), ['all', 'Tutti i formati', 'tutti i valori qui sotto']];
+  const txt = GEOS.src !== 'gps';
   o.innerHTML = `<div class="card geo"><p class="note" style="margin:0 0 6px">${src}</p>
-    <label class="geosh"><b>Condividi la posizione</b><select id="geo-sel">${opts}</select></label>
-    <label class="geochk"><input type="checkbox" id="geo-map"${(() => { try { return localStorage.getItem('saf-geo-map') === '0' ? '' : ' checked'; } catch (e) { return ' checked'; } })()}> Aggiungi il link alla mappa</label>
-    <div class="btns" style="margin-top:6px"><button class="btn" id="geo-share">Condividi</button><button class="btn ghost" id="geo-copy">Copia</button><a class="btn ghost" id="geo-open" href="${geoUri()}">Apri nelle mappe</a></div>
-    <div class="btns" style="margin-top:6px"><button class="btn ghost" id="geo-mapbtn">🗺️ ${GEOMAP ? 'Nascondi la mappa' : 'Mostra sulla mappa'}</button>${GEOS.src !== 'gps' ? `<a class="btn ghost" href="${sdNav([GEOS.lat, GEOS.lon])}" target="_blank" rel="noopener">🧭 Naviga fin qui</a>` : ''}</div>
+    <div class="btns"><button class="btn ghost" id="geo-mapbtn">🗺️ ${GEOMAP ? 'Nascondi la mappa' : 'Mostra sulla mappa'}</button>${txt ? `<a class="btn ghost" href="${sdNav([GEOS.lat, GEOS.lon])}" target="_blank" rel="noopener">🧭 Naviga con Google Maps</a>` : ''}</div>
     <div class="sdmapbox" id="geo-mapbox" hidden></div>
+    ${txt ? geoRouteBox() : ''}
+    <details class="geofold"${GEOSHO ? ' open' : ''} id="geo-shf"><summary><b>📤 Condividi la posizione</b></summary>
+    <div class="geofmt" role="radiogroup">${fl.map(([k, n, ex]) => `<label class="geoopt"><input type="radio" name="geo-f" value="${k}"${k === fm ? ' checked' : ''}><span><b>${esc(n)}</b><small>${esc(ex)}</small></span></label>`).join('')}</div>
+    <label class="geochk"><input type="checkbox" id="geo-map"${(() => { try { return localStorage.getItem('saf-geo-map') === '0' ? '' : ' checked'; } catch (e) { return ' checked'; } })()}> Aggiungi il link alla mappa</label>
+    <div class="btns" style="margin-top:6px"><button class="btn" id="geo-share">Condividi</button><button class="btn ghost" id="geo-copy">Copia</button><a class="btn ghost" id="geo-open" href="${geoUri()}">Apri nelle mappe</a></div></details>
     <p class="note" id="geo-sm" style="margin:6px 0 0"></p></div>
-  <div class="card geo">${F.map(f => `<div class="georow"><div class="geon">${esc(f.n)}${f.ap ? ' <span class="geoap">≈</span>' : ''}</div><div class="geov" id="gv-${f.id}">${esc(f.v)}</div>${f.h ? `<div class="note geoh">${esc(f.h)}</div>` : ''}<div class="geob"><button class="gbtn" data-cp="${f.id}">Copia</button><button class="gbtn" data-sh="${f.id}">Condividi</button></div></div>`).join('')}
+  <div class="card geo geolist">${F.map(f => `<div class="georow"><div class="geotx"><div class="geon">${esc(f.n)}${f.ap ? ' <span class="geoap">≈</span>' : ''}</div><div class="geov" id="gv-${f.id}">${esc(f.v)}</div>${f.h ? `<div class="note geoh">${esc(f.h)}</div>` : ''}</div><div class="geob"><button class="gbtn" data-cp="${f.id}">Copia</button><button class="gbtn" data-sh="${f.id}">Condividi</button></div></div>`).join('')}
     <p class="note" style="margin:10px 0 0">≈ Gauss-Boaga ed ED50 sono calcolati con i parametri medi nazionali (EPSG): vanno bene per trovare un punto sulla carta, non per rilievi di precisione.</p></div>`;
+}
+/* --- percorso fino al punto inserito: partenza dalla propria posizione o da un punto scelto sulla mappa; BRouter (strade, sterrate, sentieri); GPX --- */
+let GEOSHO = false, GEOIN = '';
+/* conferma di uscita dallo strumento Coordinate: una voce di cronologia "di guardia" (aggiunta a un tocco, come vuole Chrome)
+   fa sì che Indietro resti sulla pagina e chieda conferma prima di lasciare il punto inserito */
+(() => {
+  if (!history.pushState) return;
+  const qui = () => location.hash === '#t-coordinate', ha = () => GEOS && (GEOS.src !== 'gps' || GEOR.r);
+  let sug = false; /* true quando la voce corrente è la guardia */
+  const arma = () => { if (qui() && ha() && !(history.state && history.state.geog) && !document.getElementById('exitq')) { history.pushState({geog: 1}, '', location.href); sug = true; } };
+  document.addEventListener('click', () => setTimeout(arma, 0), true);
+  window.addEventListener('popstate', e => {
+    const era = sug; sug = !!(e.state && e.state.geog);
+    if (!era || sug || !qui() || document.getElementById('exitq')) return;
+    if (!ha()) { history.back(); return; }
+    const w = document.createElement('div'); w.id = 'exitq';
+    w.innerHTML = '<div class="nv"><p style="margin:0 0 4px;font-size:1.1rem;font-weight:700">Uscire dallo strumento Coordinate?</p><p class="note" style="margin:0 0 8px">Il punto resta salvato, ma il percorso calcolato andrà perso.</p><div class="btns" style="justify-content:flex-end"><button class="btn ghost" id="ex-no">Resta</button><button class="btn" id="ex-si">Esci</button></div></div>';
+    if (!GEOR.r) w.querySelector('.note').textContent = 'Il punto inserito resta salvato: lo ritrovi quando riapri lo strumento.';
+    document.body.appendChild(w);
+    const resta = () => { w.remove(); arma(); };
+    w.querySelector('#ex-no').onclick = resta; w.onclick = ev => { if (ev.target === w) resta(); };
+    w.querySelector('#ex-si').onclick = ev => { ev.stopPropagation(); w.remove(); history.back(); };
+  });
+})();
+const GEOR = {start: 'gps', sp: null, pick: false, view: null, prof: (() => { try { return localStorage.getItem('saf-geo-prof') || 'mix'; } catch (e) { return 'mix'; } })(), r: null};
+const GPROF = [['mix', '🚗 Auto, poi a piedi'], ['hiking-mountain', '🥾 Tutto a piedi']];
+if (!GPROF.some(x => x[0] === GEOR.prof)) GEOR.prof = 'mix';
+/* fondo del percorso, dai tag OpenStreetMap che BRouter restituisce per ogni tratto */
+const GTER = {a: ['Strada asfaltata', '#1565c0'], s: ['Sterrata o pista', '#e67e22'], p: ['Sentiero o mulattiera', '#d81b60']};
+function geoTerr(tags) {
+  const t = {}; String(tags || '').split(' ').forEach(x => { const i = x.indexOf('='); if (i > 0) t[x.slice(0, i)] = x.slice(i + 1); });
+  const h = t.highway || '', su = t.surface || '', unp = /^(unpaved|gravel|fine_gravel|dirt|ground|earth|compacted|grass|grass_paver|mud|sand|pebblestone|rock|wood|woodchips|stone)$/.test(su), pav = /^(paved|asphalt|concrete|paving_stones|sett|cobblestone|metal|concrete:plates|chipseal)/.test(su);
+  if (/^(path|footway|bridleway|steps|via_ferrata|pedestrian)$/.test(h)) return pav && h !== 'path' ? 'a' : 'p';
+  if (h === 'track') return pav || t.tracktype === 'grade1' ? 'a' : 's';
+  if (h === 'cycleway') return unp ? 's' : 'a';
+  return unp ? 's' : 'a';
+}
+function geoSegs(pts, msgs) {
+  if (!msgs || msgs.length < 2) return null;
+  const H = msgs[0], iX = H.indexOf('Longitude'), iY = H.indexOf('Latitude'), iT = H.indexOf('WayTags'), iD = H.indexOf('Distance');
+  if (iX < 0 || iT < 0) return null;
+  const key = (x, y) => Math.round(x * 1e6) + ',' + Math.round(y * 1e6), idx = {};
+  pts.forEach((q, i) => { const k = key(q[1], q[0]); if (!(k in idx)) idx[k] = i; });
+  const out = [], km = {a: 0, s: 0, p: 0}; let a = 0;
+  for (const row of msgs.slice(1)) {
+    const j = idx[row[iX] + ',' + row[iY]], c = geoTerr(row[iT]); if (j == null || j <= a) { if (j == null) continue; }
+    const last = out[out.length - 1];
+    if (last && last.c === c) last.b = j; else out.push({c, a, b: j});
+    km[c] += (+row[iD] || 0) / 1000; a = j;
+  }
+  if (a < pts.length - 1) { const last = out[out.length - 1]; if (last) last.b = pts.length - 1; }
+  return out.length ? {segs: out.map(x => ({c: x.c, pts: pts.slice(x.a, x.b + 1)})), km} : null;
+}
+const geoMin = v => v < 90 ? Math.max(1, Math.round(v)) + ' min' : Math.floor(v / 60) + ' h ' + Math.round(v % 60) + ' min';
+function geoRouteBox() {
+  const r = GEOR.r;
+  return `<div class="georoute"><b>🧭 Percorso fino a questo punto</b>
+    <div class="georow2"><span class="note">Partenza</span><div class="geoseg"><button type="button" data-gst="gps" class="${GEOR.start === 'gps' ? 'on' : ''}">📍 La mia posizione</button><button type="button" data-gst="map" class="${GEOR.start === 'map' ? 'on' : ''}">🗺️ Punto sulla mappa</button></div></div>
+    ${GEOR.start === 'map' ? `<div class="georow2"><span class="note">${GEOR.pick ? '🎯 Metti il mirino sul punto di partenza e tocca <b>Imposta partenza qui</b>' : GEOR.sp ? `Partenza: ${GEOR.sp[0].toFixed(5)}, ${GEOR.sp[1].toFixed(5)}` : 'Partenza non ancora scelta'}</span>${GEOR.pick ? '' : `<button type="button" class="btn ghost" id="geo-pick" style="padding:6px 12px">🎯 ${GEOR.sp ? 'Cambia' : 'Scegli sulla mappa'}</button>`}</div>` : ''}
+    <div class="georow2"><span class="note">Tipo</span><select id="geo-prof">${GPROF.map(([k, n]) => `<option value="${k}"${k === GEOR.prof ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
+    <div class="btns" style="margin-top:8px"><button class="btn" id="geo-route">Calcola il percorso</button>${r ? `<button class="btn ghost geopaste" id="geo-gpx">⬇️ Salva GPX</button>` : ''}</div>
+    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `${r.legs && r.legs.length > 1 ? r.legs.map(l => `${l.t === 'auto' ? '🚗 In auto' : '🥾 A piedi'}: <b>${l.km.toFixed(1).replace('.', ',')} km</b>, circa ${geoMin(l.min)}${l.t !== 'auto' && l.up >= 10 ? `, ↗ ${Math.round(l.up)} m` : ''}${l.t !== 'auto' && l.dn >= 10 ? ` ↘ ${Math.round(l.dn)} m` : ''}`).join('<br>') + '<br>Totale: ' : ''}<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${geoMin(r.min)}` : ''}${r.legs && r.legs.length > 1 ? '' : r.up ? ` · ↗ ${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}${r.n > 1 ? `<br><span style="font-size:.85em">Scelto l'accesso più rapido tra ${r.n} possibili (conta anche il dislivello a piedi).</span>` : ''}${r.kt ? '<br>' + Object.keys(GTER).filter(k => r.kt[k] >= .05).map(k => `<span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]} ${r.kt[k].toFixed(1).replace('.', ',')} km`).join(' · ') : ''}` : ''}</p></div>`;
+}
+/* un tratto calcolato da BRouter tra due punti con un profilo */
+function geoBR(a, b, prof) {
+  const u = `https://brouter.de/brouter?lonlats=${a[1].toFixed(6)},${a[0].toFixed(6)}|${b[1].toFixed(6)},${b[0].toFixed(6)}&profile=${prof}&alternativeidx=0&format=geojson`;
+  return fetch(u, {cache: 'no-store'}).then(r => { if (!r.ok) return r.text().then(t => { throw new Error(t || r.status); }); return r.json(); }).then(j => {
+    const f = j.features[0], pr = f.properties, pts = f.geometry.coordinates.map(c => [c[1], c[0], c[2]]), sg = geoSegs(pts, pr.messages);
+    return {pts, segs: sg ? sg.segs : [{c: prof === 'car-fast' ? 'a' : 'p', pts}], kt: sg ? sg.km : null, km: +pr['track-length'] / 1000, min: +pr['total-time'] / 60, up: +(pr['filtered ascend'] || pr['plain-ascend'] || 0)};
+  });
+}
+/* dislivelli dalla quota dei punti (con soglia di 5 m per non sommare il rumore) e tempo a piedi stile CAI/svizzero:
+   4 km/h in piano, 400 m/h in salita, 800 m/h in discesa; tempo = maggiore + metà del minore */
+function geoUpDn(pts) {
+  let up = 0, dn = 0, ref = null;
+  pts.forEach(q => { const z = q[2]; if (z == null || isNaN(z)) return; if (ref == null) { ref = z; return; } const d = z - ref; if (d >= 5) { up += d; ref = z; } else if (d <= -5) { dn -= d; ref = z; } });
+  return {up, dn};
+}
+function geoFootMin(km, up, dn) { const h = km / 4, v = up / 400 + dn / 800; return (Math.max(h, v) + Math.min(h, v) / 2) * 60; }
+function geoFoot(x) { const u = geoUpDn(x.pts); x.up = u.up; x.dn = u.dn; x.min = geoFootMin(x.km, u.up, u.dn); return x; }
+/* "auto fin dove si può, poi a piedi": si provano più accessi stradali attorno alla meta (la strada più vicina e quelle
+   raggiunte puntando l'auto in 12 direzioni a 2 e 4 km) e si sceglie quello con il tempo totale minore, dove il tratto
+   a piedi pesa salita e discesa: così vince l'accesso con meno dislivello anche se l'auto fa più strada. */
+async function geoPool(jobs, n) { const out = new Array(jobs.length); let i = 0; await Promise.all(Array.from({length: n}, async () => { while (i < jobs.length) { const k = i++; try { out[k] = await jobs[k](); } catch (e) { out[k] = null; } } })); return out; }
+async function geoMix(sp, to, say) {
+  const off = (d, km) => { const r = d * Math.PI / 180; return [to[0] + km / 111.2 * Math.cos(r), to[1] + km / (111.2 * Math.cos(to[0] * Math.PI / 180)) * Math.sin(r)]; };
+  const tg = [to, ...[0, 45, 90, 135, 180, 225, 270, 315].map(d => off(d, 2)), ...[22, 112, 202, 292].map(d => off(d, 4))];
+  say('Cerco le strade che si avvicinano alla meta…');
+  const cars = (await geoPool(tg.map(t => () => geoBR(sp, t, 'car-fast')), 4)).filter(Boolean);
+  if (!cars.length) throw new Error('not mapped');
+  const cand = [];
+  cars.forEach(c => { const e = c.pts[c.pts.length - 1]; if (sdDist(e, to) > 7) return; if (!cand.some(x => sdDist(x.e, e) < .3)) cand.push({e, car: c}); else { const x = cand.find(x => sdDist(x.e, e) < .3); if (c.min < x.car.min) { x.e = e; x.car = c; } } });
+  if (!cand.length) cand.push({e: cars[0].pts[cars[0].pts.length - 1], car: cars[0]});
+  say(`Confronto ${cand.length} accessi possibili a piedi…`);
+  const feet = await geoPool(cand.map(c => () => sdDist(c.e, to) > .05 ? geoBR(c.e, to, 'hiking-mountain').then(geoFoot) : Promise.resolve(null)), 4);
+  let best = null;
+  cand.forEach((c, i) => { const f = feet[i]; if (!f && sdDist(c.e, to) > .05) return; const t = c.car.min + (f ? f.min : 0); if (!best || t < best.t) best = {t, c, f}; });
+  if (!best) throw new Error('no route');
+  const legs = [], cs = best.c.car.pts[0];
+  if (sdDist(sp, cs) > .1) legs.push(['piedi', geoFoot(await geoBR(sp, cs, 'hiking-mountain'))]);
+  legs.push(['auto', best.c.car]);
+  if (best.f) legs.push(['piedi', best.f]);
+  legs.n = cand.length;
+  return legs;
+}
+function geoRouteCalc() {
+  const m = document.getElementById('geo-rm'), go = sp => {
+    m.textContent = 'Calcolo del percorso…';
+    const to = [GEOS.lat, GEOS.lon], prof = GEOR.prof;
+    const say = t => { const e = document.getElementById('geo-rm'); if (e) e.textContent = t; };
+    (prof === 'mix' ? geoMix(sp, to, say).catch(e => { if (/not mapped|from-position|to-position|target island/i.test(String(e.message))) return geoBR(sp, to, 'hiking-mountain').then(x => [['piedi', geoFoot(x)]]); throw e; }) : geoBR(sp, to, prof).then(x => [['piedi', geoFoot(x)]])).then(legs => {
+      const r = {prof, from: sp, pts: [], segs: [], kt: {a: 0, s: 0, p: 0}, km: 0, min: 0, up: 0, legs: legs.map(([t, x]) => ({t, km: x.km, min: x.min, up: x.up, dn: x.dn || 0, a: x.pts[0], b: x.pts[x.pts.length - 1], pts: x.pts}))};
+      legs.forEach(([, x]) => { r.pts.push(...x.pts); r.segs.push(...x.segs); r.km += x.km; r.min += x.min; r.up += x.up; if (x.kt) Object.keys(x.kt).forEach(k => r.kt[k] += x.kt[k]); else r.kt[x.segs[0].c] += x.km; });
+      const car = r.legs.find(l => l.t === 'auto'); if (car && r.legs.length > 1) r.via = car.b;
+      r.n = legs.n || 0;
+      GEOR.r = r; GEOMAP = true; geoRender(); bindGeoOut();
+    }).catch(e => { m.textContent = /target island|not mapped|no route|from-position|to-position/i.test(String(e.message)) ? 'Nessun percorso trovato: prova a spostare la partenza o a scegliere "Tutto a piedi".' : 'Calcolo non riuscito: serve la connessione a internet. Riprova tra poco.'; });
+  };
+  if (GEOR.start === 'map') { if (!GEOR.sp) { m.textContent = 'Prima scegli la partenza col mirino sulla mappa.'; GEOR.pick = true; GEOMAP = true; geoRedraw(); return; } go(GEOR.sp); return; }
+  if (!navigator.geolocation) { m.textContent = 'Posizione non disponibile su questo dispositivo: scegli la partenza sulla mappa.'; return; }
+  m.textContent = 'Cerco la tua posizione…';
+  navigator.geolocation.getCurrentPosition(p => go([p.coords.latitude, p.coords.longitude]), () => { m.textContent = 'Posizione non trovata: abilita la localizzazione o scegli la partenza sulla mappa.'; }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 30000});
+}
+function geoRedraw() { const y = window.scrollY; geoRender(); bindGeoOut(); window.scrollTo(0, y); }
+function geoGpx() {
+  const r = GEOR.r; if (!r) return;
+  const x = v => v.toFixed(6), nm = 'Percorso SAFe ' + new Date().toLocaleDateString('it-IT');
+  const g = `<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="SAFe – Supporto Operatore SAF" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>${nm}</name></metadata>\n<wpt lat="${x(r.from[0])}" lon="${x(r.from[1])}"><name>Partenza</name></wpt>\n${r.via ? `<wpt lat="${x(r.via[0])}" lon="${x(r.via[1])}"><name>Fine tratto in auto</name></wpt>\n` : ''}<wpt lat="${x(GEOS.lat)}" lon="${x(GEOS.lon)}"><name>Arrivo</name></wpt>\n<trk><name>${nm}</name><trkseg>\n${r.pts.map(p => `<trkpt lat="${x(p[0])}" lon="${x(p[1])}">${p[2] != null && !isNaN(p[2]) ? `<ele>${Math.round(p[2])}</ele>` : ''}</trkpt>`).join('\n')}\n</trkseg></trk>\n</gpx>\n`;
+  const name = 'percorso-safe.gpx', m = document.getElementById('geo-rm');
+  const msg = t => { if (!m) return; m.querySelector('.gpxm')?.remove(); m.insertAdjacentHTML('beforeend', `<span class="gpxm"><br>${t}</span>`); };
+  const scarica = () => {
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([g], {type: 'application/gpx+xml'})); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000);
+    msg('✓ File <b>' + name + '</b> salvato nei <b>Download</b> del telefono: aprilo da lì con l\'app di mappe o condividilo.');
+  };
+  /* Android non permette di condividere file .gpx dalle app web: si prova, altrimenti si salva il file */
+  let f = null; try { f = new File([g], name, {type: 'application/gpx+xml'}); } catch (e) {}
+  if (f && navigator.canShare && navigator.canShare({files: [f]})) { navigator.share({files: [f], title: nm}).catch(e => { if (e.name !== 'AbortError') scarica(); }); return; }
+  scarica();
 }
 const geoUri = () => /Android/i.test(navigator.userAgent) ? `geo:${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}?q=${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}(Posizione)` : `https://maps.google.com/?q=${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}`;
 function geoText(id) {
@@ -14989,20 +15159,41 @@ function geoConv() {
   if (!r) { m.innerHTML = v.trim() ? '<span class="warn">Formato non riconosciuto: controlla le cifre o apri "Formati riconosciuti".</span>' : ''; return; }
   m.textContent = '✓ Riconosciuto: ' + r.how + '.';
   geoStop(); const s = document.getElementById('geo-st'); if (s) s.textContent = '';
+  GEOMAP = true; GEOR.r = null; GEOR.sp = null; GEOR.pick = GEOR.start === 'map';
   geoSet({lat: r.lat, lon: r.lon, how: r.how, src: 'txt', t: Date.now()});
   document.getElementById('geo-out').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 function geoMapDraw() {
   const box = document.getElementById('geo-mapbox'); if (!box || !GEOS) return;
   const gps = GEOS.src === 'gps', p = [GEOS.lat, GEOS.lon];
-  mapShow(box, gps ? {me: [GEOS.lat, GEOS.lon, GEOS.acc || 0], zoom: 16} : {pts: [{p, emoji: '📍', col: '#2e7d32', html: `<b>Punto inserito</b><br>${esc(GEOS.how || '')}<br><a href="${sdNav(p)}" target="_blank" rel="noopener">🧭 Naviga</a>`}], zoom: 15});
+  if (gps) return mapShow(box, {me: [GEOS.lat, GEOS.lon, GEOS.acc || 0], zoom: 16});
+  const r = GEOR.r, st = GEOR.start === 'map' ? GEOR.sp : (r && r.from);
+  mapShow(box, {pts: [{p, pin: true, html: `<b>Punto inserito</b><br>${esc(GEOS.how || '')}<br><a href="${sdNav(p)}" target="_blank" rel="noopener">🧭 Naviga</a>`}], zoom: 15,
+    start: st, line: r && !r.segs && r.pts, segs: r && r.segs && r.segs.map(x => ({pts: x.pts, col: GTER[x.c][1]})), via: r && r.via, fit: r ? r.pts : null, topo: true,
+    legend: r && r.segs ? Object.keys(GTER).filter(k => r.segs.some(x => x.c === k)).map(k => `<div><span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]}</div>`).join('') : '',
+    keep: GEOR.view, done: (m, bx) => {
+      if (GEOR.fs) { GEOR.fs = false; bx.querySelector('.sdfs').click(); }
+      if (!(GEOR.start === 'map' && GEOR.pick)) return;
+      bx.insertAdjacentHTML('beforeend', '<div class="geocross" aria-hidden="true"></div><div class="geoseta"><button type="button" class="btn" id="geo-setp">🎯 Imposta partenza qui</button>' + (GEOR.sp ? '<button type="button" class="btn ghost" id="geo-setx">Annulla</button>' : '') + '</div><div class="geohint">Sposta la mappa e metti il mirino sulla partenza</div>');
+      const fine = () => { GEOR.pick = false; GEOR.fs = bx.classList.contains('full'); if (GEOR.fs) bx.querySelector('.sdfs').click(); geoRedraw(); };
+      bx.querySelector('#geo-setp').onclick = ev => { ev.stopPropagation(); const c = m.getCenter(); GEOR.sp = [c.lat, c.lng]; GEOR.r = null; fine(); };
+      const x = bx.querySelector('#geo-setx'); if (x) x.onclick = ev => { ev.stopPropagation(); fine(); };
+    }});
+  GEOR.view = null;
 }
 function bindGeoOut() {
-  const sel = document.getElementById('geo-sel'); if (!sel) return;
+  if (!document.getElementById('geo-share')) return;
+  const sel = {get value() { const c = document.querySelector('input[name=geo-f]:checked'); return c ? c.value : 'dd'; }};
+  document.querySelectorAll('input[name=geo-f]').forEach(r => r.onchange = () => { try { localStorage.setItem('saf-geo-fmt', r.value); } catch (e) {} });
+  const shf = document.getElementById('geo-shf'); if (shf) shf.ontoggle = () => { GEOSHO = shf.open; };
+  document.querySelectorAll('[data-gst]').forEach(b => b.onclick = () => { if (GEOR.start === b.dataset.gst) return; GEOR.start = b.dataset.gst; GEOR.r = null; GEOR.pick = GEOR.start === 'map' && !GEOR.sp; if (GEOR.start === 'map') GEOMAP = true; geoRedraw(); });
+  const gk = document.getElementById('geo-pick'); if (gk) gk.onclick = () => { GEOR.pick = true; GEOMAP = true; if (SDmap && document.getElementById('geo-mapbox') && !document.getElementById('geo-mapbox').hidden) { const c = SDmap.getCenter(); GEOR.view = [[c.lat, c.lng], SDmap.getZoom()]; } geoRedraw(); const b = document.getElementById('geo-mapbox'); if (b) b.scrollIntoView({behavior: 'smooth', block: 'center'}); };
+  const gp = document.getElementById('geo-prof'); if (gp) gp.onchange = () => { GEOR.prof = gp.value; try { localStorage.setItem('saf-geo-prof', gp.value); } catch (e) {} };
+  const gr = document.getElementById('geo-route'); if (gr) gr.onclick = geoRouteCalc;
+  const gx = document.getElementById('geo-gpx'); if (gx) gx.onclick = geoGpx;
   const mb = document.getElementById('geo-mapbtn');
   if (mb) mb.onclick = () => { GEOMAP = !GEOMAP; mb.textContent = '🗺️ ' + (GEOMAP ? 'Nascondi la mappa' : 'Mostra sulla mappa'); if (GEOMAP) geoMapDraw(); else { const b = document.getElementById('geo-mapbox'); b.hidden = true; document.body.classList.remove('sdnoscroll'); } };
   if (GEOMAP) geoMapDraw();
-  sel.onchange = () => { try { localStorage.setItem('saf-geo-fmt', sel.value); } catch (e) {} };
   document.getElementById('geo-map').onchange = e => { try { localStorage.setItem('saf-geo-map', e.target.checked ? '1' : '0'); } catch (x) {} };
   document.getElementById('geo-share').onclick = () => geoShare(sel.value);
   document.getElementById('geo-copy').onclick = () => geoShare(sel.value, true);
@@ -15013,11 +15204,16 @@ function bindCoordinate() {
   const f = document.getElementById('geo-find'); if (!f) return;
   f.onclick = geoFind;
   const inp = document.getElementById('geo-in');
+  if (GEOIN && !inp.value) inp.value = GEOIN;
+  inp.addEventListener('input', () => { GEOIN = inp.value; });
   document.getElementById('geo-conv').onclick = geoConv;
+  const clr = document.getElementById('geo-clr'), upd = () => { clr.hidden = !inp.value; };
+  inp.addEventListener('input', upd); upd();
+  clr.onclick = () => { inp.value = ''; GEOIN = ''; upd(); document.getElementById('geo-pm').textContent = ''; if (GEOS && GEOS.src !== 'gps') { GEOS = null; GEOMAP = false; GEOR.r = null; GEOR.sp = null; try { localStorage.removeItem('saf-geo-last'); } catch (e) {} geoRender(); } inp.focus(); };
   inp.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); geoConv(); } });
   document.getElementById('geo-paste').onclick = async () => {
     const m = document.getElementById('geo-pm');
-    try { const t = await navigator.clipboard.readText(); if (!t.trim()) { m.textContent = 'Gli appunti sono vuoti.'; return; } inp.value = t.trim(); geoConv(); }
+    try { const t = await navigator.clipboard.readText(); if (!t.trim()) { m.textContent = 'Gli appunti sono vuoti.'; return; } inp.value = GEOIN = t.trim(); upd(); geoConv(); }
     catch (e) { m.textContent = 'Il telefono non ha dato accesso agli appunti: tieni premuto nel campo e scegli "Incolla".'; inp.focus(); }
   };
   if (geoWatch != null) f.textContent = '■ Ferma la ricerca';
@@ -15216,6 +15412,7 @@ function sdLeaflet() {
   return LFp;
 }
 /* mappa generica: punti principali con segnaposto, sedi VVF vicine opzionali, propria posizione; tre fondi; schermo intero */
+const PINSVG = '<svg viewBox="0 0 34 46" width="26" height="35" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff6b7a"/><stop offset=".55" stop-color="#f22d45"/><stop offset="1" stop-color="#c3102a"/></linearGradient></defs><path d="M17 45.5C15.2 41 2 27.5 2 17A15 15 0 0 1 32 17C32 27.5 18.8 41 17 45.5Z" fill="url(#pg)" stroke="#9e0d22" stroke-width="1"/><circle cx="17" cy="17" r="6.3" fill="#fff" stroke="#b0102a" stroke-width="1.4"/><ellipse cx="10.5" cy="11" rx="3" ry="4.5" fill="#fff" opacity=".35" transform="rotate(30 10.5 11)"/></svg>';
 function mapShow(box, o) {
   if (!box) return;
   box.hidden = false; box.innerHTML = '<p class="note" style="padding:10px">Carico la mappa…</p>';
@@ -15229,15 +15426,25 @@ function mapShow(box, o) {
       'Satellitare': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 19, attribution: 'Esri, Maxar, Earthstar'}),
       'Topografica': L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 17, attribution: at + ', SRTM, OpenTopoMap'})
     };
-    const m = SDmap = L.map(box.querySelector('.sdmap'), {layers: [base.Stradale]});
+    const m = SDmap = L.map(box.querySelector('.sdmap'), {layers: [o.topo ? base.Topografica : base.Stradale]});
     L.control.layers(base, null, {collapsed: false, position: 'topright'}).addTo(m);
     const pin = (col, txt) => L.divIcon({className: 'sdpin', html: `<span style="background:${col}">${txt}</span>`, iconSize: [30, 30], iconAnchor: [15, 15]});
-    (o.pts || []).forEach(x => L.marker(x.p, {icon: pin(x.col || '#c8102e', x.emoji || '📍')}).addTo(m).bindPopup(x.html || ''));
+    const drop = L.divIcon({className: 'geodrop', html: PINSVG, iconSize: [26, 35], iconAnchor: [13, 35], popupAnchor: [0, -32]});
+    (o.pts || []).forEach(x => L.marker(x.p, {icon: x.pin ? drop : pin(x.col || '#c8102e', x.emoji || '📍')}).addTo(m).bindPopup(x.html || ''));
+    if (o.segs) { const all = o.segs.flatMap(x => x.pts).map(q => [q[0], q[1]]); L.polyline(all, {color: '#fff', weight: 9, opacity: .9}).addTo(m); o.segs.forEach(x => L.polyline(x.pts.map(q => [q[0], q[1]]), {color: x.col, weight: 5, opacity: .95, dashArray: x.dash ? '9 7' : null, lineCap: x.dash ? 'butt' : 'round'}).addTo(m)); }
+    if (o.via) L.marker(o.via, {icon: L.divIcon({className: 'geovia', html: '<span>🅿️</span>', iconSize: [24, 24], iconAnchor: [12, 12]})}).addTo(m).bindPopup('Fine del tratto in auto: da qui si prosegue a piedi');
+    if (o.legend) box.insertAdjacentHTML('beforeend', `<div class="geoleg">${o.legend}</div>`);
+    if (o.line && o.line.length) L.polyline(o.line.map(q => [q[0], q[1]]), {color: '#1565c0', weight: 5, opacity: .85}).addTo(m);
+    if (o.start) L.circleMarker(o.start, {radius: 8, color: '#fff', weight: 3, fillColor: '#2e7d32', fillOpacity: 1}).addTo(m).bindPopup('Partenza');
     (o.near || []).forEach(s => L.circleMarker(s.p, {radius: 5, color: '#c8102e', weight: 1, fillOpacity: .5}).addTo(m).bindPopup(`<b>${esc(s.n)}</b><br><a href="#t-sedi~${s.k}">Apri la scheda</a>`));
     const all = (o.pts || []).map(x => x.p);
     if (o.me) { L.circleMarker(o.me, {radius: 8, color: '#fff', weight: 3, fillColor: '#1a73e8', fillOpacity: 1}).addTo(m).bindPopup('La tua posizione'); if (o.me[2]) L.circle(o.me.slice(0, 2), {radius: o.me[2], color: '#1a73e8', weight: 1, fillOpacity: .1}).addTo(m); all.push(o.me.slice(0, 2)); }
-    if (all.length > 1 && sdDist(all[0], all[1]) < 300) m.fitBounds(all, {padding: [40, 40], maxZoom: 15}); else m.setView(all[0], o.zoom || 13);
+    if (o.keep) m.setView(o.keep[0], o.keep[1]);
+    else if (o.fit && o.fit.length > 1) m.fitBounds(o.fit.map(q => [q[0], q[1]]), {padding: [30, 30]});
+    else if (o.start) m.fitBounds([all[0], o.start], {padding: [50, 50], maxZoom: 15});
+    else if (all.length > 1 && sdDist(all[0], all[1]) < 300) m.fitBounds(all, {padding: [40, 40], maxZoom: 15}); else m.setView(all[0], o.zoom || 13);
     box.querySelector('.sdfs').onclick = () => { const fs = box.classList.toggle('full'); box.querySelector('.sdfs').textContent = fs ? '✕' : '⛶'; document.body.classList.toggle('sdnoscroll', fs); setTimeout(() => m.invalidateSize(), 60); };
+    if (o.done) o.done(m, box);
   }).catch(() => { box.innerHTML = '<p class="note" style="padding:10px">La mappa richiede la connessione a internet.</p>'; });
 }
 function sdMapOpen(k, box) {

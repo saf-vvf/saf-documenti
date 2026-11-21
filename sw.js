@@ -1,5 +1,5 @@
 // Service worker di SAFe – Supporto Operatore: rende l'app utilizzabile senza rete.
-const SHELL_CACHE = 'saf-shell-v20';
+const SHELL_CACHE = 'saf-shell-v21';
 const PDF_CACHE = 'saf-pdf';
 const SHELL = [
   './', 'index.html', 'viewer.html', 'sedi.json', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-192.png', 'icon-maskable-512.png', 'apple-touch-icon.png',
@@ -45,6 +45,8 @@ self.addEventListener('fetch', e => {
     }));
     return;
   }
+  // Altri siti (mappe, calcolo percorsi, statistiche): sempre dalla rete, senza salvarli
+  if (url.origin !== location.origin && url.hostname !== 'cdnjs.cloudflare.com') return;
   // Librerie e icone: dalla memoria, aggiornate in background
   e.respondWith(caches.open(SHELL_CACHE).then(async c => {
     const hit = await c.match(req, {ignoreSearch: true});
