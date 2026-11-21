@@ -288,7 +288,7 @@ a.card.tool{border-left:5px solid var(--tc);--gc:var(--tc)}
 .row.t-norm{--rc:#2457c5}.row.t-norm .num{color:#2457c5;font-size:.8rem}
 :root[data-theme=dark] .row.t-norm .num{color:#7aa2ff}
 mark{background:rgba(253,235,5,.35);color:inherit;border-radius:3px;padding:0 1px}
-.sdmapbox{margin-top:10px;position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line)}.sdmap{height:280px;background:#ddd}
+.sdmapbox{margin-top:10px;position:relative;z-index:0;isolation:isolate;border-radius:12px;overflow:hidden;border:1px solid var(--line)}.sdmap{height:280px;background:#ddd}
 .sdmapbox.full{position:fixed;inset:0;z-index:9000;margin:0;border-radius:0;border:0}.sdmapbox.full .sdmap{height:100%}
 .sdfs{position:absolute;left:10px;bottom:22px;z-index:1000;width:44px;height:44px;border-radius:10px;border:0;background:#fff;color:#222;font-size:1.4rem;box-shadow:0 2px 8px #0005;cursor:pointer}
 body.sdnoscroll{overflow:hidden}
@@ -14965,20 +14965,19 @@ function geoRender() {
   const F = GEO.formats(GEOS.lat, GEOS.lon), fm = geoFmt();
   const when = GEOS.t ? new Date(GEOS.t).toLocaleString('it-IT', {hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric'}) : '';
   const src = GEOS.src === 'gps' ? `GPS del telefono${GEOS.acc ? ' · precisione ±' + Math.round(GEOS.acc) + ' m' : ''}${GEOS.alt != null ? ' · quota ' + Math.round(GEOS.alt) + ' m' : ''}${when ? ' · ' + when : ''}` : (GEOS.src === 'map' ? 'Punto scelto sulla mappa' : 'Da coordinate inserite: ' + esc(GEOS.how || ''));
-  const FN = {dd: 'Gradi decimali', ddm: 'Gradi e primi decimali', dms: 'Gradi, primi e secondi', utm: 'UTM WGS84', mgrs: 'MGRS', gb: 'Gauss-Boaga Roma40', ed50: 'UTM ED50'};
-  const fl = [...Object.keys(FN).map(k => [k, FN[k], (F.find(f => f.id === k) || {}).v || '']), ['all', 'Tutti i formati', 'tutti i valori qui sotto']];
+  const FN = {dd: 'Gradi decimali', ddm: 'Gradi e primi decimali', dms: 'Gradi, primi e secondi', utm: 'UTM WGS84', mgrs: 'MGRS', gb: 'Gauss-Boaga Roma40 ≈', ed50: 'UTM ED50 ≈'};
+  const fl = [...Object.keys(FN).map(k => [k, FN[k], (F.find(f => f.id === k) || {}).v || '']), ['all', 'Tutti i formati', 'tutti i formati elencati sopra']];
   const txt = GEOS.src !== 'gps';
   o.innerHTML = `<div class="card geo"><p class="note" style="margin:0 0 6px">${src}</p>
     <div class="btns"><button class="btn ghost" id="geo-mapbtn">🗺️ ${GEOMAP ? 'Nascondi la mappa' : 'Mostra sulla mappa'}</button>${txt ? `<a class="btn ghost" href="${sdNav([GEOS.lat, GEOS.lon])}" target="_blank" rel="noopener">🧭 Naviga con Google Maps</a>` : ''}</div>
     <div class="sdmapbox" id="geo-mapbox" hidden></div>
-    ${txt ? geoRouteBox() : ''}
     <details class="geofold"${GEOSHO ? ' open' : ''} id="geo-shf"><summary><b>📤 Condividi la posizione</b></summary>
     <div class="geofmt" role="radiogroup">${fl.map(([k, n, ex]) => `<label class="geoopt"><input type="radio" name="geo-f" value="${k}"${k === fm ? ' checked' : ''}><span><b>${esc(n)}</b><small>${esc(ex)}</small></span></label>`).join('')}</div>
     <label class="geochk"><input type="checkbox" id="geo-map"${(() => { try { return localStorage.getItem('saf-geo-map') === '0' ? '' : ' checked'; } catch (e) { return ' checked'; } })()}> Aggiungi il link alla mappa</label>
-    <div class="btns" style="margin-top:6px"><button class="btn" id="geo-share">Condividi</button><button class="btn ghost" id="geo-copy">Copia</button><a class="btn ghost" id="geo-open" href="${geoUri()}">Apri nelle mappe</a></div></details>
-    <p class="note" id="geo-sm" style="margin:6px 0 0"></p></div>
-  <div class="card geo geolist">${F.map(f => `<div class="georow"><div class="geotx"><div class="geon">${esc(f.n)}${f.ap ? ' <span class="geoap">≈</span>' : ''}</div><div class="geov" id="gv-${f.id}">${esc(f.v)}</div>${f.h ? `<div class="note geoh">${esc(f.h)}</div>` : ''}</div><div class="geob"><button class="gbtn" data-cp="${f.id}">Copia</button><button class="gbtn" data-sh="${f.id}">Condividi</button></div></div>`).join('')}
-    <p class="note" style="margin:10px 0 0">≈ Gauss-Boaga ed ED50 sono calcolati con i parametri medi nazionali (EPSG): vanno bene per trovare un punto sulla carta, non per rilievi di precisione.</p></div>`;
+    <div class="btns" style="margin-top:6px"><button class="btn" id="geo-share">Condividi</button><button class="btn ghost" id="geo-copy">Copia</button><a class="btn ghost" id="geo-open" href="${geoUri()}">Apri nelle mappe</a></div>
+    <p class="note" style="margin:8px 0 0;font-size:.78rem">≈ Gauss-Boaga ed ED50 sono calcolati con i parametri medi nazionali (EPSG): vanno bene per trovare un punto sulla carta, non per rilievi di precisione.</p></details>
+    ${txt ? geoRouteBox() : ''}
+    <p class="note" id="geo-sm" style="margin:6px 0 0"></p></div>`;
 }
 /* --- percorso fino al punto inserito: partenza dalla propria posizione o da un punto scelto sulla mappa; BRouter (strade, sterrate, sentieri); GPX --- */
 let GEOSHO = false, GEOIN = '';
@@ -15152,10 +15151,11 @@ function geoGpx() {
 const geoUri = () => /Android/i.test(navigator.userAgent) ? `geo:${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}?q=${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}(Posizione)` : `https://maps.google.com/?q=${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}`;
 function geoText(id) {
   const F = GEO.formats(GEOS.lat, GEOS.lon), map = document.getElementById('geo-map')?.checked !== false;
-  const L = id === 'all' ? ['Posizione:', ...F.map(f => `${f.n}: ${f.v}`)] : (f => [`Posizione – ${f.n}: ${f.v}`])(F.find(x => x.id === id));
-  if (GEOS.src === 'gps') L.push(`Rilevata col GPS${GEOS.acc ? ', precisione ±' + Math.round(GEOS.acc) + ' m' : ''}${GEOS.t ? ', ' + new Date(GEOS.t).toLocaleString('it-IT', {hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit'}) : ''}`);
+  const L = ['Posizione:', ''];
+  (id === 'all' ? F : F.filter(x => x.id === id)).forEach(f => L.push(f.n + ':', f.v, ''));
+  if (GEOS.src === 'gps') L.push(`Rilevata col GPS${GEOS.acc ? ', precisione ±' + Math.round(GEOS.acc) + ' m' : ''}${GEOS.t ? ', ' + new Date(GEOS.t).toLocaleString('it-IT', {hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit'}) : ''}`, '');
   if (map) L.push(`Mappa: https://maps.google.com/?q=${GEOS.lat.toFixed(6)},${GEOS.lon.toFixed(6)}`);
-  return L.join('\n');
+  return L.join('\n').trim();
 }
 async function geoShare(id, copyOnly) {
   const t = geoText(id), m = document.getElementById('geo-sm');
