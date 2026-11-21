@@ -15027,7 +15027,7 @@ function geoRouteBox() {
     ${GEOR.start === 'map' ? `<div class="georow2"><span class="note">${GEOR.pick ? '🎯 Metti il mirino sul punto di partenza e tocca <b>Imposta partenza qui</b>' : GEOR.sp ? `Partenza: ${GEOR.sp[0].toFixed(5)}, ${GEOR.sp[1].toFixed(5)}` : 'Partenza non ancora scelta'}</span>${GEOR.pick ? '' : `<button type="button" class="btn ghost" id="geo-pick" style="padding:6px 12px">🎯 ${GEOR.sp ? 'Cambia' : 'Scegli sulla mappa'}</button>`}</div>` : ''}
     <div class="georow2"><span class="note">Tipo</span><select id="geo-prof">${GPROF.map(([k, n]) => `<option value="${k}"${k === GEOR.prof ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
     <div class="btns" style="margin-top:8px"><button class="btn" id="geo-route">Calcola il percorso</button>${r ? `<button class="btn ghost geopaste" id="geo-gpx">⬇️ Salva GPX</button>` : ''}</div>
-    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `${r.legs && r.legs.length > 1 ? r.legs.map(l => `${l.t === 'auto' ? '🚗 In auto' : '🥾 A piedi'}: <b>${l.km.toFixed(1).replace('.', ',')} km</b>, circa ${geoMin(l.min)}${l.t !== 'auto' && l.up >= 10 ? `, +${Math.round(l.up)} m` : ''}`).join('<br>') + '<br>Totale: ' : ''}<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${geoMin(r.min)}` : ''}${r.up ? ` · dislivello +${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}${r.kt ? '<br>' + Object.keys(GTER).filter(k => r.kt[k] >= .05).map(k => `<span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]} ${r.kt[k].toFixed(1).replace('.', ',')} km`).join(' · ') : ''}` : ''}</p></div>`;
+    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `${r.legs && r.legs.length > 1 ? r.legs.map(l => `${l.t === 'auto' ? '🚗 In auto' : '🥾 A piedi'}: <b>${l.km.toFixed(1).replace('.', ',')} km</b>, circa ${geoMin(l.min)}${l.t !== 'auto' && l.up >= 10 ? `, ↗ ${Math.round(l.up)} m` : ''}${l.t !== 'auto' && l.dn >= 10 ? ` ↘ ${Math.round(l.dn)} m` : ''}`).join('<br>') + '<br>Totale: ' : ''}<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${geoMin(r.min)}` : ''}${r.legs && r.legs.length > 1 ? '' : r.up ? ` · ↗ ${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}${r.n > 1 ? `<br><span style="font-size:.85em">Scelto l'accesso più rapido tra ${r.n} possibili (conta anche il dislivello a piedi).</span>` : ''}${r.kt ? '<br>' + Object.keys(GTER).filter(k => r.kt[k] >= .05).map(k => `<span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]} ${r.kt[k].toFixed(1).replace('.', ',')} km`).join(' · ') : ''}` : ''}</p></div>`;
 }
 /* un tratto calcolato da BRouter tra due punti con un profilo */
 function geoBR(a, b, prof) {
@@ -15037,24 +15037,50 @@ function geoBR(a, b, prof) {
     return {pts, segs: sg ? sg.segs : [{c: prof === 'car-fast' ? 'a' : 'p', pts}], kt: sg ? sg.km : null, km: +pr['track-length'] / 1000, min: +pr['total-time'] / 60, up: +(pr['filtered ascend'] || pr['plain-ascend'] || 0)};
   });
 }
-/* "auto fin dove si può, poi a piedi": il tratto in auto termina sulla strada percorribile più vicina alla meta
-   (BRouter aggancia la meta alla strada carrozzabile più vicina); da lì si prosegue a piedi. Idem in partenza se si è fuori strada. */
-async function geoMix(sp, to) {
-  const car = await geoBR(sp, to, 'car-fast');
-  const cs = car.pts[0], ce = car.pts[car.pts.length - 1], legs = [];
-  if (sdDist(sp, cs) > .1) legs.push(['piedi', await geoBR(sp, cs, 'hiking-mountain')]);
-  legs.push(['auto', car]);
-  if (sdDist(ce, to) > .05) legs.push(['piedi', await geoBR(ce, to, 'hiking-mountain')]);
+/* dislivelli dalla quota dei punti (con soglia di 5 m per non sommare il rumore) e tempo a piedi stile CAI/svizzero:
+   4 km/h in piano, 400 m/h in salita, 800 m/h in discesa; tempo = maggiore + metà del minore */
+function geoUpDn(pts) {
+  let up = 0, dn = 0, ref = null;
+  pts.forEach(q => { const z = q[2]; if (z == null || isNaN(z)) return; if (ref == null) { ref = z; return; } const d = z - ref; if (d >= 5) { up += d; ref = z; } else if (d <= -5) { dn -= d; ref = z; } });
+  return {up, dn};
+}
+function geoFootMin(km, up, dn) { const h = km / 4, v = up / 400 + dn / 800; return (Math.max(h, v) + Math.min(h, v) / 2) * 60; }
+function geoFoot(x) { const u = geoUpDn(x.pts); x.up = u.up; x.dn = u.dn; x.min = geoFootMin(x.km, u.up, u.dn); return x; }
+/* "auto fin dove si può, poi a piedi": si provano più accessi stradali attorno alla meta (la strada più vicina e quelle
+   raggiunte puntando l'auto in 12 direzioni a 2 e 4 km) e si sceglie quello con il tempo totale minore, dove il tratto
+   a piedi pesa salita e discesa: così vince l'accesso con meno dislivello anche se l'auto fa più strada. */
+async function geoPool(jobs, n) { const out = new Array(jobs.length); let i = 0; await Promise.all(Array.from({length: n}, async () => { while (i < jobs.length) { const k = i++; try { out[k] = await jobs[k](); } catch (e) { out[k] = null; } } })); return out; }
+async function geoMix(sp, to, say) {
+  const off = (d, km) => { const r = d * Math.PI / 180; return [to[0] + km / 111.2 * Math.cos(r), to[1] + km / (111.2 * Math.cos(to[0] * Math.PI / 180)) * Math.sin(r)]; };
+  const tg = [to, ...[0, 45, 90, 135, 180, 225, 270, 315].map(d => off(d, 2)), ...[22, 112, 202, 292].map(d => off(d, 4))];
+  say('Cerco le strade che si avvicinano alla meta…');
+  const cars = (await geoPool(tg.map(t => () => geoBR(sp, t, 'car-fast')), 4)).filter(Boolean);
+  if (!cars.length) throw new Error('not mapped');
+  const cand = [];
+  cars.forEach(c => { const e = c.pts[c.pts.length - 1]; if (sdDist(e, to) > 7) return; if (!cand.some(x => sdDist(x.e, e) < .3)) cand.push({e, car: c}); else { const x = cand.find(x => sdDist(x.e, e) < .3); if (c.min < x.car.min) { x.e = e; x.car = c; } } });
+  if (!cand.length) cand.push({e: cars[0].pts[cars[0].pts.length - 1], car: cars[0]});
+  say(`Confronto ${cand.length} accessi possibili a piedi…`);
+  const feet = await geoPool(cand.map(c => () => sdDist(c.e, to) > .05 ? geoBR(c.e, to, 'hiking-mountain').then(geoFoot) : Promise.resolve(null)), 4);
+  let best = null;
+  cand.forEach((c, i) => { const f = feet[i]; if (!f && sdDist(c.e, to) > .05) return; const t = c.car.min + (f ? f.min : 0); if (!best || t < best.t) best = {t, c, f}; });
+  if (!best) throw new Error('no route');
+  const legs = [], cs = best.c.car.pts[0];
+  if (sdDist(sp, cs) > .1) legs.push(['piedi', geoFoot(await geoBR(sp, cs, 'hiking-mountain'))]);
+  legs.push(['auto', best.c.car]);
+  if (best.f) legs.push(['piedi', best.f]);
+  legs.n = cand.length;
   return legs;
 }
 function geoRouteCalc() {
   const m = document.getElementById('geo-rm'), go = sp => {
     m.textContent = 'Calcolo del percorso…';
     const to = [GEOS.lat, GEOS.lon], prof = GEOR.prof;
-    (prof === 'mix' ? geoMix(sp, to).catch(e => { if (/not mapped|from-position|to-position|target island/i.test(String(e.message))) return geoBR(sp, to, 'hiking-mountain').then(x => [['piedi', x]]); throw e; }) : geoBR(sp, to, prof).then(x => [['piedi', x]])).then(legs => {
-      const r = {prof, from: sp, pts: [], segs: [], kt: {a: 0, s: 0, p: 0}, km: 0, min: 0, up: 0, legs: legs.map(([t, x]) => ({t, km: x.km, min: x.min, up: x.up, a: x.pts[0], b: x.pts[x.pts.length - 1], pts: x.pts}))};
+    const say = t => { const e = document.getElementById('geo-rm'); if (e) e.textContent = t; };
+    (prof === 'mix' ? geoMix(sp, to, say).catch(e => { if (/not mapped|from-position|to-position|target island/i.test(String(e.message))) return geoBR(sp, to, 'hiking-mountain').then(x => [['piedi', geoFoot(x)]]); throw e; }) : geoBR(sp, to, prof).then(x => [['piedi', geoFoot(x)]])).then(legs => {
+      const r = {prof, from: sp, pts: [], segs: [], kt: {a: 0, s: 0, p: 0}, km: 0, min: 0, up: 0, legs: legs.map(([t, x]) => ({t, km: x.km, min: x.min, up: x.up, dn: x.dn || 0, a: x.pts[0], b: x.pts[x.pts.length - 1], pts: x.pts}))};
       legs.forEach(([, x]) => { r.pts.push(...x.pts); r.segs.push(...x.segs); r.km += x.km; r.min += x.min; r.up += x.up; if (x.kt) Object.keys(x.kt).forEach(k => r.kt[k] += x.kt[k]); else r.kt[x.segs[0].c] += x.km; });
       const car = r.legs.find(l => l.t === 'auto'); if (car && r.legs.length > 1) r.via = car.b;
+      r.n = legs.n || 0;
       GEOR.r = r; GEOMAP = true; geoRender(); bindGeoOut();
     }).catch(e => { m.textContent = /target island|not mapped|no route|from-position|to-position/i.test(String(e.message)) ? 'Nessun percorso trovato: prova a spostare la partenza o a scegliere "Tutto a piedi".' : 'Calcolo non riuscito: serve la connessione a internet. Riprova tra poco.'; });
   };
