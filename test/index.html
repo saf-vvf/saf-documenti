@@ -257,6 +257,8 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .geocross{position:absolute;left:50%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;z-index:500;pointer-events:none;border:2px solid #c8102e;border-radius:50%;box-shadow:0 0 0 2px #fff8}
 .geocross::before,.geocross::after{content:"";position:absolute;background:#c8102e;box-shadow:0 0 0 1px #fff8}.geocross::before{left:50%;top:-12px;bottom:-12px;width:2px;margin-left:-1px}.geocross::after{top:50%;left:-12px;right:-12px;height:2px;margin-top:-1px}
 .geoseta{position:absolute;left:0;right:0;bottom:12px;z-index:500;display:flex;gap:8px;justify-content:center;pointer-events:none}.geoseta .btn{pointer-events:auto;box-shadow:0 2px 8px #0006}
+.geoleg{position:absolute;right:8px;bottom:22px;z-index:500;background:#fffe;color:#222;font-size:.74rem;line-height:1.5;padding:5px 8px;border-radius:8px;box-shadow:0 1px 4px #0005;pointer-events:none}
+.geolg{display:inline-block;width:18px;height:0;border-top:4px solid var(--c);vertical-align:middle;margin-right:5px}.geolg.d{border-top-style:dashed}
 .geohint{position:absolute;left:50%;top:10px;transform:translateX(-50%);z-index:500;background:#000b;color:#fff;font-size:.78rem;padding:4px 10px;border-radius:999px;pointer-events:none;white-space:nowrap}.geodrop{background:none;border:0}.geodrop svg{filter:drop-shadow(0 2px 3px #0007)}.geohelp summary{cursor:pointer;color:var(--muted)}.geohelp ul{padding-left:18px;margin:6px 0}.geohelp li{margin:4px 0}.geohelp code{font-size:.8rem;background:var(--bg);padding:1px 4px;border-radius:4px}
 .inst{position:relative;border:2px solid #fdeb05;margin-bottom:12px}.inst-t{font-weight:700;font-size:1.05rem;margin:0 28px 6px 0}.inst p{margin:0 0 6px}.inst-x{position:absolute;top:6px;right:8px;border:0;background:none;color:var(--muted);font-size:1.1rem;cursor:pointer;padding:6px}
 .mcard{border-left:6px solid var(--mc);background:var(--surface);background:color-mix(in srgb,var(--mc) 7%,var(--surface))}
@@ -14989,15 +14991,42 @@ let GEOSHO = false, GEOIN = '';
   });
 })();
 const GEOR = {start: 'gps', sp: null, pick: false, view: null, prof: (() => { try { return localStorage.getItem('saf-geo-prof') || 'car-fast'; } catch (e) { return 'car-fast'; } })(), r: null};
-const GPROF = [['car-fast', '🚗 Auto, solo strade'], ['shortest', '🚙 Il più breve, anche sterrate e piste'], ['hiking-mountain', '🥾 A piedi, anche sentieri']];
+const GPROF = [['car-fast', '🚗 In auto'], ['hiking-mountain', '🥾 A piedi, anche sentieri']];
+if (!GPROF.some(x => x[0] === GEOR.prof)) GEOR.prof = 'car-fast';
+/* fondo del percorso, dai tag OpenStreetMap che BRouter restituisce per ogni tratto */
+const GTER = {a: ['Strada asfaltata', '#1565c0'], s: ['Sterrata o pista', '#e67e22'], p: ['Sentiero o mulattiera', '#d81b60']};
+function geoTerr(tags) {
+  const t = {}; String(tags || '').split(' ').forEach(x => { const i = x.indexOf('='); if (i > 0) t[x.slice(0, i)] = x.slice(i + 1); });
+  const h = t.highway || '', su = t.surface || '', unp = /^(unpaved|gravel|fine_gravel|dirt|ground|earth|compacted|grass|grass_paver|mud|sand|pebblestone|rock|wood|woodchips|stone)$/.test(su), pav = /^(paved|asphalt|concrete|paving_stones|sett|cobblestone|metal|concrete:plates|chipseal)/.test(su);
+  if (/^(path|footway|bridleway|steps|via_ferrata|pedestrian)$/.test(h)) return pav && h !== 'path' ? 'a' : 'p';
+  if (h === 'track') return pav || t.tracktype === 'grade1' ? 'a' : 's';
+  if (h === 'cycleway') return unp ? 's' : 'a';
+  return unp ? 's' : 'a';
+}
+function geoSegs(pts, msgs) {
+  if (!msgs || msgs.length < 2) return null;
+  const H = msgs[0], iX = H.indexOf('Longitude'), iY = H.indexOf('Latitude'), iT = H.indexOf('WayTags'), iD = H.indexOf('Distance');
+  if (iX < 0 || iT < 0) return null;
+  const key = (x, y) => Math.round(x * 1e6) + ',' + Math.round(y * 1e6), idx = {};
+  pts.forEach((q, i) => { const k = key(q[1], q[0]); if (!(k in idx)) idx[k] = i; });
+  const out = [], km = {a: 0, s: 0, p: 0}; let a = 0;
+  for (const row of msgs.slice(1)) {
+    const j = idx[row[iX] + ',' + row[iY]], c = geoTerr(row[iT]); if (j == null || j <= a) { if (j == null) continue; }
+    const last = out[out.length - 1];
+    if (last && last.c === c) last.b = j; else out.push({c, a, b: j});
+    km[c] += (+row[iD] || 0) / 1000; a = j;
+  }
+  if (a < pts.length - 1) { const last = out[out.length - 1]; if (last) last.b = pts.length - 1; }
+  return out.length ? {segs: out.map(x => ({c: x.c, pts: pts.slice(x.a, x.b + 1)})), km} : null;
+}
 function geoRouteBox() {
   const r = GEOR.r;
   return `<div class="georoute"><b>🧭 Percorso fino a questo punto</b>
     <div class="georow2"><span class="note">Partenza</span><div class="geoseg"><button type="button" data-gst="gps" class="${GEOR.start === 'gps' ? 'on' : ''}">📍 La mia posizione</button><button type="button" data-gst="map" class="${GEOR.start === 'map' ? 'on' : ''}">🗺️ Punto sulla mappa</button></div></div>
     ${GEOR.start === 'map' ? `<div class="georow2"><span class="note">${GEOR.pick ? '🎯 Metti il mirino sul punto di partenza e tocca <b>Imposta partenza qui</b>' : GEOR.sp ? `Partenza: ${GEOR.sp[0].toFixed(5)}, ${GEOR.sp[1].toFixed(5)}` : 'Partenza non ancora scelta'}</span>${GEOR.pick ? '' : `<button type="button" class="btn ghost" id="geo-pick" style="padding:6px 12px">🎯 ${GEOR.sp ? 'Cambia' : 'Scegli sulla mappa'}</button>`}</div>` : ''}
     <div class="georow2"><span class="note">Tipo</span><select id="geo-prof">${GPROF.map(([k, n]) => `<option value="${k}"${k === GEOR.prof ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
-    <div class="btns" style="margin-top:8px"><button class="btn" id="geo-route">Calcola il percorso</button>${r ? `<button class="btn ghost" id="geo-gpx">⬇️ Salva GPX</button>` : ''}</div>
-    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${r.min < 90 ? Math.round(r.min) + ' min' : Math.floor(r.min / 60) + ' h ' + Math.round(r.min % 60) + ' min'}` : ''}${r.up ? ` · dislivello +${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}` : ''}</p></div>`;
+    <div class="btns" style="margin-top:8px"><button class="btn" id="geo-route">Calcola il percorso</button>${r ? `<button class="btn ghost geopaste" id="geo-gpx">⬇️ Salva GPX</button>` : ''}</div>
+    <p class="note" id="geo-rm" style="margin:6px 0 0">${r ? `<b>${(r.km).toFixed(1).replace('.', ',')} km</b>${r.min ? ` · circa ${r.min < 90 ? Math.round(r.min) + ' min' : Math.floor(r.min / 60) + ' h ' + Math.round(r.min % 60) + ' min'}` : ''}${r.up ? ` · dislivello +${Math.round(r.up)} m` : ''} · ${esc((GPROF.find(x => x[0] === r.prof) || [, ''])[1])}${r.kt ? '<br>' + Object.keys(GTER).filter(k => r.kt[k] >= .05).map(k => `<span class="geolg" style="--c:${GTER[k][1]}"></span>${GTER[k][0]} ${r.kt[k].toFixed(1).replace('.', ',')} km`).join(' · ') : ''}` : ''}</p></div>`;
 }
 function geoRouteCalc() {
   const m = document.getElementById('geo-rm'), go = sp => {
@@ -15005,7 +15034,8 @@ function geoRouteCalc() {
     const to = [GEOS.lat, GEOS.lon], u = `https://brouter.de/brouter?lonlats=${sp[1].toFixed(6)},${sp[0].toFixed(6)}|${to[1].toFixed(6)},${to[0].toFixed(6)}&profile=${GEOR.prof}&alternativeidx=0&format=geojson`;
     fetch(u).then(r => { if (!r.ok) return r.text().then(t => { throw new Error(t || r.status); }); return r.json(); }).then(j => {
       const f = j.features[0], pr = f.properties;
-      GEOR.r = {prof: GEOR.prof, from: sp, pts: f.geometry.coordinates.map(c => [c[1], c[0], c[2]]), km: +pr['track-length'] / 1000, min: +pr['total-time'] / 60, up: +(pr['filtered ascend'] || pr['plain-ascend'] || 0)};
+      const pts = f.geometry.coordinates.map(c => [c[1], c[0], c[2]]), sg = geoSegs(pts, pr.messages);
+      GEOR.r = {prof: GEOR.prof, from: sp, pts, segs: sg && sg.segs, kt: sg && sg.km, km: +pr['track-length'] / 1000, min: +pr['total-time'] / 60, up: +(pr['filtered ascend'] || pr['plain-ascend'] || 0)};
       GEOMAP = true; geoRender(); bindGeoOut();
     }).catch(e => { m.textContent = /target island|not mapped|no route|from-position|to-position/i.test(String(e.message)) ? 'Nessun percorso trovato con questo tipo: prova un altro tipo o sposta la partenza.' : 'Calcolo non riuscito: serve la connessione a internet. Riprova tra poco.'; });
   };
@@ -15085,7 +15115,8 @@ function geoMapDraw() {
   if (gps) return mapShow(box, {me: [GEOS.lat, GEOS.lon, GEOS.acc || 0], zoom: 16});
   const r = GEOR.r, st = GEOR.start === 'map' ? GEOR.sp : (r && r.from);
   mapShow(box, {pts: [{p, pin: true, html: `<b>Punto inserito</b><br>${esc(GEOS.how || '')}<br><a href="${sdNav(p)}" target="_blank" rel="noopener">🧭 Naviga</a>`}], zoom: 15,
-    start: st, line: r && r.pts, fit: r ? r.pts : null,
+    start: st, line: r && !r.segs && r.pts, segs: r && r.segs && r.segs.map(x => ({pts: x.pts, col: GTER[x.c][1], dash: x.c === 'p'})), fit: r ? r.pts : null, topo: true,
+    legend: r && r.segs ? Object.keys(GTER).filter(k => r.segs.some(x => x.c === k)).map(k => `<div><span class="geolg${k === 'p' ? ' d' : ''}" style="--c:${GTER[k][1]}"></span>${GTER[k][0]}</div>`).join('') : '',
     keep: GEOR.view, done: (m, bx) => {
       if (GEOR.fs) { GEOR.fs = false; bx.querySelector('.sdfs').click(); }
       if (!(GEOR.start === 'map' && GEOR.pick)) return;
@@ -15341,11 +15372,13 @@ function mapShow(box, o) {
       'Satellitare': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {maxZoom: 19, attribution: 'Esri, Maxar, Earthstar'}),
       'Topografica': L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {maxZoom: 17, attribution: at + ', SRTM, OpenTopoMap'})
     };
-    const m = SDmap = L.map(box.querySelector('.sdmap'), {layers: [base.Stradale]});
+    const m = SDmap = L.map(box.querySelector('.sdmap'), {layers: [o.topo ? base.Topografica : base.Stradale]});
     L.control.layers(base, null, {collapsed: false, position: 'topright'}).addTo(m);
     const pin = (col, txt) => L.divIcon({className: 'sdpin', html: `<span style="background:${col}">${txt}</span>`, iconSize: [30, 30], iconAnchor: [15, 15]});
     const drop = L.divIcon({className: 'geodrop', html: PINSVG, iconSize: [26, 35], iconAnchor: [13, 35], popupAnchor: [0, -32]});
     (o.pts || []).forEach(x => L.marker(x.p, {icon: x.pin ? drop : pin(x.col || '#c8102e', x.emoji || '📍')}).addTo(m).bindPopup(x.html || ''));
+    if (o.segs) { const all = o.segs.flatMap(x => x.pts).map(q => [q[0], q[1]]); L.polyline(all, {color: '#fff', weight: 9, opacity: .9}).addTo(m); o.segs.forEach(x => L.polyline(x.pts.map(q => [q[0], q[1]]), {color: x.col, weight: 5, opacity: .95, dashArray: x.dash ? '9 7' : null, lineCap: x.dash ? 'butt' : 'round'}).addTo(m)); }
+    if (o.legend) box.insertAdjacentHTML('beforeend', `<div class="geoleg">${o.legend}</div>`);
     if (o.line && o.line.length) L.polyline(o.line.map(q => [q[0], q[1]]), {color: '#1565c0', weight: 5, opacity: .85}).addTo(m);
     if (o.start) L.circleMarker(o.start, {radius: 8, color: '#fff', weight: 3, fillColor: '#2e7d32', fillOpacity: 1}).addTo(m).bindPopup('Partenza');
     (o.near || []).forEach(s => L.circleMarker(s.p, {radius: 5, color: '#c8102e', weight: 1, fillOpacity: .5}).addTo(m).bindPopup(`<b>${esc(s.n)}</b><br><a href="#t-sedi~${s.k}">Apri la scheda</a>`));
@@ -15395,7 +15428,7 @@ function bindOffline() {
   });
 }
 if ('serviceWorker' in navigator) {
-  Promise.reject('test').catch(() => {});
+  navigator.serviceWorker.register('sw.js', {scope: './'}).catch(() => {});
   navigator.serviceWorker.addEventListener('message', e => {
     if (e.data?.type !== 'progress') return;
     const el = document.getElementById('offmsg');
