@@ -248,13 +248,14 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .geoopts{display:flex;align-items:center;gap:6px;margin-top:8px}.geoopts .btn{flex:1 1 0;min-width:0;justify-content:center;text-align:center;padding-left:8px;padding-right:8px}.geoopts .note{margin:0;font-size:.8rem}
 .geogo{position:absolute;right:6px;bottom:12px;border:0;border-radius:999px;background:#fdeb05;color:#111;font:inherit;font-size:.82rem;font-weight:700;padding:5px 10px;cursor:pointer}.geogo[hidden]{display:none}
 #geo-pickbox{margin-top:10px}
-.geofold{margin:10px 0 0;border-top:1px solid var(--line);padding-top:8px}.geofold summary{cursor:pointer;padding:4px 0}
+.geofold{margin:0}.geofold summary{cursor:pointer;padding:4px 0}
 .geofmt{display:grid;gap:4px;margin:8px 0}.geoopt{display:flex;gap:10px;align-items:flex-start;padding:7px 8px;border:1px solid var(--line);border-radius:8px;cursor:pointer}
 .geoopt input{margin-top:3px}.geoopt span{display:grid;min-width:0}.geoopt b{font-weight:600;font-size:.95rem}.geoopt small{color:var(--muted);font-family:ui-monospace,Menlo,monospace;font-size:.8rem;overflow-wrap:anywhere}
 .geoopt:has(input:checked){border-color:#fdeb05;background:color-mix(in srgb,#fdeb05 8%,transparent)}
 .geolist .georow{display:flex;gap:10px;align-items:center;padding:7px 0}.geolist .geotx{flex:1;min-width:0}.geolist .geov{font-size:1rem;margin:1px 0}
 .geolist .geob{flex-direction:column;gap:4px;margin:0;flex:0 0 auto}.geolist .gbtn{padding:4px 10px;font-size:.78rem;min-width:84px}
-.georoute{margin-top:12px;padding:10px 12px;border:1px solid var(--line);border-left:4px solid #1565c0;border-radius:10px}
+.georoute{margin:0}.geospin{display:inline-block;width:14px;height:14px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:gsp .8s linear infinite;vertical-align:-2px;margin-right:4px}@keyframes gsp{to{transform:rotate(360deg)}}#geo-route:disabled{opacity:.85}
+.geofold summary .note{font-size:.8rem}
 .georow2{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}.georow2>.note{min-width:62px;margin:0}
 .geoseg{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}.geoseg button{border:0;background:transparent;color:var(--ink);padding:7px 12px;font:inherit;font-size:.88rem;cursor:pointer}.geoseg button.on{background:#fdeb05;color:#111;font-weight:700}.geoseg{border:0;gap:6px;overflow:visible}.geoseg button{border:2px solid #fdeb05;border-radius:999px}
 .georoute select{flex:1;min-width:0}
@@ -14945,12 +14946,11 @@ function viewCoordinate() {
   const F = [['dd', 'Gradi decimali'], ['ddm', 'Gradi e primi decimali'], ['dms', 'Gradi, primi e secondi'], ['utm', 'UTM WGS84'], ['mgrs', 'MGRS'], ['gb', 'Gauss-Boaga Roma40'], ['ed50', 'UTM ED50'], ['all', 'Tutti i formati']];
   return `<h2>Coordinate e posizione</h2>
   <p class="note">Trova la tua posizione con il GPS del telefono (funziona anche senza rete) oppure incolla delle coordinate: l'app riconosce il formato e le converte in tutti gli altri.</p>
-  <div class="card geo">
+  <div class="card geo lab sdinfo" style="--lc:#e0a800"><h4>📍 La mia posizione</h4>
     <button class="btn geobig" id="geo-find">📍 Trova la mia posizione</button>
     <p class="note" id="geo-st" style="margin:8px 0 0"></p>
   </div>
-  <div class="card geo">
-    <label for="geo-in"><b>Incolla, scrivi o scegli un punto</b></label>
+  <div class="card geo lab sdinfo" style="--lc:#2457c5"><h4><label for="geo-in">🔎 Incolla, scrivi o scegli un punto</label></h4>
     <div class="geoinw"><textarea id="geo-in" rows="2" placeholder="Es. 45.9562, 12.66 oppure 33T UH 93628 48750" autocomplete="off" autocapitalize="characters" spellcheck="false"></textarea><button type="button" class="geoclr" id="geo-clr" aria-label="Cancella" hidden>✕</button><button type="button" class="geogo" id="geo-conv" aria-label="Trova" hidden>🔎 Trova</button></div>
     <div class="geoopts"><button class="btn geopaste" id="geo-paste">📋 Incolla e trova</button><span class="note">oppure</span><button class="btn ghost geopaste" id="geo-mpick">🗺️ Scegli sulla mappa</button></div>
     <div class="sdmapbox" id="geo-pickbox" hidden></div>
@@ -14976,16 +14976,20 @@ function geoRender() {
   const FN = {dd: 'Gradi decimali', ddm: 'Gradi e primi decimali', dms: 'Gradi, primi e secondi', utm: 'UTM WGS84', mgrs: 'MGRS', gb: 'Gauss-Boaga Roma40 ≈', ed50: 'UTM ED50 ≈'};
   const fl = [...Object.keys(FN).map(k => [k, FN[k], (F.find(f => f.id === k) || {}).v || '']), ['all', 'Tutti i formati', 'tutti i formati elencati sopra']];
   const txt = GEOS.src !== 'gps';
-  o.innerHTML = `<div class="card geo"><p class="note" style="margin:0 0 6px">${src}</p>
+  const fsel = fl.find(x => x[0] === fm) || fl[0];
+  o.innerHTML = `<div class="card geo lab sdinfo" style="--lc:#2e7d32"><h4>${txt ? '📌 Punto trovato' : '📍 La tua posizione'}</h4><p class="note" style="margin:0 0 6px">${src}</p>
     <div class="btns"><button class="btn ghost" id="geo-mapbtn">🗺️ ${GEOMAP ? 'Nascondi la mappa' : 'Mostra sulla mappa'}</button>${txt ? `<a class="btn ghost" href="${sdNav([GEOS.lat, GEOS.lon])}" target="_blank" rel="noopener">🧭 Naviga con Google Maps</a>` : ''}</div>
     <div class="sdmapbox" id="geo-mapbox" hidden></div>
-    <details class="geofold"${GEOSHO ? ' open' : ''} id="geo-shf"><summary><b>📤 Condividi la posizione</b></summary>
+</div>
+  <div class="card geo lab sdinfo" style="--lc:#6a1b9a"><h4>📤 Condividi la posizione</h4>
+    <details class="geofold"${GEOSHO ? ' open' : ''} id="geo-shf"><summary>Formato: <b id="geo-fsel">${esc(fsel[1])}</b> <span class="note">(tocca per cambiarlo)</span></summary>
     <div class="geofmt" role="radiogroup">${fl.map(([k, n, ex]) => `<label class="geoopt"><input type="radio" name="geo-f" value="${k}"${k === fm ? ' checked' : ''}><span><b>${esc(n)}</b><small>${esc(ex)}</small></span></label>`).join('')}</div>
+    </details>
     <label class="geochk"><input type="checkbox" id="geo-map"${(() => { try { return localStorage.getItem('saf-geo-map') === '0' ? '' : ' checked'; } catch (e) { return ' checked'; } })()}> Aggiungi il link alla mappa</label>
-    <div class="geo3"><button class="btn" id="geo-share">📤 Condividi</button><button class="btn ghost geopaste" id="geo-copy">📋 Copia</button><a class="btn ghost geopaste" id="geo-open" href="${geoUri()}">🗺️ Apri nelle mappe</a></div>
-    <p class="note" style="margin:8px 0 0;font-size:.78rem">≈ Gauss-Boaga ed ED50 sono calcolati con i parametri medi nazionali (EPSG): vanno bene per trovare un punto sulla carta, non per rilievi di precisione.</p></details>
-    ${txt ? geoRouteBox() : ''}
-    <p class="note" id="geo-sm" style="margin:6px 0 0"></p></div>`;
+    <div class="geo3"><button class="btn ghost geopaste" id="geo-share">📤 Condividi</button><button class="btn ghost geopaste" id="geo-copy">📋 Copia</button><a class="btn ghost geopaste" id="geo-open" href="${geoUri()}">🗺️ Apri nelle mappe</a></div>
+    <p class="note" id="geo-sm" style="margin:6px 0 0"></p>
+    <p class="note" style="margin:6px 0 0;font-size:.78rem">≈ Gauss-Boaga ed ED50 sono calcolati con i parametri medi nazionali (EPSG): vanno bene per trovare un punto sulla carta, non per rilievi di precisione.</p></div>
+  ${txt ? `<div class="card geo lab sdinfo" style="--lc:#00838f">${geoRouteBox()}</div>` : ''}`;
 }
 /* --- percorso fino al punto inserito: partenza dalla propria posizione o da un punto scelto sulla mappa; BRouter (strade, sterrate, sentieri); GPX --- */
 let GEOSHO = false, GEOIN = '';
@@ -15042,7 +15046,7 @@ function geoSegs(pts, msgs) {
 const geoMin = v => v < 90 ? Math.max(1, Math.round(v)) + ' min' : Math.floor(v / 60) + ' h ' + Math.round(v % 60) + ' min';
 function geoRouteBox() {
   const r = GEOR.r;
-  return `<div class="georoute"><b>🧭 Percorso fino a questo punto</b>
+  return `<div class="georoute"><h4>🧭 Percorso fino a questo punto</h4>
     <div class="georow2"><span class="note">Partenza</span><div class="geoseg"><button type="button" data-gst="gps" class="${GEOR.start === 'gps' ? 'on' : ''}">📍 La mia posizione</button><button type="button" data-gst="map" class="${GEOR.start === 'map' ? 'on' : ''}">🗺️ Punto sulla mappa</button></div></div>
     ${GEOR.start === 'map' ? `<div class="georow2"><span class="note">${GEOR.pick ? '🎯 Metti il mirino sul punto di partenza e tocca <b>Imposta partenza qui</b>' : GEOR.sp ? `Partenza: ${GEOR.sp[0].toFixed(5)}, ${GEOR.sp[1].toFixed(5)}` : 'Partenza non ancora scelta'}</span>${GEOR.pick ? '' : `<button type="button" class="btn ghost" id="geo-pick" style="padding:6px 12px">🎯 ${GEOR.sp ? 'Cambia' : 'Scegli sulla mappa'}</button>`}</div>` : ''}
     <div class="georow2"><span class="note">Tipo</span><select id="geo-prof">${GPROF.map(([k, n]) => `<option value="${k}"${k === GEOR.prof ? ' selected' : ''}>${n}</option>`).join('')}</select></div>
@@ -15063,8 +15067,16 @@ const GBAR = {gate: 'Cancello', lift_gate: 'Sbarra', swing_gate: 'Sbarra girevol
 async function geoBR(a, b, prof, rip) {
   const pid = prof === 'soccorso' ? await geoSoc() : prof;
   const u = `https://brouter.de/brouter?lonlats=${a[1].toFixed(6)},${a[0].toFixed(6)}|${b[1].toFixed(6)},${b[0].toFixed(6)}&profile=${pid}&alternativeidx=0&format=geojson`;
-  const r = await fetch(u, {cache: 'no-store'});
-  if (!r.ok) { const t = await r.text(); if (prof === 'soccorso' && !rip && /profile|custom/i.test(t) && !/position|island|not mapped/i.test(t)) { await geoSoc(true); return geoBR(a, b, prof, 1); } throw new Error(t || r.status); }
+  let r = null, t = '';
+  for (let k = 0; k < 4; k++) {
+    try { r = await fetch(u, {cache: 'no-store'}); } catch (e) { r = null; }
+    if (r && r.ok) break;
+    t = r ? await r.text().catch(() => '') : '';
+    if (r && /position|island|not mapped|no route|profile|custom/i.test(t)) break;
+    if (k < 3) await new Promise(ok => setTimeout(ok, 1200 * (k + 1) + Math.random() * 800));
+  }
+  if (!r) throw new Error('rete');
+  if (!r.ok) { if (prof === 'soccorso' && !rip && /profile|custom/i.test(t) && !/position|island|not mapped/i.test(t)) { await geoSoc(true); return geoBR(a, b, prof, 1); } throw new Error(t || r.status); }
   const j = await r.json(), f = j.features[0], pr = f.properties, pts = f.geometry.coordinates.map(c => [c[1], c[0], c[2]]), sg = geoSegs(pts, pr.messages);
   const bars = [];
   const H = pr.messages && pr.messages[0];
@@ -15119,13 +15131,13 @@ async function geoMix(sp, to, say) {
   const tg = [to, ...[0, 45, 90, 135, 180, 225, 270, 315].map(d => off(d, 2)), ...[22, 112, 202, 292].map(d => off(d, 4))];
   say('Cerco le strade che si avvicinano alla meta…');
   const wat = geoWater(to);
-  const cars = (await geoPool(tg.map(t => () => geoBR(sp, t, 'soccorso')), 4)).filter(Boolean);
+  const cars = (await geoPool(tg.map(t => () => geoBR(sp, t, 'soccorso')), 3)).filter(Boolean);
   if (!cars.length) throw new Error('not mapped');
   const cand = [];
   cars.forEach(c => { const e = c.pts[c.pts.length - 1]; if (sdDist(e, to) > 7) return; if (!cand.some(x => sdDist(x.e, e) < .3)) cand.push({e, car: c}); else { const x = cand.find(x => sdDist(x.e, e) < .3); if (c.min < x.car.min) { x.e = e; x.car = c; } } });
   if (!cand.length) cand.push({e: cars[0].pts[cars[0].pts.length - 1], car: cars[0]});
   say(`Confronto ${cand.length} accessi possibili a piedi…`);
-  const feet = await geoPool(cand.map(c => () => sdDist(c.e, to) > .05 ? geoBR(c.e, to, 'hiking-mountain').then(geoFoot) : Promise.resolve(null)), 4);
+  const feet = await geoPool(cand.map(c => () => sdDist(c.e, to) > .05 ? geoBR(c.e, to, 'hiking-mountain').then(geoFoot) : Promise.resolve(null)), 3);
   const W = await wat;
   let best = null, bad = null;
   cand.forEach((c, i) => {
@@ -15143,10 +15155,14 @@ async function geoMix(sp, to, say) {
   return legs;
 }
 function geoRouteCalc() {
-  const m = document.getElementById('geo-rm'), go = sp => {
-    m.textContent = 'Calcolo del percorso…';
+  const m = document.getElementById('geo-rm'), btn = document.getElementById('geo-route');
+  if (btn && btn.disabled) return;
+  const busy = on => { const b = document.getElementById('geo-route'); if (b) { b.disabled = on; b.innerHTML = on ? '<span class="geospin"></span> Calcolo in corso…' : 'Calcola il percorso'; } };
+  const go = sp => {
+    busy(true);
+    m.innerHTML = '<b>⏳ Attendi: calcolo del percorso in corso…</b><br>Può richiedere 10–30 secondi.';
     const to = [GEOS.lat, GEOS.lon], prof = GEOR.prof;
-    const say = t => { const e = document.getElementById('geo-rm'); if (e) e.textContent = t; };
+    const say = t => { const e = document.getElementById('geo-rm'); if (e) e.innerHTML = '<b>⏳ Attendi: calcolo in corso…</b><br>' + esc(t); };
     (prof === 'mix' ? geoMix(sp, to, say).catch(e => { if (/not mapped|from-position|to-position|target island/i.test(String(e.message))) return geoBR(sp, to, 'hiking-mountain').then(x => [['piedi', geoFoot(x)]]); throw e; }) : Promise.all([geoBR(sp, to, prof), geoWater(to)]).then(([x, W]) => { const l = [['piedi', geoFoot(x)]]; l.aq = geoAcqua(W, x.pts[x.pts.length - 1], to); return l; })).then(legs => {
       const r = {prof, from: sp, pts: [], segs: [], kt: {a: 0, s: 0, p: 0}, km: 0, min: 0, up: 0, legs: legs.map(([t, x]) => ({t, km: x.km, min: x.min, up: x.up, dn: x.dn || 0, a: x.pts[0], b: x.pts[x.pts.length - 1], pts: x.pts}))};
       legs.forEach(([, x]) => { r.pts.push(...x.pts); r.segs.push(...x.segs); r.km += x.km; r.min += x.min; r.up += x.up; if (x.kt) Object.keys(x.kt).forEach(k => r.kt[k] += x.kt[k]); else r.kt[x.segs[0].c] += x.km; });
@@ -15155,11 +15171,11 @@ function geoRouteCalc() {
       r.bars = legs.flatMap(([, x]) => x.bars || []); r.soc = legs.some(([, x]) => x.soc);
       const fin = r.pts[r.pts.length - 1]; r.gap = sdDist(fin, to) > .02 ? [fin, to] : null;
       GEOR.r = r; GEOMAP = true; geoRender(); bindGeoOut();
-    }).catch(e => { m.textContent = /target island|not mapped|no route|from-position|to-position/i.test(String(e.message)) ? 'Nessun percorso trovato: prova a spostare la partenza o a scegliere "Tutto a piedi".' : 'Calcolo non riuscito: serve la connessione a internet. Riprova tra poco.'; });
+    }).catch(e => { busy(false); m.textContent = /target island|not mapped|no route|from-position|to-position/i.test(String(e.message)) ? 'Nessun percorso trovato: prova a spostare la partenza o a scegliere "Tutto a piedi".' : 'Calcolo non riuscito: serve la connessione a internet. Riprova tra poco.'; });
   };
   if (GEOR.start === 'map') { if (!GEOR.sp) { m.textContent = 'Prima scegli la partenza col mirino sulla mappa.'; GEOR.pick = true; GEOMAP = true; geoRedraw(); return; } go(GEOR.sp); return; }
   if (!navigator.geolocation) { m.textContent = 'Posizione non disponibile su questo dispositivo: scegli la partenza sulla mappa.'; return; }
-  m.textContent = 'Cerco la tua posizione…';
+  m.innerHTML = '<b>⏳ Attendi: cerco la tua posizione…</b>';
   navigator.geolocation.getCurrentPosition(p => go([p.coords.latitude, p.coords.longitude]), () => { m.textContent = 'Posizione non trovata: abilita la localizzazione o scegli la partenza sulla mappa.'; }, {enableHighAccuracy: true, timeout: 20000, maximumAge: 30000});
 }
 /* la propria posizione (con il cerchio di precisione) sulle mappe dello strumento Coordinate */
@@ -15281,7 +15297,7 @@ function geoMapDraw() {
 function bindGeoOut() {
   if (!document.getElementById('geo-share')) return;
   const sel = {get value() { const c = document.querySelector('input[name=geo-f]:checked'); return c ? c.value : 'dd'; }};
-  document.querySelectorAll('input[name=geo-f]').forEach(r => r.onchange = () => { try { localStorage.setItem('saf-geo-fmt', r.value); } catch (e) {} });
+  document.querySelectorAll('input[name=geo-f]').forEach(r => r.onchange = () => { try { localStorage.setItem('saf-geo-fmt', r.value); } catch (e) {} const n = r.closest('label').querySelector('b'), t = document.getElementById('geo-fsel'); if (n && t) t.textContent = n.textContent; const d = document.getElementById('geo-shf'); if (d) { d.open = false; GEOSHO = false; } });
   const shf = document.getElementById('geo-shf'); if (shf) shf.ontoggle = () => { GEOSHO = shf.open; };
   document.querySelectorAll('[data-gst]').forEach(b => b.onclick = () => { if (GEOR.start === b.dataset.gst) return; GEOR.start = b.dataset.gst; GEOR.r = null; GEOR.pick = GEOR.start === 'map' && !GEOR.sp; if (GEOR.start === 'map') GEOMAP = true; geoRedraw(); });
   const gk = document.getElementById('geo-pick'); if (gk) gk.onclick = () => { GEOR.pick = true; GEOMAP = true; if (SDmap && document.getElementById('geo-mapbox') && !document.getElementById('geo-mapbox').hidden) { const c = SDmap.getCenter(); GEOR.view = [[c.lat, c.lng], SDmap.getZoom()]; } geoRedraw(); const b = document.getElementById('geo-mapbox'); if (b) b.scrollIntoView({behavior: 'smooth', block: 'center'}); };
