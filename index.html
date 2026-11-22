@@ -244,6 +244,7 @@ button.card.tool{font:inherit;text-align:left;color:inherit;cursor:pointer;width
 .geoinw{position:relative}.geoinw textarea{padding-right:42px;padding-bottom:36px}
 .geoclr{position:absolute;top:12px;right:6px;width:32px;height:32px;border-radius:50%;border:0;background:var(--line);color:var(--ink);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}.geoclr[hidden]{display:none}
 .btn.geopaste{border:2px solid #fdeb05}
+.geo3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:6px}.geo3 .btn{margin:0;padding:8px 4px;font-size:.84rem;line-height:1.2;text-align:center;justify-content:center;white-space:normal;min-width:0}
 .geoopts{display:flex;align-items:center;gap:6px;margin-top:8px}.geoopts .btn{flex:1 1 0;min-width:0;justify-content:center;text-align:center;padding-left:8px;padding-right:8px}.geoopts .note{margin:0;font-size:.8rem}
 .geogo{position:absolute;right:6px;bottom:12px;border:0;border-radius:999px;background:#fdeb05;color:#111;font:inherit;font-size:.82rem;font-weight:700;padding:5px 10px;cursor:pointer}.geogo[hidden]{display:none}
 #geo-pickbox{margin-top:10px}
@@ -14981,7 +14982,7 @@ function geoRender() {
     <details class="geofold"${GEOSHO ? ' open' : ''} id="geo-shf"><summary><b>📤 Condividi la posizione</b></summary>
     <div class="geofmt" role="radiogroup">${fl.map(([k, n, ex]) => `<label class="geoopt"><input type="radio" name="geo-f" value="${k}"${k === fm ? ' checked' : ''}><span><b>${esc(n)}</b><small>${esc(ex)}</small></span></label>`).join('')}</div>
     <label class="geochk"><input type="checkbox" id="geo-map"${(() => { try { return localStorage.getItem('saf-geo-map') === '0' ? '' : ' checked'; } catch (e) { return ' checked'; } })()}> Aggiungi il link alla mappa</label>
-    <div class="btns" style="margin-top:6px"><button class="btn" id="geo-share">Condividi</button><button class="btn ghost" id="geo-copy">Copia</button><a class="btn ghost" id="geo-open" href="${geoUri()}">Apri nelle mappe</a></div>
+    <div class="geo3"><button class="btn" id="geo-share">📤 Condividi</button><button class="btn ghost geopaste" id="geo-copy">📋 Copia</button><a class="btn ghost geopaste" id="geo-open" href="${geoUri()}">🗺️ Apri nelle mappe</a></div>
     <p class="note" style="margin:8px 0 0;font-size:.78rem">≈ Gauss-Boaga ed ED50 sono calcolati con i parametri medi nazionali (EPSG): vanno bene per trovare un punto sulla carta, non per rilievi di precisione.</p></details>
     ${txt ? geoRouteBox() : ''}
     <p class="note" id="geo-sm" style="margin:6px 0 0"></p></div>`;

@@ -1,5 +1,5 @@
 // Service worker di SAFe – Supporto Operatore: rende l'app utilizzabile senza rete.
-const SHELL_CACHE = 'saf-shell-v23';
+const SHELL_CACHE = 'saf-shell-v24';
 const PDF_CACHE = 'saf-pdf';
 const SHELL = [
   './', 'index.html', 'viewer.html', 'sedi.json', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-maskable-192.png', 'icon-maskable-512.png', 'apple-touch-icon.png',
